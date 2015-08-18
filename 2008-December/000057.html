@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081211102158.GA16197%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000053.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081211102158.GA16197%40boerde.de%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">georg at boerde.de
+       </A><BR>
+    <I>Thu Dec 11 11:21:59 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000053.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000059.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-11 10:46]:
+&gt;<i> 2008/12/10 Georg Lukas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at boerde.de</A>&gt;:
+</I>&gt;<i>       So, I may assume that a simple ping, which results in an ARP
+</I>&gt;<i> broadcast, will actually became an ARP flood? This is quite amazing to
+</I>&gt;<i> me :).
+</I>
+Exactly. Also, the tapiface2 module remembers the MAC address of the
+sender and the according awds node MAC, so that the ARP reply (a
+unicast) is automatically directed to the requester as a multi-hop
+unicast packet.
+
+Another mechanism forces the flooding of unicast packets when the
+destination MAC is not known - this ensures that the destination is
+reached, and also mimics Ethernet switch behaviour.
+
+&gt;<i> By the way, if AWDS does not use MPR flooding optimizations
+</I>&gt;<i> for flooding, does it use another mechanism? Because simple
+</I>&gt;<i> rebroadcasts would lead to the classic broadcast storm problem.
+</I>
+Indeed. However this problem is not that bad for mid-sized networks.
+Also, the AWDS topology updates are sent less frequently when the
+network increases, which also helps mitigate broadcast storms.
+
+&gt;<i>     Lastly, is there any article on AWDS? It seems to be such as
+</I>&gt;<i> amazing project that is not known in academia, as far as I know. I'll
+</I>&gt;<i> certainly mention it in my master's dissertation, and if there isnt
+</I>&gt;<i> anything written about it, I'll be glad to write an article or paper
+</I>&gt;<i> about it.
+</I>
+The whole project has an academic background. However, the academic
+value of the implementation of a mesh routing protocol is rather low.
+Most of our academic works ([1, 2, 3]) use AWDS as their backbone, but do not
+descend into the details of its working.
+
+Of course you are free to write a section in your thesis, or if you feel
+free, we can cooperate on a tech report about how AWDS works :)
+
+Kind regards,
+
+Georg
+
+[1] <A HREF="http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/aherms/index.shtml">http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/aherms/index.shtml</A>
+[2] <A HREF="http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/index.shtml#2008">http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/index.shtml#2008</A>
+[3] <A HREF="http://ivs.cs.uni-magdeburg.de/EuK/forschung/publikationen/index.shtml">http://ivs.cs.uni-magdeburg.de/EuK/forschung/publikationen/index.shtml</A>
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081211/32e2e479/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081211/32e2e479/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000053.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000059.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

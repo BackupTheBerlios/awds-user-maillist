@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081212231350.GA25421%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000059.html">
+   <LINK REL="Next"  HREF="000049.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081212231350.GA25421%40boerde.de%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">georg at boerde.de
+       </A><BR>
+    <I>Sat Dec 13 00:13:51 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000059.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000049.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Breno,
+
+* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-12 16:54]:
+&gt;<i>     Nice to know. This is some sort of optmization at this layer. I'd
+</I>&gt;<i> really go into more details of AWDS routing.
+</I>
+Do not hesitate to ask! :)
+
+&gt;<i> &gt; Also, the AWDS topology updates are sent less frequently when the
+</I>&gt;<i> &gt; network increases, which also helps mitigate broadcast storms.
+</I>&gt;<i>     But then, the less Topolgy updates are sent, the less likely node
+</I>&gt;<i> are able to build routes to each other? I mean, in situation where
+</I>&gt;<i> node mobility is high, in dense or sparse networks,  more updates are
+</I>&gt;<i> necessary, dont you think?
+</I>
+Indeed, you are right and this is an open problem. We are working on the
+aspects of mobility, right now we have implemented an algorithm to
+detect link breaks using the 802.11 ACK mechanism through a cross-layer
+interface.
+
+To build up new links sooner, an idea is to mark &quot;mobile&quot; nodes with a
+special flag in their beacon, forcing other nodes to increae the beacon
+rate too, so that potential links are created earlier without causing
+extra traffic on the whole network. However, this is not implemented
+yet.
+
+&gt;<i>     Also, I dont know any other routing protocol acting at layer 2,
+</I>&gt;<i> like AWDS. Other approaches close to yours are LUNAR
+</I>&gt;<i> (<A HREF="http://cn.cs.unibas.ch/projects/lunar/">http://cn.cs.unibas.ch/projects/lunar/</A>) and Ana4
+</I>&gt;<i> (<A HREF="http://ana4.citi.insa-lyon.fr/">http://ana4.citi.insa-lyon.fr/</A>). Both are discontinued, undocumented
+</I>&gt;<i> projects that never reach some state-of-practice.
+</I>
+I think that B.A.T.M.A.N. was going to be ported from layer 3 to layer
+2, however I do not know its current state.
+
+&gt;<i>    Sure, I'd really need it. The documents on the site give a good
+</I>&gt;<i> overview of how it works, but I'd like to go into details of the
+</I>&gt;<i> mechanisms involved, advantages of working at layer 2, and especially,
+</I>&gt;<i> comparing the layer 2 approach to layer 3 solutions such as OLSR.
+</I>
+As already mentioned (in other places), the main advantages are:
+
+ * it behaves like a transparent switched Ethernet
+ * you do not need IP configuration for the mesh routing to work
+ * you can run IPv4, IPv6, IPX or whatever
+ * you can bridge it with other Ethernet segments
+
+At least the bridging function is not guaranteed to work with all layer2
+protocols, it requires additional tricks in the protocol code.
+
+
+Kind regards,
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081213/57cbd09b/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081213/57cbd09b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000059.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000049.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

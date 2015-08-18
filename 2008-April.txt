@@ -1,0 +1,188 @@
+From keshava_2103 at yahoo.co.in  Fri Apr 18 05:42:53 2008
+From: keshava_2103 at yahoo.co.in (mk rao)
+Date: Fri, 18 Apr 2008 04:42:53 +0100 (BST)
+Subject: [Awds-user] Awds howto
+Message-ID: <343707.88072.qm@web8902.mail.in.yahoo.com>
+
+Hi,
+I am new to AWDS.  I would like install & run awds in Redhat. Any help in this regard will be  appriciable.
+ 
+Thanks & Regards
+Keshav
+"Highly tensioned Project Manager or a lengthy coding Programmer can never complete a project successfully".
+ 
+
+       
+---------------------------------
+ Unlimited freedom, unlimited storage. Get it now
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080418/f8ee23f1/attachment.html>
+
+From praveen.cair82 at gmail.com  Fri Apr 18 07:46:06 2008
+From: praveen.cair82 at gmail.com (praveen likhar)
+Date: Fri, 18 Apr 2008 11:16:06 +0530
+Subject: [Awds-user] awds
+Message-ID: <2cd33e490804172246t48e17a5dn8c0b8c67fd66c619@mail.gmail.com>
+
+installation ok...
+start_awds ok...
+awds0 appears in ifconfig output ....
+----------------------------------------------------------------------------------------------------------
+awds0     Link encap:Ethernet  HWaddr 6E:56:2F:47:39:2A
+          inet6 addr: fe80::6c56:2fff:fe47:392a/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:500
+          RX bytes:0 (0.0 b)  TX bytes:468 (468.0 b)
+-----------------------------------------------------------------------------------------------------------
+
+how to do communication through awds
+-- 
+Praveen Likhar
+Scientist
+Centre for Artificial Intelligence &Robotics
+Defence R&D Organisation
+Bangalore
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080418/f837e21b/attachment.html>
+
+From aherms at ivs.cs.uni-magdeburg.de  Mon Apr 28 08:11:28 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Mon, 28 Apr 2008 08:11:28 +0200
+Subject: [Awds-user] awds
+In-Reply-To: <2cd33e490804172246t48e17a5dn8c0b8c67fd66c619@mail.gmail.com>
+References: <2cd33e490804172246t48e17a5dn8c0b8c67fd66c619@mail.gmail.com>
+Message-ID: <200804280811.32922.aherms@ivs.cs.uni-magdeburg.de>
+
+Am Friday 18 April 2008 schrieb praveen likhar:
+> installation ok...
+> start_awds ok...
+> awds0 appears in ifconfig output ....
+> ---------------------------------------------------------------------------
+>------------------------------- awds0     Link encap:Ethernet  HWaddr
+> 6E:56:2F:47:39:2A
+>           inet6 addr: fe80::6c56:2fff:fe47:392a/64 Scope:Link
+>           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+>           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+>           TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+>           collisions:0 txqueuelen:500
+>           RX bytes:0 (0.0 b)  TX bytes:468 (468.0 b)
+> ---------------------------------------------------------------------------
+>--------------------------------
+>
+> how to do communication through awds
+
+Just configure IP addresses on each awds0 device and use IP-based protocols, 
+like ping, http, etc. 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080428/90c44b35/attachment.pgp>
+
+From praveen.cair82 at gmail.com  Mon Apr 28 12:47:22 2008
+From: praveen.cair82 at gmail.com (praveen likhar)
+Date: Mon, 28 Apr 2008 16:17:22 +0530
+Subject: [Awds-user] Awds-user Digest, Vol 2, Issue 2
+In-Reply-To: <mailman.57.1209376892.15948.awds-user@lists.berlios.de>
+References: <mailman.57.1209376892.15948.awds-user@lists.berlios.de>
+Message-ID: <2cd33e490804280347n569d78fdr5c6cbe3424a6c3c2@mail.gmail.com>
+
+i tried that also but how the system do routing without entering the routes
+for the awds0 interface IP and if we put routes also then what the
+significance of awds, is it just for creating a virtual interface thats all
+................
+
+On Mon, Apr 28, 2008 at 3:31 PM, <awds-user-request at lists.berlios.de> wrote:
+
+> Send Awds-user mailing list submissions to
+>        awds-user at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        https://lists.berlios.de/mailman/listinfo/awds-user
+> or, via email, send a message with subject or body 'help' to
+>        awds-user-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+>        awds-user-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Awds-user digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Re: awds (Andre Herms)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 28 Apr 2008 08:11:28 +0200
+> From: Andre Herms <aherms at ivs.cs.uni-magdeburg.de>
+> Subject: Re: [Awds-user] awds
+> To: awds-user at lists.berlios.de
+> Message-ID: <200804280811.32922.aherms at ivs.cs.uni-magdeburg.de>
+> Content-Type: text/plain; charset="utf-8"
+>
+> Am Friday 18 April 2008 schrieb praveen likhar:
+> > installation ok...
+> > start_awds ok...
+> > awds0 appears in ifconfig output ....
+> >
+> ---------------------------------------------------------------------------
+> >------------------------------- awds0     Link encap:Ethernet  HWaddr
+> > 6E:56:2F:47:39:2A
+> >           inet6 addr: fe80::6c56:2fff:fe47:392a/64 Scope:Link
+> >           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+> >           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+> >           TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+> >           collisions:0 txqueuelen:500
+> >           RX bytes:0 (0.0 b)  TX bytes:468 (468.0 b)
+> >
+> ---------------------------------------------------------------------------
+> >--------------------------------
+> >
+> > how to do communication through awds
+>
+> Just configure IP addresses on each awds0 device and use IP-based
+> protocols,
+> like ping, http, etc.
+> -------------- next part --------------
+> A non-text attachment was scrubbed...
+> Name: not available
+> Type: application/pgp-signature
+> Size: 481 bytes
+> Desc: This is a digitally signed message part.
+> Url :
+> https://lists.berlios.de/pipermail/awds-user/attachments/20080428/90c44b35/attachment-0001.pgp
+>
+> ------------------------------
+>
+> _______________________________________________
+> Awds-user mailing list
+> Awds-user at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/awds-user
+>
+>
+> End of Awds-user Digest, Vol 2, Issue 2
+> ***************************************
+>
+
+
+
+-- 
+Praveen Likhar
+Scientist
+Centre for Artificial Intelligence &Robotics
+Defence R&D Organisation
+Bangalore
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080428/d00878fe/attachment.html>
+

@@ -1,0 +1,459 @@
+From aherms at ivs.cs.uni-magdeburg.de  Wed Mar  5 09:04:13 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Wed, 5 Mar 2008 09:04:13 +0100
+Subject: [Awds-user] Awds on wired interface
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+Message-ID: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+
+Am Tuesday, 4. March 2008 schrieben Sie:
+> Dear Andre,
+>
+> I have a specfic question regarding AWDS, how make it working on wired
+> interfaces? 
+
+Only to make it clear - you want to (1) replace the wireless links with an 
+Ethernet cable? Or do you want to (2) combine the wireless mesh with a wired 
+interface?
+
+> I tried to modify start_awds script and launch rawbasic.so 
+> on the wired interface, but it seems that this is not working
+
+Hmm - if you really want the version (1), you maybe did the right thing. But 
+it's easier to modify the configuration file /etc/awds.conf 
+or /usr/local/etc/awds.conf.
+
+set
+NET_DEV=eth0
+and 
+DEV_CHANGE_WIRELESS_SETTINGS=no
+
+This should do it. 
+
+If you want version (2), you must bridge the awds0 device with the ethernet 
+device (eth0). Have a look at brctl. 
+
+BTW: You should ask such questions on the awd-users mailing list. There are 
+more nice guys that maybe will answer your question. 
+
+Best regards,
+
+Andr?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080305/1c022dbb/attachment.pgp>
+
+From djamal.meddour at orange-ftgroup.com  Tue Mar 11 16:59:09 2008
+From: djamal.meddour at orange-ftgroup.com (djamal.meddour at orange-ftgroup.com)
+Date: Tue, 11 Mar 2008 16:59:09 +0100
+Subject: [Awds-user] Awds
+In-Reply-To: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+	<200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+Message-ID: <D4EF10CCEB2CE742BEEA9838C590B0E8091DA6BB@ftrdmel2>
+
+Dear All,
+
+Do you know how to retrieve the forwarding table? Means how to now the
+next hop to the destination in more then 1 hop secnario
+
+Also, is it possible to apply a specific metric for the routing
+(available bandwidth for instance)without modifying the code? 
+  
+Best Regards
+
+
+From aherms at ivs.cs.uni-magdeburg.de  Wed Mar 12 13:56:31 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Wed, 12 Mar 2008 13:56:31 +0100
+Subject: [Awds-user] Awds
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E8091DA6BB@ftrdmel2>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+	<200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E8091DA6BB@ftrdmel2>
+Message-ID: <200803121356.37134.aherms@ivs.cs.uni-magdeburg.de>
+
+Am Tuesday, 11. March 2008 schrieb djamal.meddour at orange-ftgroup.com:
+> Dear All,
+>
+> Do you know how to retrieve the forwarding table? Means how to now the
+> next hop to the destination in more then 1 hop secnario
+
+Yes, I know ;-).
+It should be possible via the shell. We only have to add some lines of code. 
+
+... let's see .... 
+
+Okay -- I've added a new command "topo nexthops". It dumps the information you 
+want. 
+
+Just connect to the awds shell (telnet localhost 8444), and enter 
+"topo nexthops". Please make sure that the shell is enabled in the awds.conf.
+
+First, you must get the latest version of my git tree
+: git clone aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git
+
+That's it. 
+
+> Also, is it possible to apply a specific metric for the routing
+> (available bandwidth for instance)without modifying the code?
+Yes, it is. In theory, you can load an arbitrary metric module in start_awds. 
+There are already some metrics like ETX (Expected Transmit Count) or RTT 
+(Round Trip Time). You only have to load the corresponding module. 
+If you want to have you own metric (like something that considers bandwidth) 
+you have to write a new metric module. 
+
+If you have further questions, go on and ask. 
+
+Regards,
+
+Andr?
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080312/0c559d42/attachment.pgp>
+
+From djamal.meddour at orange-ftgroup.com  Wed Mar 12 17:49:31 2008
+From: djamal.meddour at orange-ftgroup.com (djamal.meddour at orange-ftgroup.com)
+Date: Wed, 12 Mar 2008 17:49:31 +0100
+Subject: [Awds-user] Awds
+In-Reply-To: <200803121356.37134.aherms@ivs.cs.uni-magdeburg.de>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+	<200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E8091DA6BB@ftrdmel2>
+	<200803121356.37134.aherms@ivs.cs.uni-magdeburg.de>
+Message-ID: <D4EF10CCEB2CE742BEEA9838C590B0E8091DACCA@ftrdmel2>
+
+Dear All,
+
+Is there someone who already used the debugging shell. Actually I tried nc localhost 8444 and I get connection refused. I took a look using netstat on what is running on port 8444 and it seems nothing is there
+
+Any idea
+
+Best Regards
+
+Djamal
+
+-----Message d'origine-----
+De : Andre Herms [mailto:aherms at ivs.cs.uni-magdeburg.de] 
+Envoy? : mercredi 12 mars 2008 13:57
+? : MEDDOUR Djamal RD-CORE-LAN
+Cc : awds-user at lists.berlios.de
+Objet : Re: Awds
+
+Am Tuesday, 11. March 2008 schrieb djamal.meddour at orange-ftgroup.com:
+> Dear All,
+>
+> Do you know how to retrieve the forwarding table? Means how to now the 
+> next hop to the destination in more then 1 hop secnario
+
+Yes, I know ;-).
+It should be possible via the shell. We only have to add some lines of code. 
+
+... let's see .... 
+
+Okay -- I've added a new command "topo nexthops". It dumps the information you want. 
+
+Just connect to the awds shell (telnet localhost 8444), and enter "topo nexthops". Please make sure that the shell is enabled in the awds.conf.
+
+First, you must get the latest version of my git tree
+: git clone aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git
+
+That's it. 
+
+> Also, is it possible to apply a specific metric for the routing 
+> (available bandwidth for instance)without modifying the code?
+Yes, it is. In theory, you can load an arbitrary metric module in start_awds. 
+There are already some metrics like ETX (Expected Transmit Count) or RTT (Round Trip Time). You only have to load the corresponding module. 
+If you want to have you own metric (like something that considers bandwidth) you have to write a new metric module. 
+
+If you have further questions, go on and ask. 
+
+Regards,
+
+Andr?
+
+
+
+From aherms at ivs.cs.uni-magdeburg.de  Wed Mar 12 19:31:40 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Wed, 12 Mar 2008 19:31:40 +0100
+Subject: [Awds-user] Awds
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E8091DACCA@ftrdmel2>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+	<200803121356.37134.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E8091DACCA@ftrdmel2>
+Message-ID: <200803121931.40805.aherms@ivs.cs.uni-magdeburg.de>
+
+Am Wednesday, 12. March 2008 schrieb djamal.meddour at orange-ftgroup.com:
+> Dear All,
+>
+> Is there someone who already used the debugging shell. Actually I tried nc
+> localhost 8444 and I get connection refused. I took a look using netstat on
+> what is running on port 8444 and it seems nothing is there
+>
+We use it every day.
+
+Are you sure that it is enabled in the /etc/awds.conf? I think it is disabled 
+by default. 
+
+Regards,
+
+Andr? 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080312/dd94f29d/attachment.pgp>
+
+From djamal.meddour at orange-ftgroup.com  Fri Mar 14 14:49:14 2008
+From: djamal.meddour at orange-ftgroup.com (djamal.meddour at orange-ftgroup.com)
+Date: Fri, 14 Mar 2008 14:49:14 +0100
+Subject: [Awds-user] Awds on wired interface
+In-Reply-To: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+References: <D4EF10CCEB2CE742BEEA9838C590B0E80917086F@ftrdmel2>
+	<200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+Message-ID: <D4EF10CCEB2CE742BEEA9838C590B0E80920F3DA@ftrdmel2>
+
+Dear All,
+
+Someone deal already with the bridge issues? For me it didn't work. The bridge seems to set up correctly, but when I launch awds over the bridge the system crash
+
+Any help is appreciated
+
+Best regards
+
+Djamal
+
+-----Message d'origine-----
+De : Andre Herms [mailto:aherms at ivs.cs.uni-magdeburg.de] 
+Envoy? : mercredi 5 mars 2008 09:04
+? : awds-user at lists.berlios.de
+Cc : MEDDOUR Djamal RD-CORE-LAN
+Objet : Re: Awds on wired interface
+
+Am Tuesday, 4. March 2008 schrieben Sie:
+> Dear Andre,
+>
+> I have a specfic question regarding AWDS, how make it working on wired 
+> interfaces?
+
+Only to make it clear - you want to (1) replace the wireless links with an Ethernet cable? Or do you want to (2) combine the wireless mesh with a wired interface?
+
+> I tried to modify start_awds script and launch rawbasic.so on the 
+> wired interface, but it seems that this is not working
+
+Hmm - if you really want the version (1), you maybe did the right thing. But it's easier to modify the configuration file /etc/awds.conf or /usr/local/etc/awds.conf.
+
+set
+NET_DEV=eth0
+and
+DEV_CHANGE_WIRELESS_SETTINGS=no
+
+This should do it. 
+
+If you want version (2), you must bridge the awds0 device with the ethernet device (eth0). Have a look at brctl. 
+
+BTW: You should ask such questions on the awd-users mailing list. There are more nice guys that maybe will answer your question. 
+
+Best regards,
+
+Andr?
+
+
+From djamal.meddour at orange-ftgroup.com  Mon Mar 17 12:04:50 2008
+From: djamal.meddour at orange-ftgroup.com (djamal.meddour at orange-ftgroup.com)
+Date: Mon, 17 Mar 2008 12:04:50 +0100
+Subject: [Awds-user] Awds over bridges
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E808FA00B2@ftrdmel2>
+References: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E808FA00B2@ftrdmel2>
+Message-ID: <D4EF10CCEB2CE742BEEA9838C590B0E80920F856@ftrdmel2>
+
+I finaly fix this problem paertially, the system didn't crash. Actually, some parameters were not correctly set up in my kernel. However, it the seems that wireless/wired bridge under linux didn't work at all (you can google on that). Therefore only the wired cards is visible by awds.
+
+So, I have two qsuestions:
+
+- is there here anyone who already deal with this problem?
+- Why not modifying awds to allow it to work on serveral interfaces in parallel (something like start_awds eth0 ath0 for instance). I used OLSR (at IP level), and the protocol manage this very well
+
+Any help is much appreciated
+
+Best regards
+
+Djamal
+
+-----Message d'origine-----
+De : MEDDOUR Djamal RD-CORE-LAN 
+Envoy? : vendredi 14 mars 2008 09:49
+? : 'Andre Herms'
+Cc : 'awds-user at lists.berlios.de'
+Objet : RE: Awds on wired interface
+
+Dear All,
+
+Someone deal already with the bridge issues? For me it didn't work. The bridge seems to set up correctly, but when I launch awds over the bridge the system crash
+
+Any help is appreciated
+
+Best regards
+
+Djamal
+
+-----Message d'origine-----
+De : Andre Herms [mailto:aherms at ivs.cs.uni-magdeburg.de]
+Envoy? : mercredi 5 mars 2008 09:04
+? : awds-user at lists.berlios.de
+Cc : MEDDOUR Djamal RD-CORE-LAN
+Objet : Re: Awds on wired interface
+
+Am Tuesday, 4. March 2008 schrieben Sie:
+> Dear Andre,
+>
+> I have a specfic question regarding AWDS, how make it working on wired 
+> interfaces?
+
+Only to make it clear - you want to (1) replace the wireless links with an Ethernet cable? Or do you want to (2) combine the wireless mesh with a wired interface?
+
+> I tried to modify start_awds script and launch rawbasic.so on the 
+> wired interface, but it seems that this is not working
+
+Hmm - if you really want the version (1), you maybe did the right thing. But it's easier to modify the configuration file /etc/awds.conf or /usr/local/etc/awds.conf.
+
+set
+NET_DEV=eth0
+and
+DEV_CHANGE_WIRELESS_SETTINGS=no
+
+This should do it. 
+
+If you want version (2), you must bridge the awds0 device with the ethernet device (eth0). Have a look at brctl. 
+
+BTW: You should ask such questions on the awd-users mailing list. There are more nice guys that maybe will answer your question. 
+
+Best regards,
+
+Andr?
+
+
+From georg at boerde.de  Mon Mar 17 13:13:55 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Mon, 17 Mar 2008 13:13:55 +0100
+Subject: [Awds-user] Awds over bridges
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E80920F856@ftrdmel2>
+References: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E808FA00B2@ftrdmel2>
+	<D4EF10CCEB2CE742BEEA9838C590B0E80920F856@ftrdmel2>
+Message-ID: <20080317121355.GA21700@ovgu.de>
+
+Hello Djamal,
+
+* djamal.meddour at orange-ftgroup.com <djamal.meddour at orange-ftgroup.com> [2008-03-17 12:46]:
+> I finaly fix this problem paertially, the system didn't crash.
+> Actually, some parameters were not correctly set up in my kernel.
+> However, it the seems that wireless/wired bridge under linux didn't
+> work at all (you can google on that). Therefore only the wired cards
+> is visible by awds.
+
+Yes, you can not bridge Ethernet and Wireless links together, unless the
+Wireless one is WDS or Access Point.
+
+Could you please describe the scenario you want to construct? From your
+questions it does not become clear, but it seems you are trying to do it
+in the wrong way.
+
+> - is there here anyone who already deal with this problem?
+
+For my part, I always run awds on the wireless device (ath0), and then
+bridge the virtual awds device awds0 to the Ethernet device eth0.
+
+> - Why not modifying awds to allow it to work on serveral interfaces in
+> parallel (something like start_awds eth0 ath0 for instance). I used
+> OLSR (at IP level), and the protocol manage this very well
+
+Theoretically, this should be the same as creating a non-forwarding
+bridge on the required interfaces and run awds on the logical bridge.
+I am not sure though, if the feature request can easily be implemented.
+
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080317/152929ed/attachment.pgp>
+
+From aherms at ivs.cs.uni-magdeburg.de  Thu Mar 20 13:02:19 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Thu, 20 Mar 2008 13:02:19 +0100
+Subject: [Awds-user] Awds over bridges
+In-Reply-To: <D4EF10CCEB2CE742BEEA9838C590B0E80920F856@ftrdmel2>
+References: <200803050904.17635.aherms@ivs.cs.uni-magdeburg.de>
+	<D4EF10CCEB2CE742BEEA9838C590B0E808FA00B2@ftrdmel2>
+	<D4EF10CCEB2CE742BEEA9838C590B0E80920F856@ftrdmel2>
+Message-ID: <200803201302.23328.aherms@ivs.cs.uni-magdeburg.de>
+
+
+> I finaly fix this problem paertially, the system didn't crash. Actually,
+> some parameters were not correctly set up in my kernel. However, it the
+> seems that wireless/wired bridge under linux didn't work at all (you can
+> google on that). Therefore only the wired cards is visible by awds.
+
+Bridging works well with a wireless interface in master mode (act as AP). This 
+is the usual way of implementing a WLAN AP. There could be a problem with the 
+ad-hoc mode. But I'm not sure about this. Theoretically, something like the 
+following should work.
+   AWDS               AWDS              AWDS
+     |                  |                |
+     |              -- br0 ---           |
+     |             |          |          | 
+  wlan0 -------- wlan0      eth0 ------ eth0 
+
+However, I haven't tried this. Georg sometimes claims that it could clash with 
+the three-address scheme of the ad-hoc mode. Maybe. 
+
+> - is there here anyone who already deal with this problem?
+We haven't tried the scenario above. A student of us developed an extension 
+for multichannel-wireless with multiple interfaces. I think this is not the 
+way you want it. 
+
+> - Why not modifying awds to allow it to work on serveral interfaces in
+> parallel (something like start_awds eth0 ath0 for instance). 
+
+> I used OLSR 
+> (at IP level), and the protocol manage this very well
+Of course, we could do it the same way as OLSR. It requires some small changes 
+in the routing. I think a small hack in the rawbasic.so module could do it. 
+
+Are you interested in hacking it?
+
+Regards,
+
+Andr?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080320/99446942/attachment.pgp>
+

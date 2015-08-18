@@ -1,0 +1,415 @@
+From stefano1981 at gmail.com  Wed Jun  4 16:29:44 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Wed, 4 Jun 2008 16:29:44 +0200
+Subject: [Awds-user] ETX-METRIC beacon or topo packets
+Message-ID: <c60ab7b20806040729k3597f287g5268be9c1fe4c170@mail.gmail.com>
+
+Hi,
+
+Which packets are used for the computation of the ETX Metric? I know that
+the info about the metric is sent through the
+topo packets but I dont know if to compute the value of the metric, the
+protocol consider the beacon or the topo packet lost.
+
+Regards
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080604/e594a8b1/attachment.html>
+
+From stefano1981 at gmail.com  Mon Jun  9 15:49:52 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Mon, 9 Jun 2008 15:49:52 +0200
+Subject: [Awds-user] BUG in ETX metric
+Message-ID: <c60ab7b20806090649n8db8fediaa48d902a4deacb9@mail.gmail.com>
+
+Hi,
+
+I think there is a bug in the computation of the ETX Metric.
+
+Indeed, when my_calculate() is called in calculate()  (Metric.h)  we get
+back a value "mw" that is at least "scale" or bigger,
+considering that  etx is always >= 1. But then "mw" is computed as:
+mw = std::min(mw, std::numeric_limits<unsigned long>::max() / 1024U); and
+considering that "scale" is  defined as
+scale = std::numeric_limits<unsigned long>::max() / 1024
+, it means that regardless of the values of the etx metric, the value chosen
+for the mw is always std::numeric_limits<unsigned long>::max() / 1024U. I
+tested the metric and in fact, the value returned is always that.
+
+Maybe is it enough to substitute std::min with std::max ?
+
+Regards
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080609/29b8976a/attachment.html>
+
+From aherms at ivs.cs.uni-magdeburg.de  Mon Jun  9 21:49:07 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Mon, 09 Jun 2008 21:49:07 +0200
+Subject: [Awds-user] ETX-METRIC beacon or topo packets
+In-Reply-To: <c60ab7b20806040729k3597f287g5268be9c1fe4c170@mail.gmail.com>
+References: <c60ab7b20806040729k3597f287g5268be9c1fe4c170@mail.gmail.com>
+Message-ID: <484D8933.3030801@ivs.cs.uni-magdeburg.de>
+
+> Which packets are used for the computation of the ETX Metric? I know that
+> the info about the metric is sent through the
+> topo packets but I dont know if to compute the value of the metric, the
+> protocol consider the beacon or the topo packet lost.
+
+The ETX metric uses the beacon for its statistic. It is based on the
+beacon history,
+which is a bitfield that tracks the last 12 beacons.
+
+Best Regards,
+
+Andre
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 544 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080609/183c129f/attachment.pgp>
+
+From aherms at ivs.cs.uni-magdeburg.de  Mon Jun  9 21:59:58 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Mon, 09 Jun 2008 21:59:58 +0200
+Subject: [Awds-user] BUG in ETX metric
+In-Reply-To: <c60ab7b20806090649n8db8fediaa48d902a4deacb9@mail.gmail.com>
+References: <c60ab7b20806090649n8db8fediaa48d902a4deacb9@mail.gmail.com>
+Message-ID: <484D8BBE.7090002@ivs.cs.uni-magdeburg.de>
+
+> I think there is a bug in the computation of the ETX Metric.
+
+You're right. There was a bug.
+
+> Indeed, when my_calculate() is called in calculate()  (Metric.h)  we get
+> back a value "mw" that is at least "scale" or bigger,
+> considering that  etx is always >= 1. But then "mw" is computed as:
+> mw = std::min(mw, std::numeric_limits<unsigned long>::max() / 1024U); and
+> considering that "scale" is  defined as
+> scale = std::numeric_limits<unsigned long>::max() / 1024
+> , it means that regardless of the values of the etx metric, the value chosen
+> for the mw is always std::numeric_limits<unsigned long>::max() / 1024U. I
+> tested the metric and in fact, the value returned is always that.
+Thank you for the analysis. This was in fact the problem.
+
+> Maybe is it enough to substitute std::min with std::max ?
+
+The min() is used to clamp the values. During the path search we add the
+metric values and we must make sure that no overflow occurs.
+Theoretically, the ETX value can be very large and maybe will not fit in
+ an uin32_t anymore.
+
+The solution was to change the scale value. it is now only 2048.
+Further, I have removed some useless floating point calculations. This
+might help for some embedded systems without FPU.
+
+The fixed version is in my git master tree.
+
+http://aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git/
+
+Thank you for the hint.
+
+Best regards
+
+Andre
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 544 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080609/aaf93630/attachment.pgp>
+
+From stefano1981 at gmail.com  Tue Jun 10 11:25:21 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Tue, 10 Jun 2008 11:25:21 +0200
+Subject: [Awds-user] BUG in MTU?
+Message-ID: <c60ab7b20806100225s14ad3010o94b545b366c4cf2e@mail.gmail.com>
+
+Hi,
+
+I think there is a problem in the value of MTU of awds0 virtual interface.
+
+Since I'm running the protocol both on wired and wireless interfaces I first
+modified the getMTU() (in AwdsRouting.cc)
+accordingly:
+
+return 1500U - max;
+
+That means awds0 MTU = 1477.  Now, if you run some video streaming
+application (using VLC) there are not problems because I noticed that each
+packet
+is always about 1300 Bytes.
+
+Anyway if you try to move a file from a node to another using scp, this will
+use the maximum size of the packet, and with that configuration it stalls.
+
+I noticed that the right threshold is 1486; with 1487 it stalls; so if you
+modify the getMTU() function in this way:
+
+return 1486U - max;
+
+it works fine, and you obtain a packet of 1514 bytes (1500 of data and 14 of
+ethernet header). While if you use the old configuration: return 1500U -
+max;
+you obtain a packet of 1528 Bytes and the packets are dropped.
+
+I didn't test with the wireless card but I think you should get the same
+problem if you leave: return 2000U - max; I guess the right choice is:
+return 1986U - max;
+
+Anyway the only way to realize that is using some application (like scp)
+that sends using the maximum size of the packet.
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080610/5e68b90f/attachment.html>
+
+From stefano1981 at gmail.com  Tue Jun 10 11:39:23 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Tue, 10 Jun 2008 11:39:23 +0200
+Subject: [Awds-user] Tracing the time
+Message-ID: <c60ab7b20806100239n65657b11ha6dcab221820f9e@mail.gmail.com>
+
+Hi,
+
+I'd like to know if there is a way to print the time when a function in the
+code is called.
+
+In particular I want to investigate which is the delay  among:
+
+-ETX Metric Computation;
+-PATH Computation;
+-Data sending on new PATH (if it is the case);
+
+So what I need is to print the time (I dunno if it's the kernel time or
+what) when the functions implied in those processes are called.
+
+Thanks,
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080610/8ea4bf06/attachment.html>
+
+From stefano1981 at gmail.com  Fri Jun 13 17:19:38 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Fri, 13 Jun 2008 17:19:38 +0200
+Subject: [Awds-user] Beacon frequency and ETX
+Message-ID: <c60ab7b20806130819k79faf76bg81a6e33adb871d43@mail.gmail.com>
+
+Hello,
+
+As you know the big problem of ETX metric is that since broadcast beacon
+packets are small, and are sent at a low frequency, they don't experience
+the same loss rate as data packets sent at higher rates. In fact, when I run
+some video in streaming, also if the video quality decrease, the etx metric
+is
+almost the same and the protocol doesn't switch route.  I think it could be
+possible to reduce the problem just increasing the frequency of the
+beacon packets (for default we have 1 beacon every 1.4 secs), also if this
+will increase the overhead.
+
+So, my question is if it sufficient to change the beacon_period in setting.h
+or if I have to change some other parameters to make the ETX metric
+aware of this change.
+
+Thanks,
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080613/eb413f87/attachment.html>
+
+From stefano1981 at gmail.com  Tue Jun 17 14:29:21 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Tue, 17 Jun 2008 14:29:21 +0200
+Subject: [Awds-user] Backbone for Infrastructure WMN
+Message-ID: <c60ab7b20806170529g6bafdba4uec898bb33e28ca3c@mail.gmail.com>
+
+Hi,
+
+The current implementation of AWDS looks like a MANET protocol at layer 2.
+In fact, a node needs to be part of the ad-hoc network and
+to run the awds routing protocol if he wants to communicate with the others.
+
+I was wondering if it's possible to use the protocol in an infrastructure
+Wireless Mesh Network. That is, I run the awds protocol on the nodes
+that form the relaying backbone, but the data transmission is generated by
+some external normal devices(not running the protocol awds) that are
+connected
+to the backbone.
+
+Have you any idea how to implement this?
+
+Best
+
+Stefano
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080617/3fa86f82/attachment.html>
+
+From georg at boerde.de  Tue Jun 17 15:04:24 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Tue, 17 Jun 2008 15:04:24 +0200
+Subject: [Awds-user] Beacon frequency and ETX
+In-Reply-To: <c60ab7b20806130819k79faf76bg81a6e33adb871d43@mail.gmail.com>
+References: <c60ab7b20806130819k79faf76bg81a6e33adb871d43@mail.gmail.com>
+Message-ID: <20080617130424.GE19981@boerde.de>
+
+Hi Stefano,
+
+* Stefano Maurina <stefano1981 at gmail.com> [2008-06-13 17:20]:
+> As you know the big problem of ETX metric is that since broadcast beacon
+> packets are small, and are sent at a low frequency, they don't experience
+> the same loss rate as data packets sent at higher rates. In fact, when I run
+> some video in streaming, also if the video quality decrease, the etx metric
+> is
+> almost the same and the protocol doesn't switch route.  I think it could be
+> possible to reduce the problem just increasing the frequency of the
+> beacon packets (for default we have 1 beacon every 1.4 secs), also if this
+> will increase the overhead.
+
+The mitigation achieved by reducing the interval is probably not worth
+it. You might look at an alternative metric like ETT[1], which is based
+on the unicast performance of the specific link. Unfortunately, we don't
+have a working implementation of ETT yet.
+
+> So, my question is if it sufficient to change the beacon_period in setting.h
+> or if I have to change some other parameters to make the ETX metric
+> aware of this change.
+
+As I see it from a quick glance through the source, you can change
+BEACON_INTERVAL. But you have to perform this change on all nodes, of
+course.
+
+Kind regards,
+
+Georg
+
+[1] http://pdos.csail.mit.edu/papers/jbicket-ms.pdf
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080617/93224c1b/attachment.pgp>
+
+From stefano1981 at gmail.com  Tue Jun 17 17:51:33 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Tue, 17 Jun 2008 17:51:33 +0200
+Subject: [Awds-user] Bridging awds0 with eth0
+Message-ID: <c60ab7b20806170851t52329ab5p56e383623e8be401@mail.gmail.com>
+
+Hi,
+
+I followed the example you proposed on the poster where you connect one node
+to the Internet.
+I did the following steps on the node connected to the Internet:
+-run awds on the wireless interface;
+-give an IP address to the awds0 interface;
+
+At this point if I try to send data (like video) to this node, everything
+works fine;
+Now I:
+-give an IP address to the eth0 interface;
+-build the bridge between awds0 and eth0;
+
+At this point the wireless interface doesn't receive any more packets.
+
+Can you tell me where is the problem?
+
+Did you try that configuration or is it just an example that you proposed?
+
+Thanks,
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080617/9f3627c4/attachment.html>
+
+From TimoLindhorst at web.de  Tue Jun 17 18:06:05 2008
+From: TimoLindhorst at web.de (Timo Lindhorst)
+Date: Tue, 17 Jun 2008 18:06:05 +0200
+Subject: [Awds-user] Beacon frequency and ETX
+In-Reply-To: <c60ab7b20806130819k79faf76bg81a6e33adb871d43@mail.gmail.com>
+References: <c60ab7b20806130819k79faf76bg81a6e33adb871d43@mail.gmail.com>
+Message-ID: <4857E0ED.1050607@web.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi Stefano,
+
+| So, my question is if it sufficient to change the beacon_period in
+| setting.h or if I have to change some other parameters to make the ETX
+| metric aware of this change.
+I'm not familiar with the metrics, but as to the beacon period it should be
+sufficient to change BEACON_INTERVAL in settings.h. For a more convenient
+method that supports adjustment at runtime I can offer you this patch.
+
+Kind regards,
+Timo
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iQEVAwUBSFfg7WH+LIFxdB7bAQKkqAgAuJuy9u/w2yNoUVVYurU763z87Uj6VW7z
+uAW1D1E+nKX5emehZS7+8oe8d9QDxP6RoqWD04Ig/wn/SMT2BcspMVCAIc6mA+kF
+vTFh3DD5wHFzdyNYYuNdcYUbwJA5GT9Xmg4zoro0cracZuIT+iTTYwDksDCH0uBr
+WniktFFVmSv+vghfS4dQhIynUKIczXhMhN+krf/kAByBXWms/oNwedQ6mk/LC0g8
+b/1zjhILuQXZCROdV+o/lfzCauRpMRD/GtqRgXf5Np6MBSWAuyg8vCsdzeJEkvvJ
+gbjUXBfactBfv6jZb8b6mBJGM624cBGApFRkujxQ7HFqGVaiOuHi6A==
+=svTT
+-----END PGP SIGNATURE-----
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Add-beaconperiod-command.patch
+Type: text/x-patch
+Size: 1799 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080617/50a9385a/attachment.bin>
+

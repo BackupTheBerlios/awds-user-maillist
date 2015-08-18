@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] AWDS protocol
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C2ced936d0812220657j6cdf5a83r7c21d087bd9b9f82%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000070.html">
+   <LINK REL="Next"  HREF="000072.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] AWDS protocol</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C2ced936d0812220657j6cdf5a83r7c21d087bd9b9f82%40mail.gmail.com%3E"
+       TITLE="[Awds-user] AWDS protocol">breno at freeunix.com.br
+       </A><BR>
+    <I>Mon Dec 22 15:57:39 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000070.html">[Awds-user] AWDS protocol
+</A></li>
+        <LI>Next message: <A HREF="000072.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#71">[ date ]</a>
+              <a href="thread.html#71">[ thread ]</a>
+              <a href="subject.html#71">[ subject ]</a>
+              <a href="author.html#71">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Georg,
+
+2008/12/20 Georg Lukas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at boerde.de</A>&gt;:
+&gt;<i> AWDS is a pro-active link-state routing protocol. It uses Ethernet
+</I>&gt;<i> packets with type 0x8334, an according dissector for Wireshark can be
+</I>&gt;<i> found on awds.berlios.de; If you are familiar with Scapy, you can read
+</I>&gt;<i> the code in AWDScapy [1] to learn the packet format - it is pretty
+</I>&gt;<i> straight forward.
+</I>
+    Yes, I know Scapy. Thanks, this is great.
+
+    I could not find the Wireshark dissector on the web page. Is it in
+the downloads section?
+
+&gt;<i> Yes, there is. Actually, there are three kinds of packets:
+</I>&gt;<i>
+</I>&gt;<i>  a) multi-hop unicast data packets
+</I>&gt;<i>  b) flood packets (which are used for IP/UDP broadcasts)
+</I>&gt;<i>  c) local broadcasts (which are not forwarded in the network)
+</I>&gt;<i>
+</I>&gt;<i> packet type c is used for determining neighbors: every station
+</I>&gt;<i> periodically sends a beacon (&quot;hello&quot;) packet with its current neighbor
+</I>&gt;<i> list; stations nearby can receive it and put the sender in their
+</I>&gt;<i> neighborship; then they send their own beacon packet. However, this only
+</I>&gt;<i> happens after a certain number of consecutive packets has been received.
+</I>&gt;<i> This mechanism ensures that unidirectional and bad links are not used
+</I>&gt;<i> for building the topology.
+</I>
+    OK. Now, it leads me to another question:
+
+- Is there any handling of split / merging of an ad hoc network?
+
+&gt;<i> There are several: you can enable AWDS_SHELL (which is insecure if other
+</I>&gt;<i> people have access to your network) and connect to it with
+</I>&gt;<i> &quot;telnet localhost 8444&quot;
+</I>&gt;<i>
+</I>&gt;<i> You can use the topology viewer from the berlios repository; it is a
+</I>&gt;<i> Java application using tcp port 8333 to receive the current topology as
+</I>&gt;<i> well as topology changes in XML format. You can use that XML protocol
+</I>&gt;<i> yourself to gather additional data or to process it:
+</I>&gt;<i>
+</I>&gt;<i> Just connect to tcp port 8333 and send a &quot;x&quot; for XML ;)
+</I>
+    Great. Thanks for the nice set of tools. My intention is to have
+some kind of cross-layering between layer 2 and 3.
+
+     Georg, in this test-bed that is mentioned in the website
+(Magdeburger Open Source Tag (MOST)), how many nodes are participating
+in the network? Is there any performance evaluation of AWDS over this
+test-bed or even on a simulated / emulated network?
+
+
+&gt;<i> Georg
+</I>&gt;<i>
+</I>&gt;<i> [1] <A HREF="http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy">http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy</A>
+</I>&gt;<i>
+</I>&gt;<i> P.S: I have created a #awds on freenode, where we can discuss things
+</I>&gt;<i> with a shorter latency, at least when I am on. However my hosting
+</I>&gt;<i> provider is having issues right now ;)
+</I>
+    Yeah, that would be great. I'll show up sometime, when your
+provider fixes your connection :)
+
+cheers,
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000070.html">[Awds-user] AWDS protocol
+</A></li>
+	<LI>Next message: <A HREF="000072.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#71">[ date ]</a>
+              <a href="thread.html#71">[ thread ]</a>
+              <a href="subject.html#71">[ subject ]</a>
+              <a href="author.html#71">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

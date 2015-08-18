@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Switch Interface
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Switch%20Interface&In-Reply-To=%3Cc60ab7b20805220237q5c79f98fnde7907b3b6699ae7%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Switch Interface</H1>
+    <B>Stefano Maurina</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Switch%20Interface&In-Reply-To=%3Cc60ab7b20805220237q5c79f98fnde7907b3b6699ae7%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Switch Interface">stefano1981 at gmail.com
+       </A><BR>
+    <I>Thu May 22 11:37:53 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Awds-user] Interfaces
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Awds-user] Updating neighboring List
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I was able to modify the code in a way to make it run on multiple inerface
+(wired, wireless). The protocol looks like
+working quite well (I tested it with video streaming between two nodes and 5
+nodes between them). The problem is that if the wireless signal between two
+neighbors drops down (to simulate this I simply take out the wireless card
+from the node) it takes about 12 sec. to switch to the other wired interface
+and
+reach again the destination. Considering that the topology packet is sent
+quite often I think the problem is due to the time taken to clean up
+the table of neighbors. Do you know any way to reduce this time? Thank you.
+
+Another question: in AwdsRouting.cc there is the member function
+removeOldNeigh() , but it looks like it is not called by anywhere. What's it
+purpose?
+
+Stefano
+
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080522/6798e114/attachment.html">https://lists.berlios.de/pipermail/awds-user/attachments/20080522/6798e114/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Awds-user] Interfaces
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Awds-user] Updating neighboring List
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

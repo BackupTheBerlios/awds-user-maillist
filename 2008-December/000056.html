@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] libGEA not found
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20libGEA%20not%20found&In-Reply-To=%3Cfca78b970812110041t4e8d52cbs8b89b656e93a04a5%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000055.html">
+   <LINK REL="Next"  HREF="000058.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] libGEA not found</H1>
+    <B>Patrick ANDRIEUX</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20libGEA%20not%20found&In-Reply-To=%3Cfca78b970812110041t4e8d52cbs8b89b656e93a04a5%40mail.gmail.com%3E"
+       TITLE="[Awds-user] libGEA not found">patrick.andrieux at gmail.com
+       </A><BR>
+    <I>Thu Dec 11 09:41:54 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000055.html">[Awds-user] libGEA not found
+</A></li>
+        <LI>Next message: <A HREF="000058.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Breno,
+
+I had issues installing AWDS related to libgea.
+I don't remember whether or not it was the same problem I had but you can
+try to run the command
+` sudo make install ' twice when you install libgea
+
+This solved my problem.
+
+regards,
+Patrick ANDRIEUX
+
+
+
+On Thu, Dec 11, 2008 at 2:48 AM, Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt;wrote:
+
+&gt;<i> Hello guys,
+</I>&gt;<i>
+</I>&gt;<i>    I'm trying to install AWDS on two notebooks for testing, but on
+</I>&gt;<i> both of them (one runs Ubuntu 7.04, the other, the BackTrack 3.0
+</I>&gt;<i> distro), AWDS cant seem to find libGEA:
+</I>&gt;<i> ....
+</I>&gt;<i> appending configuration tag &quot;F77&quot; to libtool
+</I>&gt;<i> checking checking if compiler support -fvisibility=hidden... yes
+</I>&gt;<i> checking for GEA... no
+</I>&gt;<i> configure: error: GEA not found
+</I>&gt;<i>
+</I>&gt;<i>   Now, libGea installled successfully at /usr/local/lib:
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">root at breno-notebook</A>:~/awds-8.8# ls /usr/local/lib/
+</I>&gt;<i> awds           libgea3-posix.a         libgea-posix.la
+</I>&gt;<i> liborcon-1.0.0.so
+</I>&gt;<i> libdnet        libgea3-posix.la        libgea-posix.so        liborcon.a
+</I>&gt;<i> libdnet.1      libgea3-posix.so        libgea-posix.so.1      liborcon.la
+</I>&gt;<i> libdnet.1.0.1  libgea3-posix.so.3      libgea-posix.so.1.0.9  liborcon.so
+</I>&gt;<i> libdnet.a      libgea3-posix.so.3.0.3  libgea-utils.a         perl
+</I>&gt;<i> libdnet.la     libgea3.so              libgea-utils.la        pkgconfig
+</I>&gt;<i> libGammu.a     libgea3.so.3            libgea-utils.so        python2.4
+</I>&gt;<i> libgea3.a      libgea3.so.3.0.3        libgea-utils.so.0      python2.5
+</I>&gt;<i> libgea3.la     libgea-posix.a          libgea-utils.so.0.0.0  site_ruby
+</I>&gt;<i>
+</I>&gt;<i>   And includes are at:
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">root at breno-notebook</A>:~/awds-8.8# ls /usr/local/include/gea/
+</I>&gt;<i> AnimLink.h  compat.h        _FlowTracker.h  ObjRepository.h  utils
+</I>&gt;<i> API.h       config.h        gea_main.h      posix
+</I>&gt;<i> ApiIface.h  DependHandle.h  Handle.h        Time.h
+</I>&gt;<i> Blocker.h   EventHandler.h  NodeColor.h     UdpHandle.h
+</I>&gt;<i>
+</I>&gt;<i>    Yet, in the configure file:
+</I>&gt;<i>
+</I>&gt;<i> GEAINC=&quot;-I/usr/include&quot;
+</I>&gt;<i> GEALIB=&quot;-L/usr/lib -lgea3-posix&quot;
+</I>&gt;<i> GEALIBDIR=&quot;/usr/lib&quot;
+</I>&gt;<i>
+</I>&gt;<i>     But changing it to the proper paths doesnt seem to fix the problem:
+</I>&gt;<i>
+</I>&gt;<i> GEAINC=&quot;-I/usr/local/include/gea&quot;
+</I>&gt;<i> GEALIB=&quot;-L/usr/local/lib/ -lgea3-posix&quot;
+</I>&gt;<i> GEALIBDIR=&quot;/usr/local/lib/&quot;
+</I>&gt;<i> ...
+</I>&gt;<i> checking checking if compiler support -fvisibility=hidden... yes
+</I>&gt;<i> checking for GEA... no
+</I>&gt;<i> configure: error: GEA not found
+</I>&gt;<i>
+</I>&gt;<i>   So, am I missing something here, or should I hack even further at
+</I>&gt;<i> the configure file? Any hint is appreciated :)
+</I>&gt;<i>
+</I>&gt;<i> best regards,
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> --
+</I>&gt;<i> :: Breno Jacinto ::
+</I>&gt;<i> :: breno - at - gprt.ufpe.br ::
+</I>&gt;<i> :: FingerPrint ::
+</I>&gt;<i>   2F15 8A61 F566 E442 8581
+</I>&gt;<i>   E3C0 EFF4 E202 74B7 7484
+</I>&gt;<i> :: Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Awds-user mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">Awds-user at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">https://lists.berlios.de/mailman/listinfo/awds-user</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081211/3309becc/attachment.html">https://lists.berlios.de/pipermail/awds-user/attachments/20081211/3309becc/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000055.html">[Awds-user] libGEA not found
+</A></li>
+	<LI>Next message: <A HREF="000058.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,39 @@
+From breno at freeunix.com.br  Thu Jan 22 16:49:47 2009
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Thu, 22 Jan 2009 12:49:47 -0300
+Subject: [Awds-user] On AWDS Routing
+Message-ID: <2ced936d0901220749g1e779046h8cc30cf5e2ded3a7@mail.gmail.com>
+
+Hello Georg, everyone,
+
+    I'm writing a survey paper on underlay (below IP) networking, to
+which AWDS will be covered as a layer 2 approach to 802.11 ad hoc
+networks. I have some questions regarding AWDS compared to other
+protocols, such as:
+
+1) Is it possible to implement other algorithms other than the default
+proactive link-state one?
+
+2) Was there an specific reason to choose a link-state approach?
+
+3) How is AWDS compared to 802.11s ?
+
+
+     For this last question especially, it is interesting to compare
+AWDS to 802.11s since they are attacking routing at layer 2, but while
+802.11s will require new network adapters supporting the standard,
+AWDS is doing something similar using off-the-shelf, commonly used
+802.11 network interfaces.
+
+regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] libGEA not found
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20libGEA%20not%20found&In-Reply-To=%3C2ced936d0812101748u34c7442dy95bbb83cf0728906%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] libGEA not found</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20libGEA%20not%20found&In-Reply-To=%3C2ced936d0812101748u34c7442dy95bbb83cf0728906%40mail.gmail.com%3E"
+       TITLE="[Awds-user] libGEA not found">breno at freeunix.com.br
+       </A><BR>
+    <I>Thu Dec 11 02:48:16 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+        <LI>Next message: <A HREF="000056.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello guys,
+
+    I'm trying to install AWDS on two notebooks for testing, but on
+both of them (one runs Ubuntu 7.04, the other, the BackTrack 3.0
+distro), AWDS cant seem to find libGEA:
+....
+appending configuration tag &quot;F77&quot; to libtool
+checking checking if compiler support -fvisibility=hidden... yes
+checking for GEA... no
+configure: error: GEA not found
+
+   Now, libGea installled successfully at /usr/local/lib:
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">root at breno-notebook</A>:~/awds-8.8# ls /usr/local/lib/
+awds           libgea3-posix.a         libgea-posix.la        liborcon-1.0.0.so
+libdnet        libgea3-posix.la        libgea-posix.so        liborcon.a
+libdnet.1      libgea3-posix.so        libgea-posix.so.1      liborcon.la
+libdnet.1.0.1  libgea3-posix.so.3      libgea-posix.so.1.0.9  liborcon.so
+libdnet.a      libgea3-posix.so.3.0.3  libgea-utils.a         perl
+libdnet.la     libgea3.so              libgea-utils.la        pkgconfig
+libGammu.a     libgea3.so.3            libgea-utils.so        python2.4
+libgea3.a      libgea3.so.3.0.3        libgea-utils.so.0      python2.5
+libgea3.la     libgea-posix.a          libgea-utils.so.0.0.0  site_ruby
+
+   And includes are at:
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">root at breno-notebook</A>:~/awds-8.8# ls /usr/local/include/gea/
+AnimLink.h  compat.h        _FlowTracker.h  ObjRepository.h  utils
+API.h       config.h        gea_main.h      posix
+ApiIface.h  DependHandle.h  Handle.h        Time.h
+Blocker.h   EventHandler.h  NodeColor.h     UdpHandle.h
+
+    Yet, in the configure file:
+
+GEAINC=&quot;-I/usr/include&quot;
+GEALIB=&quot;-L/usr/lib -lgea3-posix&quot;
+GEALIBDIR=&quot;/usr/lib&quot;
+
+     But changing it to the proper paths doesnt seem to fix the problem:
+
+GEAINC=&quot;-I/usr/local/include/gea&quot;
+GEALIB=&quot;-L/usr/local/lib/ -lgea3-posix&quot;
+GEALIBDIR=&quot;/usr/local/lib/&quot;
+...
+checking checking if compiler support -fvisibility=hidden... yes
+checking for GEA... no
+configure: error: GEA not found
+
+   So, am I missing something here, or should I hack even further at
+the configure file? Any hint is appreciated :)
+
+best regards,
+
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+	<LI>Next message: <A HREF="000056.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

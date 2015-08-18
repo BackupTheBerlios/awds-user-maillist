@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812101450w6f27ecc5ye715b58202a31fa9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000051.html">
+   <LINK REL="Next"  HREF="000057.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812101450w6f27ecc5ye715b58202a31fa9%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">breno at freeunix.com.br
+       </A><BR>
+    <I>Wed Dec 10 23:50:18 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000051.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000057.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Georg,
+
+2008/12/10 Georg Lukas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at boerde.de</A>&gt;:
+
+&gt;<i> AWDS behaves like a transparent Ethernet switch between all the nodes in
+</I>&gt;<i> a multi-hop network; that means that broadcast Ethernet frames
+</I>&gt;<i> (including IP/UDP broadcast) are flooded through the network. Thus, they
+</I>&gt;<i> have a high probability to reach even distant nodes.
+</I>&gt;<i>
+</I>&gt;<i> What kind of problems are you referring to?
+</I>
+       Yes, that's precisely what I needed to know. I'm working on an
+heterogeneous network scenario, where I'll make a Bluetooth PAN
+network, an 802.11g multihop ad hoc network and an ethernet network
+talk to each other. This way, each  gateway for each of these IP
+networks or even participating nodes must be able to flood some data
+into these networks. Now, this simple on a single-hop scenario
+(Ethernet and Bluetooth) within a single MAC domain, but in the case
+of 802.11 it requires some form of multi-hop broadcast. So, AWDS will
+provide me with the missing piece: I can flood a UDP packet to the
+802.11 network and hope that all nodes will receive it, even if that
+happens to be multi-hop (AWDS will handle it, as you said).
+
+      So, I may assume that a simple ping, which results in an ARP
+broadcast, will actually became an ARP flood? This is quite amazing to
+me :).
+
+
+&gt;&gt;<i>      Another question is: since AWDS uses ideas from OLSR, does it use
+</I>&gt;&gt;<i> MPR for flooding?
+</I>&gt;<i>
+</I>&gt;<i> The MPR approach has been implemented, but was disabled later on. The
+</I>&gt;<i> reason for this is that generally, broadcast messaging is not very
+</I>&gt;<i> reliable and has rather high probability of packet loss. When enabling
+</I>&gt;<i> MPR in networks with low density (like typical WMNs or roof nets), the
+</I>&gt;<i> flooding success is noticeably reduced. This conclusion was also made by
+</I>&gt;<i> the Freifunk community, and IIRC the MPR mechanism is disabled there
+</I>&gt;<i> too.
+</I>
+    Right, yes, I read a lot about the B.A.T.M.A.N. project and they
+mention MPR limitations and the reason they are creating a new
+protocol. By the way, if AWDS does not use MPR flooding optimizations
+for flooding, does it use another mechanism? Because simple
+rebroadcasts would lead to the classic broadcast storm problem.
+
+    Lastly, is there any article on AWDS? It seems to be such as
+amazing project that is not known in academia, as far as I know. I'll
+certainly mention it in my master's dissertation, and if there isnt
+anything written about it, I'll be glad to write an article or paper
+about it.
+
+&gt;<i> Kind regards,
+</I>&gt;<i>
+</I>&gt;<i> Georg
+</I>&gt;<i> --
+</I>&gt;<i> || <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>&gt;<i> || gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>&gt;<i> || Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>&gt;<i> ++ IRCnet OFTC OPN ||________________________________________________||
+</I>
+
+best regards,
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000051.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000057.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

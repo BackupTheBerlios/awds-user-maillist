@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds over bridges
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3C20080317121355.GA21700%40ovgu.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds over bridges</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3C20080317121355.GA21700%40ovgu.de%3E"
+       TITLE="[Awds-user] Awds over bridges">georg at boerde.de
+       </A><BR>
+    <I>Mon Mar 17 13:13:55 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[Awds-user] Awds over bridges
+</A></li>
+        <LI>Next message: <A HREF="000015.html">[Awds-user] Awds over bridges
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Djamal,
+
+* <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">djamal.meddour at orange-ftgroup.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">djamal.meddour at orange-ftgroup.com</A>&gt; [2008-03-17 12:46]:
+&gt;<i> I finaly fix this problem paertially, the system didn't crash.
+</I>&gt;<i> Actually, some parameters were not correctly set up in my kernel.
+</I>&gt;<i> However, it the seems that wireless/wired bridge under linux didn't
+</I>&gt;<i> work at all (you can google on that). Therefore only the wired cards
+</I>&gt;<i> is visible by awds.
+</I>
+Yes, you can not bridge Ethernet and Wireless links together, unless the
+Wireless one is WDS or Access Point.
+
+Could you please describe the scenario you want to construct? From your
+questions it does not become clear, but it seems you are trying to do it
+in the wrong way.
+
+&gt;<i> - is there here anyone who already deal with this problem?
+</I>
+For my part, I always run awds on the wireless device (ath0), and then
+bridge the virtual awds device awds0 to the Ethernet device eth0.
+
+&gt;<i> - Why not modifying awds to allow it to work on serveral interfaces in
+</I>&gt;<i> parallel (something like start_awds eth0 ath0 for instance). I used
+</I>&gt;<i> OLSR (at IP level), and the protocol manage this very well
+</I>
+Theoretically, this should be the same as creating a non-forwarding
+bridge on the required interfaces and run awds on the logical bridge.
+I am not sure though, if the feature request can easily be implemented.
+
+
+Kind regards,
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080317/152929ed/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080317/152929ed/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[Awds-user] Awds over bridges
+</A></li>
+	<LI>Next message: <A HREF="000015.html">[Awds-user] Awds over bridges
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] BUG in ETX metric
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20BUG%20in%20ETX%20metric&In-Reply-To=%3C484D8BBE.7090002%40ivs.cs.uni-magdeburg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] BUG in ETX metric</H1>
+    <B>Andre Herms</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20BUG%20in%20ETX%20metric&In-Reply-To=%3C484D8BBE.7090002%40ivs.cs.uni-magdeburg.de%3E"
+       TITLE="[Awds-user] BUG in ETX metric">aherms at ivs.cs.uni-magdeburg.de
+       </A><BR>
+    <I>Mon Jun  9 21:59:58 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[Awds-user] BUG in ETX metric
+</A></li>
+        <LI>Next message: <A HREF="000033.html">[Awds-user] BUG in MTU?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> I think there is a bug in the computation of the ETX Metric.
+</I>
+You're right. There was a bug.
+
+&gt;<i> Indeed, when my_calculate() is called in calculate()  (Metric.h)  we get
+</I>&gt;<i> back a value &quot;mw&quot; that is at least &quot;scale&quot; or bigger,
+</I>&gt;<i> considering that  etx is always &gt;= 1. But then &quot;mw&quot; is computed as:
+</I>&gt;<i> mw = std::min(mw, std::numeric_limits&lt;unsigned long&gt;::max() / 1024U); and
+</I>&gt;<i> considering that &quot;scale&quot; is  defined as
+</I>&gt;<i> scale = std::numeric_limits&lt;unsigned long&gt;::max() / 1024
+</I>&gt;<i> , it means that regardless of the values of the etx metric, the value chosen
+</I>&gt;<i> for the mw is always std::numeric_limits&lt;unsigned long&gt;::max() / 1024U. I
+</I>&gt;<i> tested the metric and in fact, the value returned is always that.
+</I>Thank you for the analysis. This was in fact the problem.
+
+&gt;<i> Maybe is it enough to substitute std::min with std::max ?
+</I>
+The min() is used to clamp the values. During the path search we add the
+metric values and we must make sure that no overflow occurs.
+Theoretically, the ETX value can be very large and maybe will not fit in
+ an uin32_t anymore.
+
+The solution was to change the scale value. it is now only 2048.
+Further, I have removed some useless floating point calculations. This
+might help for some embedded systems without FPU.
+
+The fixed version is in my git master tree.
+
+<A HREF="http://aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git/">http://aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git/</A>
+
+Thank you for the hint.
+
+Best regards
+
+Andre
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 544 bytes
+Desc: OpenPGP digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080609/aaf93630/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080609/aaf93630/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[Awds-user] BUG in ETX metric
+</A></li>
+	<LI>Next message: <A HREF="000033.html">[Awds-user] BUG in MTU?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

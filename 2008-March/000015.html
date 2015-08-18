@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds over bridges
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3C200803201302.23328.aherms%40ivs.cs.uni-magdeburg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds over bridges</H1>
+    <B>Andre Herms</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3C200803201302.23328.aherms%40ivs.cs.uni-magdeburg.de%3E"
+       TITLE="[Awds-user] Awds over bridges">aherms at ivs.cs.uni-magdeburg.de
+       </A><BR>
+    <I>Thu Mar 20 13:02:19 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Awds-user] Awds over bridges
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> I finaly fix this problem paertially, the system didn't crash. Actually,
+</I>&gt;<i> some parameters were not correctly set up in my kernel. However, it the
+</I>&gt;<i> seems that wireless/wired bridge under linux didn't work at all (you can
+</I>&gt;<i> google on that). Therefore only the wired cards is visible by awds.
+</I>
+Bridging works well with a wireless interface in master mode (act as AP). This 
+is the usual way of implementing a WLAN AP. There could be a problem with the 
+ad-hoc mode. But I'm not sure about this. Theoretically, something like the 
+following should work.
+   AWDS               AWDS              AWDS
+     |                  |                |
+     |              -- br0 ---           |
+     |             |          |          | 
+  wlan0 -------- wlan0      eth0 ------ eth0 
+
+However, I haven't tried this. Georg sometimes claims that it could clash with 
+the three-address scheme of the ad-hoc mode. Maybe. 
+
+&gt;<i> - is there here anyone who already deal with this problem?
+</I>We haven't tried the scenario above. A student of us developed an extension 
+for multichannel-wireless with multiple interfaces. I think this is not the 
+way you want it. 
+
+&gt;<i> - Why not modifying awds to allow it to work on serveral interfaces in
+</I>&gt;<i> parallel (something like start_awds eth0 ath0 for instance). 
+</I>
+&gt;<i> I used OLSR 
+</I>&gt;<i> (at IP level), and the protocol manage this very well
+</I>Of course, we could do it the same way as OLSR. It requires some small changes 
+in the routing. I think a small hack in the rawbasic.so module could do it. 
+
+Are you interested in hacking it?
+
+Regards,
+
+Andr&#233;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080320/99446942/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080320/99446942/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Awds-user] Awds over bridges
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Beacon frequency and ETX
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Beacon%20frequency%20and%20ETX&In-Reply-To=%3C20080617130424.GE19981%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Beacon frequency and ETX</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Beacon%20frequency%20and%20ETX&In-Reply-To=%3C20080617130424.GE19981%40boerde.de%3E"
+       TITLE="[Awds-user] Beacon frequency and ETX">georg at boerde.de
+       </A><BR>
+    <I>Tue Jun 17 15:04:24 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[Awds-user] Beacon frequency and ETX
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[Awds-user] Beacon frequency and ETX
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Stefano,
+
+* Stefano Maurina &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">stefano1981 at gmail.com</A>&gt; [2008-06-13 17:20]:
+&gt;<i> As you know the big problem of ETX metric is that since broadcast beacon
+</I>&gt;<i> packets are small, and are sent at a low frequency, they don't experience
+</I>&gt;<i> the same loss rate as data packets sent at higher rates. In fact, when I run
+</I>&gt;<i> some video in streaming, also if the video quality decrease, the etx metric
+</I>&gt;<i> is
+</I>&gt;<i> almost the same and the protocol doesn't switch route.  I think it could be
+</I>&gt;<i> possible to reduce the problem just increasing the frequency of the
+</I>&gt;<i> beacon packets (for default we have 1 beacon every 1.4 secs), also if this
+</I>&gt;<i> will increase the overhead.
+</I>
+The mitigation achieved by reducing the interval is probably not worth
+it. You might look at an alternative metric like ETT[1], which is based
+on the unicast performance of the specific link. Unfortunately, we don't
+have a working implementation of ETT yet.
+
+&gt;<i> So, my question is if it sufficient to change the beacon_period in setting.h
+</I>&gt;<i> or if I have to change some other parameters to make the ETX metric
+</I>&gt;<i> aware of this change.
+</I>
+As I see it from a quick glance through the source, you can change
+BEACON_INTERVAL. But you have to perform this change on all nodes, of
+course.
+
+Kind regards,
+
+Georg
+
+[1] <A HREF="http://pdos.csail.mit.edu/papers/jbicket-ms.pdf">http://pdos.csail.mit.edu/papers/jbicket-ms.pdf</A>
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080617/93224c1b/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080617/93224c1b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[Awds-user] Beacon frequency and ETX
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[Awds-user] Beacon frequency and ETX
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

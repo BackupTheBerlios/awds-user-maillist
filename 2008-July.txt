@@ -1,0 +1,50 @@
+From stefano1981 at gmail.com  Tue Jul 15 18:43:31 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Tue, 15 Jul 2008 18:43:31 +0200
+Subject: [Awds-user] Multicast
+Message-ID: <c60ab7b20807150943u42b6ebe4h5fd47d670bb50a4@mail.gmail.com>
+
+Hello,
+
+Is it possible to send a video streaming in multicast using AWDS?
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080715/1beb2d07/attachment.html>
+
+From aherms at ivs.cs.uni-magdeburg.de  Tue Jul 22 17:09:37 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Tue, 22 Jul 2008 17:09:37 +0200
+Subject: [Awds-user] Multicast
+In-Reply-To: <c60ab7b20807150943u42b6ebe4h5fd47d670bb50a4@mail.gmail.com>
+References: <c60ab7b20807150943u42b6ebe4h5fd47d670bb50a4@mail.gmail.com>
+Message-ID: <200807221709.42483.aherms@ivs.cs.uni-magdeburg.de>
+
+Am Dienstag, 15. Juli 2008 schrieb Stefano Maurina:
+> Hello,
+>
+> Is it possible to send a video streaming in multicast using AWDS?
+
+Yes, it is. We have used VLC for RTP streaming over AWDS. You must only 
+configure IP addresses for the awds0 devices. 
+
+The multicast traffic is internally propagated as broadcast traffic, which 
+means by flooding the packets. 
+
+gruss
+
+:andre
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 489 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080722/c4da2f0f/attachment.pgp>
+

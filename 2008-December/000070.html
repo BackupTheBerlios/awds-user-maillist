@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] AWDS protocol
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C20081221003517.GX14622%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000068.html">
+   <LINK REL="Next"  HREF="000071.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] AWDS protocol</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C20081221003517.GX14622%40boerde.de%3E"
+       TITLE="[Awds-user] AWDS protocol">georg at boerde.de
+       </A><BR>
+    <I>Sun Dec 21 01:35:17 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000068.html">[Awds-user] AWDS protocol
+</A></li>
+        <LI>Next message: <A HREF="000071.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Breno,
+
+* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-21 01:20]:
+&gt;<i>     Here I am asking a few more questions :). I was just wondering how
+</I>&gt;<i> the protocol that operates on AWDS really works. On the website it is
+</I>&gt;<i> stated that it is similar to OLSR, but was there anything written in
+</I>&gt;<i> more detail about it, such as message formats, state machines etc? Or
+</I>&gt;<i> everything just went straight to the code?
+</I>
+AWDS is a pro-active link-state routing protocol. It uses Ethernet
+packets with type 0x8334, an according dissector for Wireshark can be
+found on awds.berlios.de; If you are familiar with Scapy, you can read
+the code in AWDScapy [1] to learn the packet format - it is pretty
+straight forward.
+
+&gt;<i>     Another question is, since any broadcast message is flooded to all
+</I>&gt;<i> nodes on the network, how are neighbors (one-hop) determined? I mean,
+</I>&gt;<i> broadcast is a simple and necessary way of finds who is next to you,
+</I>&gt;<i> and it is useful to have this functionality, such as when working with
+</I>&gt;<i> raw ethernet sockets (layer 2).  On the other hand, it is really nice
+</I>&gt;<i> to assume that a simple broadcast is gonna reach everybody in the
+</I>&gt;<i> network. So, I suppose there's something (a protocol code, maybe?)
+</I>&gt;<i> inside AWDS which may policy this (?).
+</I>
+Yes, there is. Actually, there are three kinds of packets:
+
+ a) multi-hop unicast data packets
+ b) flood packets (which are used for IP/UDP broadcasts)
+ c) local broadcasts (which are not forwarded in the network)
+
+packet type c is used for determining neighbors: every station
+periodically sends a beacon (&quot;hello&quot;) packet with its current neighbor
+list; stations nearby can receive it and put the sender in their
+neighborship; then they send their own beacon packet. However, this only
+happens after a certain number of consecutive packets has been received.
+This mechanism ensures that unidirectional and bad links are not used
+for building the topology.
+
+&gt;<i>     One last question: is there any interface so that a developer
+</I>&gt;<i> willing to extract some data about an AWDS network (such as number of
+</I>&gt;<i> nodes, one-hop neighbors, topology etc)  may do so? This is useful in
+</I>&gt;<i> the case of writing something at layer 3, and taking some data from
+</I>&gt;<i> layer 2.
+</I>
+There are several: you can enable AWDS_SHELL (which is insecure if other
+people have access to your network) and connect to it with
+&quot;telnet localhost 8444&quot;
+
+You can use the topology viewer from the berlios repository; it is a
+Java application using tcp port 8333 to receive the current topology as
+well as topology changes in XML format. You can use that XML protocol
+yourself to gather additional data or to process it:
+
+Just connect to tcp port 8333 and send a &quot;x&quot; for XML ;)
+
+
+Georg
+
+[1] <A HREF="http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy">http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy</A>
+
+P.S: I have created a #awds on freenode, where we can discuss things
+with a shorter latency, at least when I am on. However my hosting
+provider is having issues right now ;)
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081221/8c04442e/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081221/8c04442e/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000068.html">[Awds-user] AWDS protocol
+</A></li>
+	<LI>Next message: <A HREF="000071.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,31 @@
+From ar-grig at mail.ru  Fri Feb  1 08:22:22 2008
+From: ar-grig at mail.ru (A. Grigoryants)
+Date: Fri, 01 Feb 2008 07:22:22 -0000
+Subject: [Awds-user] howto ?
+Message-ID: <47A2C9CC.7000007@mail.ru>
+
+Hi
+
+my system : slack 12.0
+installation ok...
+start_awds ok...
+awds0 appears in ifconfig output ....
+----------------------------------------------------------------------------------------------------------
+awds0     Link encap:Ethernet  HWaddr 6E:56:2F:47:39:2A 
+          inet6 addr: fe80::6c56:2fff:fe47:392a/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:500
+          RX bytes:0 (0.0 b)  TX bytes:468 (468.0 b)
+-----------------------------------------------------------------------------------------------------------
+
+my network: comp1 --> middle_comp <-- comp2
+awds running on middle_comp
+pings from comp1 and comp2 to middle_comp ok....
+ping from comp1 to comp2 failed
+
+howto troubleshot
+
+
+

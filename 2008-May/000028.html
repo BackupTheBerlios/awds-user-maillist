@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds-user Digest, Vol 3, Issue 1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds-user%20Digest%2C%20Vol%203%2C%20Issue%201&In-Reply-To=%3Cc60ab7b20805260849j1a5f4417m168756d4d972ff0d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds-user Digest, Vol 3, Issue 1</H1>
+    <B>Stefano Maurina</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds-user%20Digest%2C%20Vol%203%2C%20Issue%201&In-Reply-To=%3Cc60ab7b20805260849j1a5f4417m168756d4d972ff0d%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Awds-user Digest, Vol 3, Issue 1">stefano1981 at gmail.com
+       </A><BR>
+    <I>Mon May 26 17:49:03 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[Awds-user] ETX Metric
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Georg,
+
+I will be very grateful If you could send me the source / patch-set as you
+said. I'm gonna try If it is suitable in a
+heterogenous mesh network with wired and wireless interface.
+
+Thanks,
+
+Stefano
+
+On Tue, May 6, 2008 at 12:03 PM, &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user-request at lists.berlios.de</A>&gt; wrote:
+
+&gt;<i> Send Awds-user mailing list submissions to
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">https://lists.berlios.de/mailman/listinfo/awds-user</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Awds-user digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i>   1. Run multiple interfaces (Stefano Maurina)
+</I>&gt;<i>   2. Re: Run multiple interfaces (Georg Lukas)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Mon, 5 May 2008 18:02:29 +0200
+</I>&gt;<i> From: &quot;Stefano Maurina&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">stefano1981 at gmail.com</A>&gt;
+</I>&gt;<i> Subject: [Awds-user] Run multiple interfaces
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>
+</I>&gt;<i> Message-ID:
+</I>&gt;<i>        &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">c60ab7b20805050902s6cca5b27u38754e8fa49f91c2 at mail.gmail.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i> I'd like to run AWD on more than one interface, in particular on one
+</I>&gt;<i> wireless and on one ethernet card;
+</I>&gt;<i>
+</I>&gt;<i> I tried to modify the code of rawbasic.cc in this way (in this case I'm
+</I>&gt;<i> running it on a PC with 2 eth cards)
+</I>&gt;<i>
+</I>&gt;<i> GEA_MAIN_2(rawbasic, argc, argv)
+</I>&gt;<i> {
+</I>&gt;<i>
+</I>&gt;<i>    RawBasic *basic;
+</I>&gt;<i>    RawBasic *basic1;
+</I>&gt;<i>
+</I>&gt;<i>    const  char *netif = &quot;eth0&quot;;
+</I>&gt;<i>    const  char *netif1 = &quot;eth1&quot;;
+</I>&gt;<i>
+</I>&gt;<i>    if (argc &gt; 1)
+</I>&gt;<i>    {
+</I>&gt;<i>        netif = argv[1];
+</I>&gt;<i>    }
+</I>&gt;<i>
+</I>&gt;<i>    basic = new RawBasic(netif);
+</I>&gt;<i>    basic1 = new RawBasic(netif1);
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>    if (basic-&gt;raw_socket == -1)
+</I>&gt;<i>    {
+</I>&gt;<i>        GEA.dbg() &lt;&lt; argv[0] &lt;&lt;
+</I>&gt;<i>        &quot;: cannot open raw socket interface on device &quot; &lt;&lt; netif &lt;&lt;
+</I>&gt;<i> std::endl;
+</I>&gt;<i>        return -1;
+</I>&gt;<i>    }
+</I>&gt;<i>
+</I>&gt;<i>    if (basic1-&gt;raw_socket == -1)
+</I>&gt;<i>    {
+</I>&gt;<i>        GEA.dbg() &lt;&lt; argv[0] &lt;&lt;
+</I>&gt;<i>        &quot;: cannot open raw socket interface on device &quot; &lt;&lt; netif1 &lt;&lt;
+</I>&gt;<i> std::endl;
+</I>&gt;<i>        return -1;
+</I>&gt;<i>    }
+</I>&gt;<i>
+</I>&gt;<i>    //   basic-&gt;init(MyId);
+</I>&gt;<i>
+</I>&gt;<i>    ObjRepository&amp; rep = ObjRepository::instance();
+</I>&gt;<i>
+</I>&gt;<i>    rep.insertObj(&quot;basic&quot;, &quot;basic&quot;, (void*)basic);
+</I>&gt;<i>    rep.insertObj(&quot;basic1&quot;, &quot;basic&quot;, (void*)basic1);
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>    GEA.dbg() &lt;&lt; &quot;running RAW basic on &quot; &lt;&lt; basic-&gt;MyId &lt;&lt; std::endl;
+</I>&gt;<i>    GEA.dbg() &lt;&lt; &quot;running RAW basic on &quot; &lt;&lt; basic1-&gt;MyId &lt;&lt; std::endl;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>    //     basic-&gt;setSendDest(basic-&gt;BroadcastId);
+</I>&gt;<i>    //     basic-&gt;sendHandle-&gt;write(&quot;Hallllllllllllllllllllo:  : &quot;, 100);
+</I>&gt;<i>
+</I>&gt;<i>    return 0;
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> and I obtain the following output:
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">test at DSK</A>:~/AWDS/Packages/awds-7.6$ sudo start_awds
+</I>&gt;<i> Starting AWDS on eth0
+</I>&gt;<i> TcpShell listening...
+</I>&gt;<i> running RAW basic on 000E0C633E6C
+</I>&gt;<i> running RAW basic on 00188B8B3F4E
+</I>&gt;<i> let's go!
+</I>&gt;<i> created device awds0
+</I>&gt;<i>
+</I>&gt;<i> The problem is that even If I create 2 sockets, the protocol sends the
+</I>&gt;<i> beacons just on one interface; I tested it with wireshark;
+</I>&gt;<i> So I guess I have to modify something in the awdsrouting.cc file; I'm
+</I>&gt;<i> proceeding by steps, so I'd like to know what I should modify to make the
+</I>&gt;<i> beacons sent on both the interfaces;
+</I>&gt;<i>
+</I>&gt;<i> Thanks
+</I>&gt;<i> Stefano
+</I>&gt;<i> --
+</I>&gt;<i> Before printing this email, make sure it is really necessary. The
+</I>&gt;<i> environment is in our hands.
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL:
+</I>&gt;<i> <A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080505/fa42a66c/attachment-0001.html">https://lists.berlios.de/pipermail/awds-user/attachments/20080505/fa42a66c/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 2
+</I>&gt;<i> Date: Mon, 5 May 2008 18:28:46 +0200
+</I>&gt;<i> From: Georg Lukas &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at boerde.de</A>&gt;
+</I>&gt;<i> Subject: Re: [Awds-user] Run multiple interfaces
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">20080505162751.GA6152 at ovgu.de</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;utf-8&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hello Stefano,
+</I>&gt;<i>
+</I>&gt;<i> * Stefano Maurina &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">stefano1981 at gmail.com</A>&gt; [2008-05-05 18:03]:
+</I>&gt;<i> &gt; I'd like to run AWD on more than one interface, in particular on one
+</I>&gt;<i> &gt; wireless and on one ethernet card;
+</I>&gt;<i>
+</I>&gt;<i> Unfortunately thats not quite straight forward.
+</I>&gt;<i>
+</I>&gt;<i> &gt; I tried to modify the code of rawbasic.cc in this way (in this case I'm
+</I>&gt;<i> &gt; running it on a PC with 2 eth cards)
+</I>&gt;<i> [snip]
+</I>&gt;<i>
+</I>&gt;<i> &gt; The problem is that even If I create 2 sockets, the protocol sends the
+</I>&gt;<i> &gt; beacons just on one interface; I tested it with wireshark;
+</I>&gt;<i>
+</I>&gt;<i> &gt; So I guess I have to modify something in the awdsrouting.cc file; I'm
+</I>&gt;<i> &gt; proceeding by steps, so I'd like to know what I should modify to make the
+</I>&gt;<i> &gt; beacons sent on both the interfaces;
+</I>&gt;<i>
+</I>&gt;<i> You also have to patch awdsrouting.cc to accept an argument, which
+</I>&gt;<i> RawBasic instance to use. Then, you have to start two instances of
+</I>&gt;<i> awdsrouting. Unfortunately, this will give you two different, separated
+</I>&gt;<i> networks, which you already can achieve by starting two instances of
+</I>&gt;<i> AWDS.
+</I>&gt;<i>
+</I>&gt;<i> You could also modify awdsrouting.cc to use multiple RawBasic
+</I>&gt;<i> interfaces. Then, you have to send broadcast packets over all
+</I>&gt;<i> interfaces, and unicast packets over the interface where the neighbor is
+</I>&gt;<i> actually located. As of now, this information is not stored in AWDS.
+</I>&gt;<i> Instead, you would have to add another MAC lookup table there, or use a
+</I>&gt;<i> modified Linux bridge over the two devices, where you disable packet
+</I>&gt;<i> forwarding and only use it for determining the right interface for a
+</I>&gt;<i> destination MAC. This might be possible even without modifying AWDS at
+</I>&gt;<i> all.
+</I>&gt;<i>
+</I>&gt;<i> The most elegant option is probably to include this functionality (MAC
+</I>&gt;<i> lookup for unicat and usage of several sockets) into a new class
+</I>&gt;<i> derived from RawBasic, which would transparently replace the old one.
+</I>&gt;<i>
+</I>&gt;<i> &gt; there, or use a modified Linux bridge over the two devices, where you
+</I>&gt;<i> &gt; disable packet forwarding and only use it for determining the right
+</I>&gt;<i> &gt; interface for a destination MAC.
+</I>&gt;<i>
+</I>&gt;<i> There is also a multi-channel implementation of AWDS which already
+</I>&gt;<i> supports using two different hardware interfaces. It is aimed at
+</I>&gt;<i> increasing throughput when having two wireless NICs, but it might work
+</I>&gt;<i> for your scenario. It contains a patched tapiface module to distribute
+</I>&gt;<i> data over two different awdsrouting instances.
+</I>&gt;<i>
+</I>&gt;<i> Contact me off-list if you would like to have the source / patch-set.
+</I>&gt;<i>
+</I>&gt;<i> Kind regards,
+</I>&gt;<i>
+</I>&gt;<i> Georg
+</I>&gt;<i> --
+</I>&gt;<i> Real-Time Systems and Communication
+</I>&gt;<i> Department of Distributed Systems (IVS)
+</I>&gt;<i> Otto-von-Guericke-University Magdeburg
+</I>&gt;<i> Tel: +49 391 6712788
+</I>&gt;<i> PGP: 962FD2DE (<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at op-co.de</A>)
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> A non-text attachment was scrubbed...
+</I>&gt;<i> Name: not available
+</I>&gt;<i> Type: application/pgp-signature
+</I>&gt;<i> Size: 189 bytes
+</I>&gt;<i> Desc: Digital signature
+</I>&gt;<i> Url :
+</I>&gt;<i> <A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment-0001.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment-0001.pgp</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Awds-user mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">Awds-user at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">https://lists.berlios.de/mailman/listinfo/awds-user</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Awds-user Digest, Vol 3, Issue 1
+</I>&gt;<i> ***************************************
+</I>&gt;<i>
+</I>
+
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080526/9f3a5adb/attachment.html">https://lists.berlios.de/pipermail/awds-user/attachments/20080526/9f3a5adb/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[Awds-user] ETX Metric
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

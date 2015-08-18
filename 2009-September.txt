@@ -1,0 +1,22 @@
+From meddour at gmail.com  Mon Sep  7 16:08:58 2009
+From: meddour at gmail.com (Djamal-Eddine)
+Date: Mon, 7 Sep 2009 16:08:58 +0200
+Subject: [Awds-user] AWDS protocol with wifi managed Mode
+Message-ID: <a14701250909070708m35e0ac38l7347bf01f2d6c322@mail.gmail.com>
+
+Dear AWDS'r
+
+I am trying to use the AWDS protocol with several interfaces. In order to
+enable efficient bandwidth estimation, I am using the Managed Mode of WiFi.
+Unfortunately the program didn't operate correctly (it actually detects the
+neighbour and then lose the link instantly)
+
+Someone already handles successfully this feature
+
+Thanks and Best Regards
+
+Djamal
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20090907/35a760cd/attachment.html>
+

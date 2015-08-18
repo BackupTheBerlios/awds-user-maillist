@@ -1,0 +1,34 @@
+From meddour at gmail.com  Thu Oct  9 11:17:52 2008
+From: meddour at gmail.com (Djamal-Eddine)
+Date: Thu, 9 Oct 2008 11:17:52 +0200
+Subject: [Awds-user] Pb with Link detection
+Message-ID: <a14701250810090217q467e8ed4ua616a17f44433627@mail.gmail.com>
+
+Dear All,
+
+I am using AWDS to set up a wireless mesh backbone with heterogenous
+technologies (Ethernet, WiFi). The protocole works more or less
+correctly, I nevertheless noticed some bugs, I really appreciate if
+you can help me to fix them out:
+
+- WiFi links are not detected almost 1/2 of a time with high data rate
+video traffic (ping pong effect). the pb don't happen with Ethernet
+link
+- The client cannot access the internet if he more then two hops far
+then the gateway (TCP checksum pb with wireshark). I am using bridging
+between the AWDS0 interface and the client interface
+- The system works fine with 2 mesh router at the backbon, less stable
+with three.
+
+
+Finally, I have a doubt about the ETX metrics computations, at some
+level I got some strange values (something like 40000000). Therfore, I
+wonder why you choosed a customized method to compute the ETX (the
+formulat used the value of 2048 and 32U), why not using just the basic
+formula (1/Lf*Ld)
+
+Best Regards
+
+Djamal
+
+

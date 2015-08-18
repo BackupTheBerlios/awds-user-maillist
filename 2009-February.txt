@@ -1,0 +1,43 @@
+From breno at freeunix.com.br  Wed Feb  4 18:23:26 2009
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Wed, 4 Feb 2009 14:23:26 -0300
+Subject: [Awds-user] Adapters for ad hoc networks and stability
+Message-ID: <2ced936d0902040923x4188873dkbbd1406da2e84761@mail.gmail.com>
+
+Hello everyone,
+
+   I`m running several experiments involving ad hoc networks. I`ve
+selected some well known-to-be-compatible adapters, such as Edimax
+(Ralink shipset), Alfa networks (Realtek) and Atheros (madwifi).
+Atheros is available only as built-in adapter on the equipement or as
+a  PCI board.
+
+   So, I'm experiencing some instability regarding the selection of
+the BSSID used by all the nodes. I start the network with a single
+node, then another, then another. Now, for a couple of minutes it
+works, bu then some nodes start losing sight of each and changing
+their BSSIDs to a different value. I'm really running out of
+explanations of why this is happening, because these nodes are all
+in-range of each other, and should be "pingable" directly. My main
+suspect is the driver instability, but then I dont know of any other
+better alternatives. I've tested the following USB adapters:
+
+- Edimax EW-7318USg (rt73 drivers)
+- Alfa AWUS036H-11g
+
+   And the builtin adapters:
+
+- Atheros chipset AR5007EG
+
+
+best regards,
+
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+

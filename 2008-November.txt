@@ -1,0 +1,91 @@
+From fadjar at tst-indonesia.com  Fri Nov 14 09:11:21 2008
+From: fadjar at tst-indonesia.com (Fadjar Tandabawana)
+Date: Fri, 14 Nov 2008 15:11:21 +0700
+Subject: [Awds-user] AWDS with multihome NIC
+Message-ID: <1226650281.14101.49.camel@fadjar-laptop>
+
+Dear All,
+
+Is it possible to use AWDS for multihomed NIC machine?
+Let say like this:
+I have 3 machine with each have 4 NIC, 1 NIC I assume as LAN and the
+rest as WAN.
+The other 3 machines as router to internet.
+
+
+           -----------
+  ---------|internet |--------
+  |        -----------       |
+  |             |            |
+--------     --------     --------
+| Node |-----| Node |-----| Node |
+--------     --------     --------
+  |             |            |
+  |        -----------       |
+  ---------|Multihome|--------
+           -----------
+                |
+             ------
+             | PC |
+             ------
+
+This is could use bonding, but I don't want to use bonding, because this
+configuration is very simple. I have more complex network configuration
+and I want to make it like mesh without use expensive core switch. Also
+I don't want to reconfigure bonding by hand.
+I have several programmers within next 2 months and I think I could ask
+them to help this group.
+
+
+-- 
+Regards,
+Fadjar Tandabawana
+TST Indonesia
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081114/ef677484/attachment.pgp>
+
+From fknox at csspi.com  Sat Nov 29 05:16:02 2008
+From: fknox at csspi.com (Frank Knox)
+Date: Fri, 28 Nov 2008 23:16:02 -0500
+Subject: [Awds-user] Multi-channel implementation patch-set / source
+Message-ID: <00b601c951d9$318eb940$0d16a8c0@FranksLPT>
+
+I've read in the user-archives there is a multi-channel implementation of
+AWDS is it possible to send me the patch/source or tell me which GIT to get
+it.
+
+ 
+
+ 
+
+Georg Lukas georg at boerde.de
+<mailto:awds-user%40lists.berlios.de?Subject=%5BAwds-user%5D%20Run%20multipl
+e%20interfaces&In-Reply-To=c60ab7b20805050902s6cca5b27u38754e8fa49f91c2%40ma
+il.gmail.com> 
+Mon May 5 18:28:46 CEST 2008
+
+There is also a multi-channel implementation of AWDS which already
+supports using two different hardware interfaces. It is aimed at
+increasing throughput when having two wireless NICs, but it might work
+for your scenario. It contains a patched tapiface module to distribute
+data over two different awdsrouting instances.
+ 
+Contact me off-list if you would like to have the source / patch-set.
+
+ 
+
+Thanks
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081128/d38ed706/attachment.html>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] AWDS protocol
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C2ced936d0812201552g586639dfmc83cac9edd1d2a1b%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000066.html">
+   <LINK REL="Next"  HREF="000070.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] AWDS protocol</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C2ced936d0812201552g586639dfmc83cac9edd1d2a1b%40mail.gmail.com%3E"
+       TITLE="[Awds-user] AWDS protocol">breno at freeunix.com.br
+       </A><BR>
+    <I>Sun Dec 21 00:52:50 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000066.html">[Awds-user] Multichannel question
+</A></li>
+        <LI>Next message: <A HREF="000070.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+    Here I am asking a few more questions :). I was just wondering how
+the protocol that operates on AWDS really works. On the website it is
+stated that it is similar to OLSR, but was there anything written in
+more detail about it, such as message formats, state machines etc? Or
+everything just went straight to the code?
+
+    Another question is, since any broadcast message is flooded to all
+nodes on the network, how are neighbors (one-hop) determined? I mean,
+broadcast is a simple and necessary way of finds who is next to you,
+and it is useful to have this functionality, such as when working with
+raw ethernet sockets (layer 2).  On the other hand, it is really nice
+to assume that a simple broadcast is gonna reach everybody in the
+network. So, I suppose there's something (a protocol code, maybe?)
+inside AWDS which may policy this (?).
+
+    One last question: is there any interface so that a developer
+willing to extract some data about an AWDS network (such as number of
+nodes, one-hop neighbors, topology etc)  may do so? This is useful in
+the case of writing something at layer 3, and taking some data from
+layer 2.
+
+regards,
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000066.html">[Awds-user] Multichannel question
+</A></li>
+	<LI>Next message: <A HREF="000070.html">[Awds-user] AWDS protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

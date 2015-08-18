@@ -1,0 +1,278 @@
+From aherms at ivs.cs.uni-magdeburg.de  Sat Mar  3 17:50:21 2007
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Sat, 3 Mar 2007 17:50:21 +0100
+Subject: [Awds-user] Welcome
+Message-ID: <200703031750.21635.aherms@ivs.cs.uni-magdeburg.de>
+
+
+This mailing list is intended for questions regarding AWDS. 
+
+Please feel free to ask your questions, here. 
+
+The AWDS team.
+
+
+From peter.kussmann at gmx.de  Thu Mar 29 23:39:02 2007
+From: peter.kussmann at gmx.de (=?UTF-8?B?UGV0ZXIgS3XDn21hbm4=?=)
+Date: Thu, 29 Mar 2007 23:39:02 +0200
+Subject: [Awds-user] small Problems with start from apt-sources
+Message-ID: <460C31F6.20508@gmx.de>
+
+Hello List,
+
+i try to install awds from apt-sources.
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/home/peter# apt-cache search awds
+awds - A multi-hop routing for wireless ad-hoc networks
+awds-dev - This packages contains all header files of awds for creating
+awds-topoviewer - A topology viewer for the AWDS mesh routing
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+i look very nice - try to install
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/home/peter# apt-get install awds
+Paketlisten werden gelesen... Fertig
+Abh?ngigkeitsbaum wird aufgebaut... Fertig
+Die folgenden zus?tzlichen Pakete werden installiert:
+  libgea
+Die folgenden NEUEN Pakete werden installiert:
+  awds libgea
+0 aktualisiert, 2 neu installiert, 0 zu entfernen und 382 nicht
+aktualisiert.
+Es m?ssen 185kB Archive geholt werden.
+Nach dem Auspacken werden 627kB Plattenplatz zus?tzlich benutzt.
+M?chten Sie fortfahren [J/n]? j
+WARNUNG: Die folgenden Pakete k?nnen nicht authentifiziert werden!
+  libgea awds
+Diese Pakete ohne ?berpr?fung installieren [j/N]? j
+Hole:1 http://aland.cs.uni-magdeburg.de unstable/main libgea 1.10 [34,6kB]
+Hole:2 http://aland.cs.uni-magdeburg.de unstable/main awds 6.0 [151kB]
+Es wurden 185kB in 2s geholt (75,7kB/s)
+W?hle vormals abgew?hltes Paket libgea.
+(Lese Datenbank ... 116123 Dateien und Verzeichnisse sind derzeit
+installiert.)
+Entpacke libgea (aus .../archives/libgea_1.10_i386.deb) ...
+W?hle vormals abgew?hltes Paket awds.
+Entpacke awds (aus .../apt/archives/awds_6.0_i386.deb) ...
+Richte libgea ein (1.10) ...
+
+Richte awds ein (6.0) ...
+gy viewer for the AWDS mesh routing
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+now i try "start_awds"
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# start_awds
+bash: /usr/local/sbin/start_awds: Datei oder Verzeichnis nicht gefunden
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+let's take a look to /usr/local/sbin/
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# ll /usr/local/sbin/
+insgesamt 28
+drwxrwsr-x  2 root staff  4096 2007-03-29 23:30 .
+drwxrwsr-x 12 root staff  4096 2007-03-15 16:23 ..
+-rwxr-xr-x  1 root staff 19335 2007-03-03 10:12 tf-tool
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+files "start_awds" and "stop_awds" are located in "/usr/sbin"
+
+quick and dirty - Solution:
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# ln -s /usr/sbin/start_awds /usr/local/sbin/
+debian:/# ln -s /usr/sbin/stop_awds /usr/local/sbin/
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+greetings from the lonley mountain
+
+Peter
+
+
+
+
+From peter.kussmann at gmx.de  Thu Mar 29 23:47:16 2007
+From: peter.kussmann at gmx.de (=?UTF-8?B?UGV0ZXIgS3XDn21hbm4=?=)
+Date: Thu, 29 Mar 2007 23:47:16 +0200
+Subject: [Awds-user] net_dev=auto doesnt work
+Message-ID: <460C33E4.60200@gmx.de>
+
+Hello List,
+
+i try "start_awds"
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# start_awds
+SIOCSIFMTU: Das Argument ist ung?ltig
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+let's take a look to /etc/awds.conf
+
+* start - snip from awds.conf *
+------------------------------------------------------------------------------------------------------------------
+# The network device to use for communication.
+# Use 'auto' to use the first wireless device found.
+NET_DEV=auto
+# NET_DEV=wlan0
+# NET_DEV=ath0
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from awds.conf *
+
+on IBM - Thinkpad X41 the wireless device is located at eth1.
+
+quick and dirty - Solution:
+
+NET_DEV=eth1
+
+greetings from the lonley mountain
+
+Peter
+
+
+
+
+
+
+
+
+
+From peter.kussmann at gmx.de  Thu Mar 29 23:59:37 2007
+From: peter.kussmann at gmx.de (=?UTF-8?B?UGV0ZXIgS3XDn21hbm4=?=)
+Date: Thu, 29 Mar 2007 23:59:37 +0200
+Subject: [Awds-user] small mtu - Problem in start_awds
+Message-ID: <460C36C9.2000904@gmx.de>
+
+Hello List,
+
+there is a small bug in skript start_awds
+
+* start - snip from start_awds *
+------------------------------------------------------------------------------------------------------------------
+/sbin/ifconfig $DEVICE mtu 2000
+------------------------------------------------------------------------------------------------------------------
+
+* stop - snip from start_awds *
+
+quick and dirty - Solution:
+
+/sbin/ifconfig $DEVICE mtu 1500
+
+greetings from the lonley mountain
+
+Peter
+
+
+
+
+
+From aherms at ivs.cs.uni-magdeburg.de  Fri Mar 30 15:35:01 2007
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Fri, 30 Mar 2007 15:35:01 +0200
+Subject: [Awds-user] small mtu - Problem in start_awds
+In-Reply-To: <460C36C9.2000904@gmx.de>
+References: <460C36C9.2000904@gmx.de>
+Message-ID: <200703301535.09633.aherms@ivs.cs.uni-magdeburg.de>
+
+> Hello List,
+>
+> there is a small bug in skript start_awds
+>
+> * start - snip from start_awds *
+> /sbin/ifconfig $DEVICE mtu 2000
+
+It's not a bug, it's a feature. The MTU of a wireless device can be up to 2300 
+bytes. Sometimes - especially with the Intel ProWireless - it is limited to 
+1500 bytes, like an ordinary Ethernet device. 
+
+So, why do we increase the MTU? 
+AWDS encapsulates Ethernet frames into Wireless frames. This adds some 
+additional headers = bytes. If the MTU of your wireless device has a limit of 
+1500 bytes, you can only tranfer Ethernet frames of approx. 1430 bytes. 
+
+That means: 
+As long as you use a driver that does not support the maximum MTU, you must 
+reduce the MTU of the awds0 device. Try:
+ifconfig awds0 mtu 1430
+
+This workaround causes some new problems. When you bridge your awds0 device 
+with an - let's say - eth0 that has a MTU of 1500, the IP stack on the other 
+side will generate Ethernet packets of up to 1500 bytes, again. These are 
+dropped by the driver. The effect can be really ugly. Small ping packets are 
+always delivered but a typical http stream does not work. 
+
+Solutions:
+
+(1) You can configure the MTUs of all bridged devices to 1430 bytes.
+(2) You can try to enable MTU auto discovery on the clients TCP stack.
+(3) You can add an IPTABLES rule called MSS clamp (use Google). 
+
+Greetings,
+
+Andr?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20070330/a26ba040/attachment.pgp>
+
+From georg at boerde.de  Fri Mar 30 14:12:24 2007
+From: georg at boerde.de (Georg Lukas)
+Date: Fri, 30 Mar 2007 14:12:24 +0200
+Subject: [Awds-user] small Problems with start from apt-sources
+In-Reply-To: <460C31F6.20508@gmx.de>
+References: <460C31F6.20508@gmx.de>
+Message-ID: <20070330121224.GO9258@op-co.de>
+
+Hello Peter,
+
+* Peter Ku?mann <peter.kussmann at gmx.de> [2007-03-30 12:59]:
+> ------------------------------------------------------------------------------------------------------------------
+> debian:/# start_awds
+> bash: /usr/local/sbin/start_awds: Datei oder Verzeichnis nicht gefunden
+> ------------------------------------------------------------------------------------------------------------------
+
+this might be a problem with $PATH on your system. Have you checked
+that /usr/sbin is in the PATH? Another possibility is that your shell
+(bash?) remembers that there was a start_awds binary in /usr/local/sbin:
+then you must run "hash -r" to let it forget.
+
+> quick and dirty - Solution:
+> 
+> * start - snip from console *
+> ------------------------------------------------------------------------------------------------------------------
+> debian:/# ln -s /usr/sbin/start_awds /usr/local/sbin/
+> debian:/# ln -s /usr/sbin/stop_awds /usr/local/sbin/
+> ------------------------------------------------------------------------------------------------------------------
+> * stop - snip from console *
+
+This is actually not needed - you can remove the links and run "hash -r", 
+then everything should work again :)
+
+Cheers,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+
+

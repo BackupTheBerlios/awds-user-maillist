@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] BUG in MTU?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20BUG%20in%20MTU%3F&In-Reply-To=%3Cc60ab7b20806100225s14ad3010o94b545b366c4cf2e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000034.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] BUG in MTU?</H1>
+    <B>Stefano Maurina</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20BUG%20in%20MTU%3F&In-Reply-To=%3Cc60ab7b20806100225s14ad3010o94b545b366c4cf2e%40mail.gmail.com%3E"
+       TITLE="[Awds-user] BUG in MTU?">stefano1981 at gmail.com
+       </A><BR>
+    <I>Tue Jun 10 11:25:21 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">[Awds-user] BUG in ETX metric
+</A></li>
+        <LI>Next message: <A HREF="000034.html">[Awds-user] Tracing the time
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I think there is a problem in the value of MTU of awds0 virtual interface.
+
+Since I'm running the protocol both on wired and wireless interfaces I first
+modified the getMTU() (in AwdsRouting.cc)
+accordingly:
+
+return 1500U - max;
+
+That means awds0 MTU = 1477.  Now, if you run some video streaming
+application (using VLC) there are not problems because I noticed that each
+packet
+is always about 1300 Bytes.
+
+Anyway if you try to move a file from a node to another using scp, this will
+use the maximum size of the packet, and with that configuration it stalls.
+
+I noticed that the right threshold is 1486; with 1487 it stalls; so if you
+modify the getMTU() function in this way:
+
+return 1486U - max;
+
+it works fine, and you obtain a packet of 1514 bytes (1500 of data and 14 of
+ethernet header). While if you use the old configuration: return 1500U -
+max;
+you obtain a packet of 1528 Bytes and the packets are dropped.
+
+I didn't test with the wireless card but I think you should get the same
+problem if you leave: return 2000U - max; I guess the right choice is:
+return 1986U - max;
+
+Anyway the only way to realize that is using some application (like scp)
+that sends using the maximum size of the packet.
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080610/5e68b90f/attachment.html">https://lists.berlios.de/pipermail/awds-user/attachments/20080610/5e68b90f/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">[Awds-user] BUG in ETX metric
+</A></li>
+	<LI>Next message: <A HREF="000034.html">[Awds-user] Tracing the time
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

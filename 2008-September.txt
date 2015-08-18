@@ -1,0 +1,162 @@
+From breno at freeunix.com.br  Wed Sep 17 23:24:15 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Wed, 17 Sep 2008 18:24:15 -0300
+Subject: [Awds-user] Bridging heterogeneous networks
+Message-ID: <2ced936d0809171424l1fd437c0ga858587d38561811@mail.gmail.com>
+
+Hello,
+
+     I read a post from March
+(https://lists.berlios.de/pipermail/awds-user/2008-March/000014.html)
+about AWDS operating over bridges. At the same time I was
+investigating the use of the Linux Ethernet Bridge
+(http://www.linuxfoundation.org/en/Net:Bridge) with heterogeneous
+networks, such as Ethernet, 802.11 ad hoc network and Bluetooth with
+Ethernet Emulation (BNEP).
+
+    The Ethernet Bridge guys claim that bridging Ethernet and 802.11
+may be problematic because WDS would be needed and some card
+manufacturers do not implement it at all. But I believe that AWDS
+comes as an ideal match here? Has anyone ever tried to do something
+similar before?
+
+   Any comment would be great on this, I intend to run some tests on
+real well-supported hardware to see if this is possible.
+
+best regards,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+ 2F15 8A61 F566 E442 8581
+ E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia. ::
+
+
+From aherms at ivs.cs.uni-magdeburg.de  Mon Sep 22 11:05:10 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Mon, 22 Sep 2008 11:05:10 +0200
+Subject: [Awds-user] Bridging heterogeneous networks
+In-Reply-To: <2ced936d0809171424l1fd437c0ga858587d38561811@mail.gmail.com>
+References: <2ced936d0809171424l1fd437c0ga858587d38561811@mail.gmail.com>
+Message-ID: <200809221105.13978.aherms@ivs.cs.uni-magdeburg.de>
+
+>     The Ethernet Bridge guys claim that bridging Ethernet and 802.11
+> may be problematic because WDS would be needed and some card
+> manufacturers do not implement it at all. 
+This is a known problem, caused mainly by the address scheme. 802.11 maps the 
+Ethernet addresses somehow to it own. However, there are some pitfalls, which 
+often show up in poor implementations of wireless drivers. 
+
+> But I believe that AWDS 
+> comes as an ideal match here? Has anyone ever tried to do something
+> similar before?
+AWDS encapsulates the whole Ethernet frame in its own format. To the user, the 
+kernel, and the bridging code, it appears as a simple (virtual, tun) Ethernet 
+device. Hence, bridging is no problem. 
+
+Example of use:
+
+We have an Intranet with DHCP-server and IPv6 router. 
+We have some experimental mesh network with more or less 10 nodes permanently 
+running. 
+
+We bridge one nodes Ethernet port with the AWDS device and thus create a 
+gateway. The Ethernet port is connected to the Intranet. This means: our mesh 
+is now part of our intranet. All devices can get a IP address from the 
+server, automatically receive an IPv6 address, etc. That's all. 
+
+>    Any comment would be great on this, I intend to run some tests on
+> real well-supported hardware to see if this is possible.
+It's really simple. Take two linux devices. Debian Linux is preferred, because 
+we provide debian packages from our repository. Install the software, start 
+the routing daemon, use the topoviewer to see if a topology is really 
+established... 
+
+If you encounter any problems, ask the friendly guys from this mailing list.
+
+gruss :andre
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 489 bytes
+Desc: This is a digitally signed message part.
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080922/c63d4400/attachment.pgp>
+
+From breno at freeunix.com.br  Tue Sep 23 16:42:36 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Tue, 23 Sep 2008 14:42:36 +0000
+Subject: [Awds-user] Bridging heterogeneous networks
+In-Reply-To: <200809221105.13978.aherms@ivs.cs.uni-magdeburg.de>
+References: <2ced936d0809171424l1fd437c0ga858587d38561811@mail.gmail.com>
+	<200809221105.13978.aherms@ivs.cs.uni-magdeburg.de>
+Message-ID: <2ced936d0809230742w5dbce9fn86834b12f82ebb80@mail.gmail.com>
+
+Thank you very much for your answer.
+
+    I'm about to setup a test-bed to test exactly what you described.
+But, I intend for have some control over the traffic coming in and
+going out of the interfaces, especially from gateway (multi-interface)
+nodes. I'd like to express something like: traffic coming from
+interface eth0, now goes to interface awds0 (ad hoc network) or to
+another interface available, based on some established condition (such
+as link quality).
+
+    I believe some hacking is necessary to do this, if someone could
+give me hint to get me started I'd really appreciate. I'm still new to
+AWDS and Linux Ethernet Bridging code.
+
+best regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+ 2F15 8A61 F566 E442 8581
+ E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia. ::
+
+
+
+2008/9/22 Andre Herms <aherms at ivs.cs.uni-magdeburg.de>:
+>>     The Ethernet Bridge guys claim that bridging Ethernet and 802.11
+>> may be problematic because WDS would be needed and some card
+>> manufacturers do not implement it at all.
+> This is a known problem, caused mainly by the address scheme. 802.11 maps the
+> Ethernet addresses somehow to it own. However, there are some pitfalls, which
+> often show up in poor implementations of wireless drivers.
+>
+>> But I believe that AWDS
+>> comes as an ideal match here? Has anyone ever tried to do something
+>> similar before?
+> AWDS encapsulates the whole Ethernet frame in its own format. To the user, the
+> kernel, and the bridging code, it appears as a simple (virtual, tun) Ethernet
+> device. Hence, bridging is no problem.
+>
+> Example of use:
+>
+> We have an Intranet with DHCP-server and IPv6 router.
+> We have some experimental mesh network with more or less 10 nodes permanently
+> running.
+>
+> We bridge one nodes Ethernet port with the AWDS device and thus create a
+> gateway. The Ethernet port is connected to the Intranet. This means: our mesh
+> is now part of our intranet. All devices can get a IP address from the
+> server, automatically receive an IPv6 address, etc. That's all.
+>
+>>    Any comment would be great on this, I intend to run some tests on
+>> real well-supported hardware to see if this is possible.
+> It's really simple. Take two linux devices. Debian Linux is preferred, because
+> we provide debian packages from our repository. Install the software, start
+> the routing daemon, use the topoviewer to see if a topology is really
+> established...
+>
+> If you encounter any problems, ask the friendly guys from this mailing list.
+>
+> gruss :andre
+>
+
+

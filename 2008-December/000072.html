@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] AWDS protocol
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C20081230135708.GD21509%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000071.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] AWDS protocol</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20AWDS%20protocol&In-Reply-To=%3C20081230135708.GD21509%40boerde.de%3E"
+       TITLE="[Awds-user] AWDS protocol">georg at boerde.de
+       </A><BR>
+    <I>Tue Dec 30 14:57:08 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000071.html">[Awds-user] AWDS protocol
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Breno,
+
+* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-23 13:05]:
+&gt;<i>     I could not find the Wireshark dissector on the web page. Is it in
+</I>&gt;<i> the downloads section?
+</I>
+It should be available from the berlios project downloads, or at least
+from berlios SVN.
+
+&gt;<i> - Is there any handling of split / merging of an ad hoc network?
+</I>
+This is a layer-2-problem, underneath of our own layer. There is no way
+for AWDS to influence it. :(
+
+However, after nights and nights of hacking on MadWifi, we have a driver
+which has a remotely sane behaviour regarding IBSS merges.
+
+Also, there is another Scapy script on my website, ibss-merge.scapy,
+which analyzes beacon frames from adhoc nodes and shows their IBSS cell
+ID to detect splits.
+
+Freifunk has some experience with adhoc cell merging too, but they use
+to set up all cards to a fixed BSSID (iwconfig wlanX ap 00:00:de:ad:be:ef
+or something alike). I think they also have a tool doing something
+similar to my ibss merge detector, called &quot;horst&quot;.
+
+&gt;<i>     Great. Thanks for the nice set of tools. My intention is to have
+</I>&gt;<i> some kind of cross-layering between layer 2 and 3.
+</I>
+Then the XML interface is probably the way to go, at least from L2 to L3.
+For the other way around we are still looking for a coder to implement a
+semi-generic configuration interface (which would allow to set certain
+operation parameters locally or for the whole network).
+
+&gt;<i>      Georg, in this test-bed that is mentioned in the website
+</I>&gt;<i> (Magdeburger Open Source Tag (MOST)), how many nodes are participating
+</I>&gt;<i> in the network? Is there any performance evaluation of AWDS over this
+</I>&gt;<i> test-bed or even on a simulated / emulated network?
+</I>
+We used AWDS as a backbone network to provide internet connectivity for
+a two-day conference in a university building. We deployed a dozen of
+ALIX/WRAP nodes with 2x wifi - AWDS backbone on channel 36 and AP mode
+on channels 1/6/11. There were some stability problems I could not quite
+figure out, so I have mixed feelings about the setup.
+
+This was the biggest real AWDS installation accessible by end-users. We
+are running with five to 20 AWDS nodes in our own university building on
+a day-by-day basis for different experiments and evaluation, which is
+actually very reliable.
+
+As AWDS can be setup on top of ns2, we also performed simulation studies
+with an order of around 100 nodes, IIRC. Probably Andre can give more
+details on that :)
+
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081230/43e9f8d4/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081230/43e9f8d4/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000071.html">[Awds-user] AWDS protocol
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

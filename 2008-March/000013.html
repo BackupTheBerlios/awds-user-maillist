@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds over bridges
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3CD4EF10CCEB2CE742BEEA9838C590B0E80920F856%40ftrdmel2%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds over bridges</H1>
+    <B>djamal.meddour at orange-ftgroup.com</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds%20over%20bridges&In-Reply-To=%3CD4EF10CCEB2CE742BEEA9838C590B0E80920F856%40ftrdmel2%3E"
+       TITLE="[Awds-user] Awds over bridges">djamal.meddour at orange-ftgroup.com
+       </A><BR>
+    <I>Mon Mar 17 12:04:50 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000012.html">[Awds-user] Awds on wired interface
+</A></li>
+        <LI>Next message: <A HREF="000014.html">[Awds-user] Awds over bridges
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I finaly fix this problem paertially, the system didn't crash. Actually, some parameters were not correctly set up in my kernel. However, it the seems that wireless/wired bridge under linux didn't work at all (you can google on that). Therefore only the wired cards is visible by awds.
+
+So, I have two qsuestions:
+
+- is there here anyone who already deal with this problem?
+- Why not modifying awds to allow it to work on serveral interfaces in parallel (something like start_awds eth0 ath0 for instance). I used OLSR (at IP level), and the protocol manage this very well
+
+Any help is much appreciated
+
+Best regards
+
+Djamal
+
+-----Message d'origine-----
+De : MEDDOUR Djamal RD-CORE-LAN 
+Envoy&#233; : vendredi 14 mars 2008 09:49
+&#192; : 'Andre Herms'
+Cc : '<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>'
+Objet : RE: Awds on wired interface
+
+Dear All,
+
+Someone deal already with the bridge issues? For me it didn't work. The bridge seems to set up correctly, but when I launch awds over the bridge the system crash
+
+Any help is appreciated
+
+Best regards
+
+Djamal
+
+-----Message d'origine-----
+De : Andre Herms [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">aherms at ivs.cs.uni-magdeburg.de</A>]
+Envoy&#233; : mercredi 5 mars 2008 09:04
+&#192; : <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>
+Cc : MEDDOUR Djamal RD-CORE-LAN
+Objet : Re: Awds on wired interface
+
+Am Tuesday, 4. March 2008 schrieben Sie:
+&gt;<i> Dear Andre,
+</I>&gt;<i>
+</I>&gt;<i> I have a specfic question regarding AWDS, how make it working on wired 
+</I>&gt;<i> interfaces?
+</I>
+Only to make it clear - you want to (1) replace the wireless links with an Ethernet cable? Or do you want to (2) combine the wireless mesh with a wired interface?
+
+&gt;<i> I tried to modify start_awds script and launch rawbasic.so on the 
+</I>&gt;<i> wired interface, but it seems that this is not working
+</I>
+Hmm - if you really want the version (1), you maybe did the right thing. But it's easier to modify the configuration file /etc/awds.conf or /usr/local/etc/awds.conf.
+
+set
+NET_DEV=eth0
+and
+DEV_CHANGE_WIRELESS_SETTINGS=no
+
+This should do it. 
+
+If you want version (2), you must bridge the awds0 device with the ethernet device (eth0). Have a look at brctl. 
+
+BTW: You should ask such questions on the awd-users mailing list. There are more nice guys that maybe will answer your question. 
+
+Best regards,
+
+Andr&#233;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000012.html">[Awds-user] Awds on wired interface
+</A></li>
+	<LI>Next message: <A HREF="000014.html">[Awds-user] Awds over bridges
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

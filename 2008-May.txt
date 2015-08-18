@@ -1,0 +1,572 @@
+From stefano1981 at gmail.com  Mon May  5 18:02:29 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Mon, 5 May 2008 18:02:29 +0200
+Subject: [Awds-user] Run multiple interfaces
+Message-ID: <c60ab7b20805050902s6cca5b27u38754e8fa49f91c2@mail.gmail.com>
+
+Hi,
+I'd like to run AWD on more than one interface, in particular on one
+wireless and on one ethernet card;
+
+I tried to modify the code of rawbasic.cc in this way (in this case I'm
+running it on a PC with 2 eth cards)
+
+GEA_MAIN_2(rawbasic, argc, argv)
+{
+
+    RawBasic *basic;
+    RawBasic *basic1;
+
+    const  char *netif = "eth0";
+    const  char *netif1 = "eth1";
+
+    if (argc > 1)
+    {
+        netif = argv[1];
+    }
+
+    basic = new RawBasic(netif);
+    basic1 = new RawBasic(netif1);
+
+
+    if (basic->raw_socket == -1)
+    {
+        GEA.dbg() << argv[0] <<
+        ": cannot open raw socket interface on device " << netif <<
+std::endl;
+        return -1;
+    }
+
+    if (basic1->raw_socket == -1)
+    {
+        GEA.dbg() << argv[0] <<
+        ": cannot open raw socket interface on device " << netif1 <<
+std::endl;
+        return -1;
+    }
+
+    //   basic->init(MyId);
+
+    ObjRepository& rep = ObjRepository::instance();
+
+    rep.insertObj("basic", "basic", (void*)basic);
+    rep.insertObj("basic1", "basic", (void*)basic1);
+
+
+    GEA.dbg() << "running RAW basic on " << basic->MyId << std::endl;
+    GEA.dbg() << "running RAW basic on " << basic1->MyId << std::endl;
+
+
+    //     basic->setSendDest(basic->BroadcastId);
+    //     basic->sendHandle->write("Hallllllllllllllllllllo:  : ", 100);
+
+    return 0;
+}
+
+and I obtain the following output:
+
+test at DSK:~/AWDS/Packages/awds-7.6$ sudo start_awds
+Starting AWDS on eth0
+TcpShell listening...
+running RAW basic on 000E0C633E6C
+running RAW basic on 00188B8B3F4E
+let's go!
+created device awds0
+
+The problem is that even If I create 2 sockets, the protocol sends the
+beacons just on one interface; I tested it with wireshark;
+So I guess I have to modify something in the awdsrouting.cc file; I'm
+proceeding by steps, so I'd like to know what I should modify to make the
+beacons sent on both the interfaces;
+
+Thanks
+Stefano
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080505/fa42a66c/attachment.html>
+
+From georg at boerde.de  Mon May  5 18:28:46 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Mon, 5 May 2008 18:28:46 +0200
+Subject: [Awds-user] Run multiple interfaces
+In-Reply-To: <c60ab7b20805050902s6cca5b27u38754e8fa49f91c2@mail.gmail.com>
+References: <c60ab7b20805050902s6cca5b27u38754e8fa49f91c2@mail.gmail.com>
+Message-ID: <20080505162751.GA6152@ovgu.de>
+
+Hello Stefano,
+
+* Stefano Maurina <stefano1981 at gmail.com> [2008-05-05 18:03]:
+> I'd like to run AWD on more than one interface, in particular on one
+> wireless and on one ethernet card;
+
+Unfortunately thats not quite straight forward.
+ 
+> I tried to modify the code of rawbasic.cc in this way (in this case I'm
+> running it on a PC with 2 eth cards)
+[snip]
+
+> The problem is that even If I create 2 sockets, the protocol sends the
+> beacons just on one interface; I tested it with wireshark;
+
+> So I guess I have to modify something in the awdsrouting.cc file; I'm
+> proceeding by steps, so I'd like to know what I should modify to make the
+> beacons sent on both the interfaces;
+
+You also have to patch awdsrouting.cc to accept an argument, which
+RawBasic instance to use. Then, you have to start two instances of
+awdsrouting. Unfortunately, this will give you two different, separated
+networks, which you already can achieve by starting two instances of
+AWDS.
+
+You could also modify awdsrouting.cc to use multiple RawBasic
+interfaces. Then, you have to send broadcast packets over all
+interfaces, and unicast packets over the interface where the neighbor is
+actually located. As of now, this information is not stored in AWDS.
+Instead, you would have to add another MAC lookup table there, or use a
+modified Linux bridge over the two devices, where you disable packet
+forwarding and only use it for determining the right interface for a
+destination MAC. This might be possible even without modifying AWDS at
+all.
+
+The most elegant option is probably to include this functionality (MAC
+lookup for unicat and usage of several sockets) into a new class
+derived from RawBasic, which would transparently replace the old one.
+
+> there, or use a modified Linux bridge over the two devices, where you
+> disable packet forwarding and only use it for determining the right
+> interface for a destination MAC.
+
+There is also a multi-channel implementation of AWDS which already
+supports using two different hardware interfaces. It is aimed at
+increasing throughput when having two wireless NICs, but it might work
+for your scenario. It contains a patched tapiface module to distribute
+data over two different awdsrouting instances.
+
+Contact me off-list if you would like to have the source / patch-set.
+
+Kind regards,
+
+Georg
+-- 
+Real-Time Systems and Communication
+Department of Distributed Systems (IVS)
+Otto-von-Guericke-University Magdeburg
+Tel: +49 391 6712788
+PGP: 962FD2DE (georg at op-co.de)
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment.pgp>
+
+From stefano1981 at gmail.com  Wed May 14 16:51:35 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Wed, 14 May 2008 16:51:35 +0200
+Subject: [Awds-user] Interfaces
+Message-ID: <c60ab7b20805140751q6b7f3e12heef0dd0475553be6@mail.gmail.com>
+
+I'd like to know how can I do to obtain the interface in which I received a
+Beacon Packet. (In case we have more than one interface).
+I tried to add something to recv_packet like (h == base->recvHandle) but I
+get errors because it's a static member function.
+
+It could be the NodeId of the interface or something else.
+
+Thank you
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080514/f07bf4e6/attachment.html>
+
+From aherms at ivs.cs.uni-magdeburg.de  Fri May 16 10:34:45 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Fri, 16 May 2008 10:34:45 +0200
+Subject: [Awds-user] Interfaces
+In-Reply-To: <c60ab7b20805140751q6b7f3e12heef0dd0475553be6@mail.gmail.com>
+References: <c60ab7b20805140751q6b7f3e12heef0dd0475553be6@mail.gmail.com>
+Message-ID: <482D4725.8030905@ivs.cs.uni-magdeburg.de>
+
+
+> I'd like to know how can I do to obtain the interface in which I
+> received a Beacon Packet. (In case we have more than one interface).
+> I tried to add something to recv_packet like (h == base->recvHandle)
+> but I get errors because it's a static member function.
+This looks promising.
+The static member function means that you don't have the this pointer.
+However, you have the /self/ pointer instead.
+
+The function must be static, to create a function pointer on it.
+Therefore, we have to add the /this/ pointer as void * parameter and we
+have to call it /self/.
+
+> It could be the NodeId of the interface or something else.
+I think, using the Handle pointer as identifier is a good and efficient
+way of identifying the interface.
+
+Gruss
+
+Andr?
+
+
+
+
+From stefano1981 at gmail.com  Thu May 22 11:37:53 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Thu, 22 May 2008 11:37:53 +0200
+Subject: [Awds-user] Switch Interface
+Message-ID: <c60ab7b20805220237q5c79f98fnde7907b3b6699ae7@mail.gmail.com>
+
+Hello,
+
+I was able to modify the code in a way to make it run on multiple inerface
+(wired, wireless). The protocol looks like
+working quite well (I tested it with video streaming between two nodes and 5
+nodes between them). The problem is that if the wireless signal between two
+neighbors drops down (to simulate this I simply take out the wireless card
+from the node) it takes about 12 sec. to switch to the other wired interface
+and
+reach again the destination. Considering that the topology packet is sent
+quite often I think the problem is due to the time taken to clean up
+the table of neighbors. Do you know any way to reduce this time? Thank you.
+
+Another question: in AwdsRouting.cc there is the member function
+removeOldNeigh() , but it looks like it is not called by anywhere. What's it
+purpose?
+
+Stefano
+
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080522/6798e114/attachment.html>
+
+From stefano1981 at gmail.com  Thu May 22 15:27:53 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Thu, 22 May 2008 15:27:53 +0200
+Subject: [Awds-user] Updating neighboring List
+Message-ID: <c60ab7b20805220627x241b7cdanc5b81e8a50fd3c51@mail.gmail.com>
+
+Hi,
+
+I have connected two laptops through an ethernet cable. I run the awds
+protocol on both the machine and at a certain time I stop the
+awds protocol on one of the 2 machines. Nevertheless I noticed that for at
+least other 10 sec. after this, in the beacon packets of the
+Node that is still running, there is still the turned off neighbor. How can
+I do to reduce this time?
+
+Thank you,
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080522/c60abc10/attachment.html>
+
+From stefano1981 at gmail.com  Thu May 22 16:57:33 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Thu, 22 May 2008 16:57:33 +0200
+Subject: [Awds-user] ETX Metric
+Message-ID: <c60ab7b20805220757s519597des546d9011b7c82115@mail.gmail.com>
+
+I'd like to know how I can use the ETX Metric; is it sufficient to set up
+the enum x_metric in routing.h?
+
+Stefano
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080522/fb6fecf0/attachment.html>
+
+From aherms at ivs.cs.uni-magdeburg.de  Fri May 23 11:29:20 2008
+From: aherms at ivs.cs.uni-magdeburg.de (Andre Herms)
+Date: Fri, 23 May 2008 11:29:20 +0200
+Subject: [Awds-user] ETX Metric
+In-Reply-To: <c60ab7b20805220757s519597des546d9011b7c82115@mail.gmail.com>
+References: <c60ab7b20805220757s519597des546d9011b7c82115@mail.gmail.com>
+Message-ID: <48368E70.7080705@ivs.cs.uni-magdeburg.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+> I'd like to know how I can use the ETX Metric; is it sufficient to set up
+> the enum x_metric in routing.h?
+No - thats old stuff which should have been removed from the source code
+long time ago.
+
+It is much easier: Just load the etxmetric module after the awdsrouting
+module in start_awds. That's all.
+
+Andre
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iQEVAwUBSDaOcHtzP0XXjKbZAQKTYgf9HOcSunzG433LwAU5kKgv+VDoWQGINTwH
+l5jnGE3cUKCFJ55JY9oSbxih0EScdGcTYVn4oyxqM9zjWZRGHCQWXiSY2wA6/2bE
+MfA41LcTiaP8EqFZ0l+mcmhinRGOPhLR3WftkO7nNssygsOVAPXV/gEIkwbJmWlv
+0VK0+xuLUtrseUFE3/WJus0Fks746OsshasnKSqcePFfjKU5OieW/EvBPqtrysOS
+c0pCEXsTPDcWwzDj59TNaacwX+UwRghx77grtsjAwFuTq7HUvSfvgq8UUXWDUMwS
+oZ/B9i0UBS4zJrpmWeG6dLBX7VAig8Dy6Zm/6VLZj08qPhj82eDIHQ==
+=+lOg
+-----END PGP SIGNATURE-----
+
+
+From stefano1981 at gmail.com  Mon May 26 17:49:03 2008
+From: stefano1981 at gmail.com (Stefano Maurina)
+Date: Mon, 26 May 2008 17:49:03 +0200
+Subject: [Awds-user] Awds-user Digest, Vol 3, Issue 1
+In-Reply-To: <mailman.82.1210068223.29946.awds-user@lists.berlios.de>
+References: <mailman.82.1210068223.29946.awds-user@lists.berlios.de>
+Message-ID: <c60ab7b20805260849j1a5f4417m168756d4d972ff0d@mail.gmail.com>
+
+Hi Georg,
+
+I will be very grateful If you could send me the source / patch-set as you
+said. I'm gonna try If it is suitable in a
+heterogenous mesh network with wired and wireless interface.
+
+Thanks,
+
+Stefano
+
+On Tue, May 6, 2008 at 12:03 PM, <awds-user-request at lists.berlios.de> wrote:
+
+> Send Awds-user mailing list submissions to
+>        awds-user at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        https://lists.berlios.de/mailman/listinfo/awds-user
+> or, via email, send a message with subject or body 'help' to
+>        awds-user-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+>        awds-user-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Awds-user digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Run multiple interfaces (Stefano Maurina)
+>   2. Re: Run multiple interfaces (Georg Lukas)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 5 May 2008 18:02:29 +0200
+> From: "Stefano Maurina" <stefano1981 at gmail.com>
+> Subject: [Awds-user] Run multiple interfaces
+> To: awds-user at lists.berlios.de
+> Message-ID:
+>        <c60ab7b20805050902s6cca5b27u38754e8fa49f91c2 at mail.gmail.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Hi,
+> I'd like to run AWD on more than one interface, in particular on one
+> wireless and on one ethernet card;
+>
+> I tried to modify the code of rawbasic.cc in this way (in this case I'm
+> running it on a PC with 2 eth cards)
+>
+> GEA_MAIN_2(rawbasic, argc, argv)
+> {
+>
+>    RawBasic *basic;
+>    RawBasic *basic1;
+>
+>    const  char *netif = "eth0";
+>    const  char *netif1 = "eth1";
+>
+>    if (argc > 1)
+>    {
+>        netif = argv[1];
+>    }
+>
+>    basic = new RawBasic(netif);
+>    basic1 = new RawBasic(netif1);
+>
+>
+>    if (basic->raw_socket == -1)
+>    {
+>        GEA.dbg() << argv[0] <<
+>        ": cannot open raw socket interface on device " << netif <<
+> std::endl;
+>        return -1;
+>    }
+>
+>    if (basic1->raw_socket == -1)
+>    {
+>        GEA.dbg() << argv[0] <<
+>        ": cannot open raw socket interface on device " << netif1 <<
+> std::endl;
+>        return -1;
+>    }
+>
+>    //   basic->init(MyId);
+>
+>    ObjRepository& rep = ObjRepository::instance();
+>
+>    rep.insertObj("basic", "basic", (void*)basic);
+>    rep.insertObj("basic1", "basic", (void*)basic1);
+>
+>
+>    GEA.dbg() << "running RAW basic on " << basic->MyId << std::endl;
+>    GEA.dbg() << "running RAW basic on " << basic1->MyId << std::endl;
+>
+>
+>    //     basic->setSendDest(basic->BroadcastId);
+>    //     basic->sendHandle->write("Hallllllllllllllllllllo:  : ", 100);
+>
+>    return 0;
+> }
+>
+> and I obtain the following output:
+>
+> test at DSK:~/AWDS/Packages/awds-7.6$ sudo start_awds
+> Starting AWDS on eth0
+> TcpShell listening...
+> running RAW basic on 000E0C633E6C
+> running RAW basic on 00188B8B3F4E
+> let's go!
+> created device awds0
+>
+> The problem is that even If I create 2 sockets, the protocol sends the
+> beacons just on one interface; I tested it with wireshark;
+> So I guess I have to modify something in the awdsrouting.cc file; I'm
+> proceeding by steps, so I'd like to know what I should modify to make the
+> beacons sent on both the interfaces;
+>
+> Thanks
+> Stefano
+> --
+> Before printing this email, make sure it is really necessary. The
+> environment is in our hands.
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL:
+> https://lists.berlios.de/pipermail/awds-user/attachments/20080505/fa42a66c/attachment-0001.html
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Mon, 5 May 2008 18:28:46 +0200
+> From: Georg Lukas <georg at boerde.de>
+> Subject: Re: [Awds-user] Run multiple interfaces
+> To: awds-user at lists.berlios.de
+> Message-ID: <20080505162751.GA6152 at ovgu.de>
+> Content-Type: text/plain; charset="utf-8"
+>
+> Hello Stefano,
+>
+> * Stefano Maurina <stefano1981 at gmail.com> [2008-05-05 18:03]:
+> > I'd like to run AWD on more than one interface, in particular on one
+> > wireless and on one ethernet card;
+>
+> Unfortunately thats not quite straight forward.
+>
+> > I tried to modify the code of rawbasic.cc in this way (in this case I'm
+> > running it on a PC with 2 eth cards)
+> [snip]
+>
+> > The problem is that even If I create 2 sockets, the protocol sends the
+> > beacons just on one interface; I tested it with wireshark;
+>
+> > So I guess I have to modify something in the awdsrouting.cc file; I'm
+> > proceeding by steps, so I'd like to know what I should modify to make the
+> > beacons sent on both the interfaces;
+>
+> You also have to patch awdsrouting.cc to accept an argument, which
+> RawBasic instance to use. Then, you have to start two instances of
+> awdsrouting. Unfortunately, this will give you two different, separated
+> networks, which you already can achieve by starting two instances of
+> AWDS.
+>
+> You could also modify awdsrouting.cc to use multiple RawBasic
+> interfaces. Then, you have to send broadcast packets over all
+> interfaces, and unicast packets over the interface where the neighbor is
+> actually located. As of now, this information is not stored in AWDS.
+> Instead, you would have to add another MAC lookup table there, or use a
+> modified Linux bridge over the two devices, where you disable packet
+> forwarding and only use it for determining the right interface for a
+> destination MAC. This might be possible even without modifying AWDS at
+> all.
+>
+> The most elegant option is probably to include this functionality (MAC
+> lookup for unicat and usage of several sockets) into a new class
+> derived from RawBasic, which would transparently replace the old one.
+>
+> > there, or use a modified Linux bridge over the two devices, where you
+> > disable packet forwarding and only use it for determining the right
+> > interface for a destination MAC.
+>
+> There is also a multi-channel implementation of AWDS which already
+> supports using two different hardware interfaces. It is aimed at
+> increasing throughput when having two wireless NICs, but it might work
+> for your scenario. It contains a patched tapiface module to distribute
+> data over two different awdsrouting instances.
+>
+> Contact me off-list if you would like to have the source / patch-set.
+>
+> Kind regards,
+>
+> Georg
+> --
+> Real-Time Systems and Communication
+> Department of Distributed Systems (IVS)
+> Otto-von-Guericke-University Magdeburg
+> Tel: +49 391 6712788
+> PGP: 962FD2DE (georg at op-co.de)
+> -------------- next part --------------
+> A non-text attachment was scrubbed...
+> Name: not available
+> Type: application/pgp-signature
+> Size: 189 bytes
+> Desc: Digital signature
+> Url :
+> https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment-0001.pgp
+>
+> ------------------------------
+>
+> _______________________________________________
+> Awds-user mailing list
+> Awds-user at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/awds-user
+>
+>
+> End of Awds-user Digest, Vol 3, Issue 1
+> ***************************************
+>
+
+
+
+-- 
+Before printing this email, make sure it is really necessary. The
+environment is in our hands.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20080526/9f3a5adb/attachment.html>
+

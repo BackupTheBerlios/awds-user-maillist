@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] small Problems with start from apt-sources
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20small%20Problems%20with%20start%20from%20apt-sources&In-Reply-To=%3C460C31F6.20508%40gmx.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000000.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] small Problems with start from apt-sources</H1>
+    <B>Peter Ku&#223;mann</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20small%20Problems%20with%20start%20from%20apt-sources&In-Reply-To=%3C460C31F6.20508%40gmx.de%3E"
+       TITLE="[Awds-user] small Problems with start from apt-sources">peter.kussmann at gmx.de
+       </A><BR>
+    <I>Thu Mar 29 23:39:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000000.html">[Awds-user] Welcome
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[Awds-user] small Problems with start from apt-sources
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello List,
+
+i try to install awds from apt-sources.
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/home/peter# apt-cache search awds
+awds - A multi-hop routing for wireless ad-hoc networks
+awds-dev - This packages contains all header files of awds for creating
+awds-topoviewer - A topology viewer for the AWDS mesh routing
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+i look very nice - try to install
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/home/peter# apt-get install awds
+Paketlisten werden gelesen... Fertig
+Abh&#228;ngigkeitsbaum wird aufgebaut... Fertig
+Die folgenden zus&#228;tzlichen Pakete werden installiert:
+  libgea
+Die folgenden NEUEN Pakete werden installiert:
+  awds libgea
+0 aktualisiert, 2 neu installiert, 0 zu entfernen und 382 nicht
+aktualisiert.
+Es m&#252;ssen 185kB Archive geholt werden.
+Nach dem Auspacken werden 627kB Plattenplatz zus&#228;tzlich benutzt.
+M&#246;chten Sie fortfahren [J/n]? j
+WARNUNG: Die folgenden Pakete k&#246;nnen nicht authentifiziert werden!
+  libgea awds
+Diese Pakete ohne &#220;berpr&#252;fung installieren [j/N]? j
+Hole:1 <A HREF="http://aland.cs.uni-magdeburg.de">http://aland.cs.uni-magdeburg.de</A> unstable/main libgea 1.10 [34,6kB]
+Hole:2 <A HREF="http://aland.cs.uni-magdeburg.de">http://aland.cs.uni-magdeburg.de</A> unstable/main awds 6.0 [151kB]
+Es wurden 185kB in 2s geholt (75,7kB/s)
+W&#228;hle vormals abgew&#228;hltes Paket libgea.
+(Lese Datenbank ... 116123 Dateien und Verzeichnisse sind derzeit
+installiert.)
+Entpacke libgea (aus .../archives/libgea_1.10_i386.deb) ...
+W&#228;hle vormals abgew&#228;hltes Paket awds.
+Entpacke awds (aus .../apt/archives/awds_6.0_i386.deb) ...
+Richte libgea ein (1.10) ...
+
+Richte awds ein (6.0) ...
+gy viewer for the AWDS mesh routing
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+now i try &quot;start_awds&quot;
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# start_awds
+bash: /usr/local/sbin/start_awds: Datei oder Verzeichnis nicht gefunden
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+let's take a look to /usr/local/sbin/
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# ll /usr/local/sbin/
+insgesamt 28
+drwxrwsr-x  2 root staff  4096 2007-03-29 23:30 .
+drwxrwsr-x 12 root staff  4096 2007-03-15 16:23 ..
+-rwxr-xr-x  1 root staff 19335 2007-03-03 10:12 tf-tool
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+files &quot;start_awds&quot; and &quot;stop_awds&quot; are located in &quot;/usr/sbin&quot;
+
+quick and dirty - Solution:
+
+* start - snip from console *
+------------------------------------------------------------------------------------------------------------------
+debian:/# ln -s /usr/sbin/start_awds /usr/local/sbin/
+debian:/# ln -s /usr/sbin/stop_awds /usr/local/sbin/
+------------------------------------------------------------------------------------------------------------------
+* stop - snip from console *
+
+greetings from the lonley mountain
+
+Peter
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000000.html">[Awds-user] Welcome
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[Awds-user] small Problems with start from apt-sources
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

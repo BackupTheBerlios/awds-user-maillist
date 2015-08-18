@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812101622p53fe1961o149e2d389ccfa6b7%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000050.html">
+   <LINK REL="Next"  HREF="000051.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812101622p53fe1961o149e2d389ccfa6b7%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">breno at freeunix.com.br
+       </A><BR>
+    <I>Thu Dec 11 01:22:25 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000050.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000051.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Djamal (as a coincidence, my advisor's name is Djamel :)
+
+2008/12/10 Djamal-Eddine &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">meddour at gmail.com</A>&gt;:
+&gt;<i> Dear Breno
+</I>&gt;<i>
+</I>&gt;<i> in fact it is impossible to do multihopping with &quot;basic 802.11&quot; a/b/g/n, so
+</I>&gt;<i> it is not a belief, it is. That's why the IEEE is developping the 802.11s
+</I>&gt;<i> which enables such a feature.
+</I>
+     Yes, thanks for confirming this.
+
+&gt;<i> AWDS implements actually the MPR for flooding. and yes the broadcast at IP
+</I>&gt;<i> layer is achieved at layer 2 as well thanks to the AWDS protocols.
+</I>&gt;<i> Nevertheless I don't see any simplification since it works basically the
+</I>&gt;<i> same way either you use L3 or L2 protocols (every node in the network
+</I>&gt;<i> braodcasts the message)
+</I>
+   Actually, I disagree with you in this point. If I manage flooding
+at layer 3, I need to be dependent on the routing protocol being used,
+and the problem is being handled at the wrong layer, in my opnion. I
+mean, IP was build expecting that broadcasts reach the entire network,
+which is true in traditional ethernet, and infrastructured networks.
+But with multi-hopping this is not the case: a broadcast can only
+reach your neighbors, not the entire network. That kind of breaks the
+semantics of a broadcast, dont you think?
+
+best regards,
+
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000050.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000051.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

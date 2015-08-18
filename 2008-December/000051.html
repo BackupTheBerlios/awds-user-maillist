@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081210105137.GA10962%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   <LINK REL="Next"  HREF="000053.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C20081210105137.GA10962%40boerde.de%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">georg at boerde.de
+       </A><BR>
+    <I>Wed Dec 10 11:51:37 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000053.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Breno,
+
+* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-10 11:45]:
+&gt;<i>      So, my question is: now that AWDS implements and demonstrates
+</I>&gt;<i> layer-2 multihopping, does it mean that the IP broadcast are, under
+</I>&gt;<i> the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+</I>&gt;<i> AWDS is likely to reach all nodes, even if they are only reachable by
+</I>&gt;<i> multi-hop? If that's true, than I think there's a lot of potentials
+</I>&gt;<i> for simplifying many problems depending on flooding.
+</I>
+AWDS behaves like a transparent Ethernet switch between all the nodes in
+a multi-hop network; that means that broadcast Ethernet frames
+(including IP/UDP broadcast) are flooded through the network. Thus, they
+have a high probability to reach even distant nodes.
+
+What kind of problems are you referring to?
+
+&gt;<i>      Another question is: since AWDS uses ideas from OLSR, does it use
+</I>&gt;<i> MPR for flooding?
+</I>
+The MPR approach has been implemented, but was disabled later on. The
+reason for this is that generally, broadcast messaging is not very
+reliable and has rather high probability of packet loss. When enabling
+MPR in networks with low density (like typical WMNs or roof nets), the
+flooding success is noticeably reduced. This conclusion was also made by
+the Freifunk community, and IIRC the MPR mechanism is disabled there
+too.
+
+Kind regards,
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000053.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

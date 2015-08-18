@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Run multiple interfaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Run%20multiple%20interfaces&In-Reply-To=%3C20080505162751.GA6152%40ovgu.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000020.html">
+   <LINK REL="Next"  HREF="000022.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Run multiple interfaces</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Run%20multiple%20interfaces&In-Reply-To=%3C20080505162751.GA6152%40ovgu.de%3E"
+       TITLE="[Awds-user] Run multiple interfaces">georg at boerde.de
+       </A><BR>
+    <I>Mon May  5 18:28:46 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000020.html">[Awds-user] Run multiple interfaces
+</A></li>
+        <LI>Next message: <A HREF="000022.html">[Awds-user] Interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Stefano,
+
+* Stefano Maurina &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">stefano1981 at gmail.com</A>&gt; [2008-05-05 18:03]:
+&gt;<i> I'd like to run AWD on more than one interface, in particular on one
+</I>&gt;<i> wireless and on one ethernet card;
+</I>
+Unfortunately thats not quite straight forward.
+ 
+&gt;<i> I tried to modify the code of rawbasic.cc in this way (in this case I'm
+</I>&gt;<i> running it on a PC with 2 eth cards)
+</I>[snip]
+
+&gt;<i> The problem is that even If I create 2 sockets, the protocol sends the
+</I>&gt;<i> beacons just on one interface; I tested it with wireshark;
+</I>
+&gt;<i> So I guess I have to modify something in the awdsrouting.cc file; I'm
+</I>&gt;<i> proceeding by steps, so I'd like to know what I should modify to make the
+</I>&gt;<i> beacons sent on both the interfaces;
+</I>
+You also have to patch awdsrouting.cc to accept an argument, which
+RawBasic instance to use. Then, you have to start two instances of
+awdsrouting. Unfortunately, this will give you two different, separated
+networks, which you already can achieve by starting two instances of
+AWDS.
+
+You could also modify awdsrouting.cc to use multiple RawBasic
+interfaces. Then, you have to send broadcast packets over all
+interfaces, and unicast packets over the interface where the neighbor is
+actually located. As of now, this information is not stored in AWDS.
+Instead, you would have to add another MAC lookup table there, or use a
+modified Linux bridge over the two devices, where you disable packet
+forwarding and only use it for determining the right interface for a
+destination MAC. This might be possible even without modifying AWDS at
+all.
+
+The most elegant option is probably to include this functionality (MAC
+lookup for unicat and usage of several sockets) into a new class
+derived from RawBasic, which would transparently replace the old one.
+
+&gt;<i> there, or use a modified Linux bridge over the two devices, where you
+</I>&gt;<i> disable packet forwarding and only use it for determining the right
+</I>&gt;<i> interface for a destination MAC.
+</I>
+There is also a multi-channel implementation of AWDS which already
+supports using two different hardware interfaces. It is aimed at
+increasing throughput when having two wireless NICs, but it might work
+for your scenario. It contains a patched tapiface module to distribute
+data over two different awdsrouting instances.
+
+Contact me off-list if you would like to have the source / patch-set.
+
+Kind regards,
+
+Georg
+-- 
+Real-Time Systems and Communication
+Department of Distributed Systems (IVS)
+Otto-von-Guericke-University Magdeburg
+Tel: +49 391 6712788
+PGP: 962FD2DE (<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">georg at op-co.de</A>)
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080505/a0a9f71e/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000020.html">[Awds-user] Run multiple interfaces
+</A></li>
+	<LI>Next message: <A HREF="000022.html">[Awds-user] Interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

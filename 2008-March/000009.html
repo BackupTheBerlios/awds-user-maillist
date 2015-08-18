@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds&In-Reply-To=%3C200803121356.37134.aherms%40ivs.cs.uni-magdeburg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds</H1>
+    <B>Andre Herms</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds&In-Reply-To=%3C200803121356.37134.aherms%40ivs.cs.uni-magdeburg.de%3E"
+       TITLE="[Awds-user] Awds">aherms at ivs.cs.uni-magdeburg.de
+       </A><BR>
+    <I>Wed Mar 12 13:56:31 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Awds-user] Awds
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[Awds-user] Awds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Am Tuesday, 11. March 2008 schrieb <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">djamal.meddour at orange-ftgroup.com</A>:
+&gt;<i> Dear All,
+</I>&gt;<i>
+</I>&gt;<i> Do you know how to retrieve the forwarding table? Means how to now the
+</I>&gt;<i> next hop to the destination in more then 1 hop secnario
+</I>
+Yes, I know ;-).
+It should be possible via the shell. We only have to add some lines of code. 
+
+... let's see .... 
+
+Okay -- I've added a new command &quot;topo nexthops&quot;. It dumps the information you 
+want. 
+
+Just connect to the awds shell (telnet localhost 8444), and enter 
+&quot;topo nexthops&quot;. Please make sure that the shell is enabled in the awds.conf.
+
+First, you must get the latest version of my git tree
+:<i> git clone aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git
+</I>
+That's it. 
+
+&gt;<i> Also, is it possible to apply a specific metric for the routing
+</I>&gt;<i> (available bandwidth for instance)without modifying the code?
+</I>Yes, it is. In theory, you can load an arbitrary metric module in start_awds. 
+There are already some metrics like ETX (Expected Transmit Count) or RTT 
+(Round Trip Time). You only have to load the corresponding module. 
+If you want to have you own metric (like something that considers bandwidth) 
+you have to write a new metric module. 
+
+If you have further questions, go on and ask. 
+
+Regards,
+
+Andr&#233;
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 481 bytes
+Desc: This is a digitally signed message part.
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20080312/0c559d42/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20080312/0c559d42/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Awds-user] Awds
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[Awds-user] Awds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] multi-channel implementation of AWDS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20multi-channel%20implementation%20of%20AWDS&In-Reply-To=%3C20081210124809.GB10962%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   <LINK REL="Next"  HREF="000055.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] multi-channel implementation of AWDS</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20multi-channel%20implementation%20of%20AWDS&In-Reply-To=%3C20081210124809.GB10962%40boerde.de%3E"
+       TITLE="[Awds-user] multi-channel implementation of AWDS">georg at boerde.de
+       </A><BR>
+    <I>Wed Dec 10 13:48:10 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+        <LI>Next message: <A HREF="000055.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#52">[ date ]</a>
+              <a href="thread.html#52">[ thread ]</a>
+              <a href="subject.html#52">[ subject ]</a>
+              <a href="author.html#52">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Frank,
+
+* Frank Knox &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">fknox at csspi.com</A>&gt; [2008-12-10 13:00]:
+&gt;<i> Hello still trying to find out about the patch or source for multi-channel
+</I>&gt;<i> implementation of AWDS
+</I>
+sorry that I have let you wait for so long. I was just too busy to
+integrate my student's code into my own git.
+
+Now, there are two slightly different implementations of the &quot;routing&quot;
+part: To optimize the throughput on the network, a channel load
+balancing is used on multi-hop connections, and the methods to find the
+best channel combinations are not quite trivial.
+
+You can get the code from my git repository with
+
+$ git clone <A HREF="http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/">http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/</A>
+
+(or git remote add glukas <A HREF="http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/">http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/</A>
+in your existing git tree)
+
+The relevant code is in the &quot;multichannel&quot; and &quot;multichannel_bruteforce&quot;
+branches, but the changes you are looking for are probably common to both.
+
+However, the source code is based on a rather outdated version of AWDS,
+and I do not have the time to merge it with the current development.
+
+You can probably cherry-pick some of the elements from there into HEAD,
+or maybe try to merge the changes. Try your luck! :)
+
+
+Kind regards,
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081210/2e173e3a/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081210/2e173e3a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Awds-user] multi-channel implementation of AWDS
+</A></li>
+	<LI>Next message: <A HREF="000055.html">[Awds-user] libGEA not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#52">[ date ]</a>
+              <a href="thread.html#52">[ thread ]</a>
+              <a href="subject.html#52">[ subject ]</a>
+              <a href="author.html#52">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

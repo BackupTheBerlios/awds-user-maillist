@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Multiple Interfaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Multiple%20Interfaces&In-Reply-To=%3C20081217141656.GL14622%40boerde.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000062.html">
+   <LINK REL="Next"  HREF="000067.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Multiple Interfaces</H1>
+    <B>Georg Lukas</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Multiple%20Interfaces&In-Reply-To=%3C20081217141656.GL14622%40boerde.de%3E"
+       TITLE="[Awds-user] Multiple Interfaces">georg at boerde.de
+       </A><BR>
+    <I>Wed Dec 17 15:16:57 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000062.html">[Awds-user] Multiple Interfaces
+</A></li>
+        <LI>Next message: <A HREF="000067.html">[Awds-user] Multiple Interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Breno,
+
+* Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt; [2008-12-16 20:51]:
+&gt;<i>    I'd like to know if AWDS supports a host with multiple (802.11)
+</I>&gt;<i> interfaces, and if it does, how is it seen from the routing table
+</I>&gt;<i> stand-point? I mean, to the routing protocol, it sees two diferent
+</I>&gt;<i> hosts (because they are supposed to have different addresses) or as a
+</I>&gt;<i> single one?
+</I>
+If you use two cards on the same channel, there will be no benefit
+because the cards have to share the medium access. Probably you will see
+two distinct nodes which could send packets to each other, however we
+have never tested it and I have no idea what would happen -- probably
+you can expect that the universe will not collapse ;-)
+
+If you use different wireless channels, you will have separate
+topologies on the channels; you will need an extension of AWDS to
+combine the bandwidth of both channels though. You can get the code from
+the following git tree:
+
+$ git clone <A HREF="http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/">http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/</A>
+
+(or git remote add glukas
+<A HREF="http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/">http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/</A>
+in your existing git tree)
+
+The extensions are in the &quot;multichannel&quot; and &quot;multichannel_bruteforce&quot;
+branches, using different approaches for bandwidth usage.
+
+You will need a part of these changesets anyway to allow usage of
+several &quot;rawbasic&quot; modules in the same AWDS routing -- as it is
+implemented right now, AWDS expects exactly one basic module, which is
+bound to exactly one network card.
+
+If you can describe in more depth what you would like to achieve, we can
+probably give you better hints on how to do it :)
+
+Kind regards,
+
+Georg
+-- 
+||<i> <A HREF="http://op-co.de">http://op-co.de</A> ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+</I>||<i> gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+</I>||<i> Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+</I>++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081217/c75dd829/attachment.pgp">https://lists.berlios.de/pipermail/awds-user/attachments/20081217/c75dd829/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000062.html">[Awds-user] Multiple Interfaces
+</A></li>
+	<LI>Next message: <A HREF="000067.html">[Awds-user] Multiple Interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

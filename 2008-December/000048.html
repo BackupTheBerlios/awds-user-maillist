@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812081930u70b333e9gc155af6986e7d76%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000050.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Breno Jacinto</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3C2ced936d0812081930u70b333e9gc155af6986e7d76%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">breno at freeunix.com.br
+       </A><BR>
+    <I>Tue Dec  9 04:30:22 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000050.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#48">[ date ]</a>
+              <a href="thread.html#48">[ thread ]</a>
+              <a href="subject.html#48">[ subject ]</a>
+              <a href="author.html#48">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+     My question is simple, but unfortunately I couldn't find in the
+documentation.
+
+     AWDS is supposed to be a layer 2 multi-hop 802.11 network, which
+means that, it goes against the belief that multihopping at 802.11
+layer 2 is not possible. This belief is what has driven the huge
+development of routing protocol using IP as a way of emulating
+multihopping, when in fact the underlying (real) network is a simple
+point-to-point.
+
+     So, my question is: now that AWDS implements and demonstrates
+layer-2 multihopping, does it mean that the IP broadcast are, under
+the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+AWDS is likely to reach all nodes, even if they are only reachable by
+multi-hop? If that's true, than I think there's a lot of potentials
+for simplifying many problems depending on flooding.
+
+     Another question is: since AWDS uses ideas from OLSR, does it use
+MPR for flooding?
+
+regards,
+
+-- 
+-- 
+::<i> Breno Jacinto ::
+</I>::<i> breno - at - gprt.ufpe.br ::
+</I>::<i> FingerPrint ::
+</I>   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+::<i> Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000050.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#48">[ date ]</a>
+              <a href="thread.html#48">[ thread ]</a>
+              <a href="subject.html#48">[ subject ]</a>
+              <a href="author.html#48">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

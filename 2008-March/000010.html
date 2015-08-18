@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Awds
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds&In-Reply-To=%3CD4EF10CCEB2CE742BEEA9838C590B0E8091DACCA%40ftrdmel2%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Awds</H1>
+    <B>djamal.meddour at orange-ftgroup.com</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Awds&In-Reply-To=%3CD4EF10CCEB2CE742BEEA9838C590B0E8091DACCA%40ftrdmel2%3E"
+       TITLE="[Awds-user] Awds">djamal.meddour at orange-ftgroup.com
+       </A><BR>
+    <I>Wed Mar 12 17:49:31 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Awds-user] Awds
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[Awds-user] Awds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear All,
+
+Is there someone who already used the debugging shell. Actually I tried nc localhost 8444 and I get connection refused. I took a look using netstat on what is running on port 8444 and it seems nothing is there
+
+Any idea
+
+Best Regards
+
+Djamal
+
+-----Message d'origine-----
+De : Andre Herms [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">aherms at ivs.cs.uni-magdeburg.de</A>] 
+Envoy&#233; : mercredi 12 mars 2008 13:57
+&#192; : MEDDOUR Djamal RD-CORE-LAN
+Cc : <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">awds-user at lists.berlios.de</A>
+Objet : Re: Awds
+
+Am Tuesday, 11. March 2008 schrieb <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">djamal.meddour at orange-ftgroup.com</A>:
+&gt;<i> Dear All,
+</I>&gt;<i>
+</I>&gt;<i> Do you know how to retrieve the forwarding table? Means how to now the 
+</I>&gt;<i> next hop to the destination in more then 1 hop secnario
+</I>
+Yes, I know ;-).
+It should be possible via the shell. We only have to add some lines of code. 
+
+... let's see .... 
+
+Okay -- I've added a new command &quot;topo nexthops&quot;. It dumps the information you want. 
+
+Just connect to the awds shell (telnet localhost 8444), and enter &quot;topo nexthops&quot;. Please make sure that the shell is enabled in the awds.conf.
+
+First, you must get the latest version of my git tree
+:<i> git clone aland.cs.uni-magdeburg.de/~aherms/awds-aherms.git
+</I>
+That's it. 
+
+&gt;<i> Also, is it possible to apply a specific metric for the routing 
+</I>&gt;<i> (available bandwidth for instance)without modifying the code?
+</I>Yes, it is. In theory, you can load an arbitrary metric module in start_awds. 
+There are already some metrics like ETX (Expected Transmit Count) or RTT (Round Trip Time). You only have to load the corresponding module. 
+If you want to have you own metric (like something that considers bandwidth) you have to write a new metric module. 
+
+If you have further questions, go on and ask. 
+
+Regards,
+
+Andr&#233;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Awds-user] Awds
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[Awds-user] Awds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,1550 @@
+From breno at freeunix.com.br  Tue Dec  9 04:30:22 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Tue, 9 Dec 2008 00:30:22 -0300
+Subject: [Awds-user] Flooding via IP broadcast
+Message-ID: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+
+Hello,
+
+     My question is simple, but unfortunately I couldn't find in the
+documentation.
+
+     AWDS is supposed to be a layer 2 multi-hop 802.11 network, which
+means that, it goes against the belief that multihopping at 802.11
+layer 2 is not possible. This belief is what has driven the huge
+development of routing protocol using IP as a way of emulating
+multihopping, when in fact the underlying (real) network is a simple
+point-to-point.
+
+     So, my question is: now that AWDS implements and demonstrates
+layer-2 multihopping, does it mean that the IP broadcast are, under
+the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+AWDS is likely to reach all nodes, even if they are only reachable by
+multi-hop? If that's true, than I think there's a lot of potentials
+for simplifying many problems depending on flooding.
+
+     Another question is: since AWDS uses ideas from OLSR, does it use
+MPR for flooding?
+
+regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From fknox at csspi.com  Wed Dec 10 06:02:31 2008
+From: fknox at csspi.com (Frank Knox)
+Date: Wed, 10 Dec 2008 00:02:31 -0500
+Subject: [Awds-user] multi-channel implementation of AWDS
+Message-ID: <023901c95a84$82fd6fc0$0d16a8c0@FranksLPT>
+
+Hello still trying to find out about the patch or source for multi-channel
+implementation of AWDS
+
+ 
+
+Any help would be appreciated.
+
+ 
+
+Thanks
+
+ 
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081210/67f67797/attachment.html>
+
+From meddour at gmail.com  Wed Dec 10 11:50:36 2008
+From: meddour at gmail.com (Djamal-Eddine)
+Date: Wed, 10 Dec 2008 11:50:36 +0100
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+Message-ID: <a14701250812100250y6324e0c1vef3881b4f57e4bde@mail.gmail.com>
+
+Dear Breno
+
+in fact it is impossible to do multihopping with "basic 802.11" a/b/g/n, so
+it is not a belief, it is. That's why the IEEE is developping the 802.11s
+which enables such a feature.
+
+AWDS implements actually the MPR for flooding. and yes the broadcast at IP
+layer is achieved at layer 2 as well thanks to the AWDS protocols.
+Nevertheless I don't see any simplification since it works basically the
+same way either you use L3 or L2 protocols (every node in the network
+braodcasts the message)
+
+KR
+
+
+2008/12/9 Breno Jacinto <breno at freeunix.com.br>
+
+> Hello,
+>
+>     My question is simple, but unfortunately I couldn't find in the
+> documentation.
+>
+>     AWDS is supposed to be a layer 2 multi-hop 802.11 network, which
+> means that, it goes against the belief that multihopping at 802.11
+> layer 2 is not possible. This belief is what has driven the huge
+> development of routing protocol using IP as a way of emulating
+> multihopping, when in fact the underlying (real) network is a simple
+> point-to-point.
+>
+>     So, my question is: now that AWDS implements and demonstrates
+> layer-2 multihopping, does it mean that the IP broadcast are, under
+> the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+> AWDS is likely to reach all nodes, even if they are only reachable by
+> multi-hop? If that's true, than I think there's a lot of potentials
+> for simplifying many problems depending on flooding.
+>
+> Another question is: since AWDS uses ideas from OLSR, does it use
+> MPR for flooding?
+>
+> regards,
+>
+> --
+> --
+> :: Breno Jacinto ::
+> :: breno - at - gprt.ufpe.br ::
+> :: FingerPrint ::
+>   2F15 8A61 F566 E442 8581
+>   E3C0 EFF4 E202 74B7 7484
+> :: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+> _______________________________________________
+> Awds-user mailing list
+> Awds-user at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/awds-user
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081210/ca928ce8/attachment.html>
+
+From georg at boerde.de  Wed Dec 10 11:51:37 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Wed, 10 Dec 2008 11:51:37 +0100
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+Message-ID: <20081210105137.GA10962@boerde.de>
+
+Hello Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-10 11:45]:
+>      So, my question is: now that AWDS implements and demonstrates
+> layer-2 multihopping, does it mean that the IP broadcast are, under
+> the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+> AWDS is likely to reach all nodes, even if they are only reachable by
+> multi-hop? If that's true, than I think there's a lot of potentials
+> for simplifying many problems depending on flooding.
+
+AWDS behaves like a transparent Ethernet switch between all the nodes in
+a multi-hop network; that means that broadcast Ethernet frames
+(including IP/UDP broadcast) are flooded through the network. Thus, they
+have a high probability to reach even distant nodes.
+
+What kind of problems are you referring to?
+
+>      Another question is: since AWDS uses ideas from OLSR, does it use
+> MPR for flooding?
+
+The MPR approach has been implemented, but was disabled later on. The
+reason for this is that generally, broadcast messaging is not very
+reliable and has rather high probability of packet loss. When enabling
+MPR in networks with low density (like typical WMNs or roof nets), the
+flooding success is noticeably reduced. This conclusion was also made by
+the Freifunk community, and IIRC the MPR mechanism is disabled there
+too.
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+
+
+From georg at boerde.de  Wed Dec 10 13:48:10 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Wed, 10 Dec 2008 13:48:10 +0100
+Subject: [Awds-user] multi-channel implementation of AWDS
+In-Reply-To: <023901c95a84$82fd6fc0$0d16a8c0@FranksLPT>
+References: <023901c95a84$82fd6fc0$0d16a8c0@FranksLPT>
+Message-ID: <20081210124809.GB10962@boerde.de>
+
+Hi Frank,
+
+* Frank Knox <fknox at csspi.com> [2008-12-10 13:00]:
+> Hello still trying to find out about the patch or source for multi-channel
+> implementation of AWDS
+
+sorry that I have let you wait for so long. I was just too busy to
+integrate my student's code into my own git.
+
+Now, there are two slightly different implementations of the "routing"
+part: To optimize the throughput on the network, a channel load
+balancing is used on multi-hop connections, and the methods to find the
+best channel combinations are not quite trivial.
+
+You can get the code from my git repository with
+
+$ git clone http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+
+(or git remote add glukas http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+in your existing git tree)
+
+The relevant code is in the "multichannel" and "multichannel_bruteforce"
+branches, but the changes you are looking for are probably common to both.
+
+However, the source code is based on a rather outdated version of AWDS,
+and I do not have the time to merge it with the current development.
+
+You can probably cherry-pick some of the elements from there into HEAD,
+or maybe try to merge the changes. Try your luck! :)
+
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081210/2e173e3a/attachment.pgp>
+
+From breno at freeunix.com.br  Wed Dec 10 23:50:18 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Wed, 10 Dec 2008 19:50:18 -0300
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <20081210105137.GA10962@boerde.de>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+	<20081210105137.GA10962@boerde.de>
+Message-ID: <2ced936d0812101450w6f27ecc5ye715b58202a31fa9@mail.gmail.com>
+
+Hello Georg,
+
+2008/12/10 Georg Lukas <georg at boerde.de>:
+
+> AWDS behaves like a transparent Ethernet switch between all the nodes in
+> a multi-hop network; that means that broadcast Ethernet frames
+> (including IP/UDP broadcast) are flooded through the network. Thus, they
+> have a high probability to reach even distant nodes.
+>
+> What kind of problems are you referring to?
+
+       Yes, that's precisely what I needed to know. I'm working on an
+heterogeneous network scenario, where I'll make a Bluetooth PAN
+network, an 802.11g multihop ad hoc network and an ethernet network
+talk to each other. This way, each  gateway for each of these IP
+networks or even participating nodes must be able to flood some data
+into these networks. Now, this simple on a single-hop scenario
+(Ethernet and Bluetooth) within a single MAC domain, but in the case
+of 802.11 it requires some form of multi-hop broadcast. So, AWDS will
+provide me with the missing piece: I can flood a UDP packet to the
+802.11 network and hope that all nodes will receive it, even if that
+happens to be multi-hop (AWDS will handle it, as you said).
+
+      So, I may assume that a simple ping, which results in an ARP
+broadcast, will actually became an ARP flood? This is quite amazing to
+me :).
+
+
+>>      Another question is: since AWDS uses ideas from OLSR, does it use
+>> MPR for flooding?
+>
+> The MPR approach has been implemented, but was disabled later on. The
+> reason for this is that generally, broadcast messaging is not very
+> reliable and has rather high probability of packet loss. When enabling
+> MPR in networks with low density (like typical WMNs or roof nets), the
+> flooding success is noticeably reduced. This conclusion was also made by
+> the Freifunk community, and IIRC the MPR mechanism is disabled there
+> too.
+
+    Right, yes, I read a lot about the B.A.T.M.A.N. project and they
+mention MPR limitations and the reason they are creating a new
+protocol. By the way, if AWDS does not use MPR flooding optimizations
+for flooding, does it use another mechanism? Because simple
+rebroadcasts would lead to the classic broadcast storm problem.
+
+    Lastly, is there any article on AWDS? It seems to be such as
+amazing project that is not known in academia, as far as I know. I'll
+certainly mention it in my master's dissertation, and if there isnt
+anything written about it, I'll be glad to write an article or paper
+about it.
+
+> Kind regards,
+>
+> Georg
+> --
+> || http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+> || gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+> || Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+> ++ IRCnet OFTC OPN ||________________________________________________||
+
+
+best regards,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From breno at freeunix.com.br  Thu Dec 11 01:22:25 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Wed, 10 Dec 2008 21:22:25 -0300
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <a14701250812100250y6324e0c1vef3881b4f57e4bde@mail.gmail.com>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+	<a14701250812100250y6324e0c1vef3881b4f57e4bde@mail.gmail.com>
+Message-ID: <2ced936d0812101622p53fe1961o149e2d389ccfa6b7@mail.gmail.com>
+
+Hello Djamal (as a coincidence, my advisor's name is Djamel :)
+
+2008/12/10 Djamal-Eddine <meddour at gmail.com>:
+> Dear Breno
+>
+> in fact it is impossible to do multihopping with "basic 802.11" a/b/g/n, so
+> it is not a belief, it is. That's why the IEEE is developping the 802.11s
+> which enables such a feature.
+
+     Yes, thanks for confirming this.
+
+> AWDS implements actually the MPR for flooding. and yes the broadcast at IP
+> layer is achieved at layer 2 as well thanks to the AWDS protocols.
+> Nevertheless I don't see any simplification since it works basically the
+> same way either you use L3 or L2 protocols (every node in the network
+> braodcasts the message)
+
+   Actually, I disagree with you in this point. If I manage flooding
+at layer 3, I need to be dependent on the routing protocol being used,
+and the problem is being handled at the wrong layer, in my opnion. I
+mean, IP was build expecting that broadcasts reach the entire network,
+which is true in traditional ethernet, and infrastructured networks.
+But with multi-hopping this is not the case: a broadcast can only
+reach your neighbors, not the entire network. That kind of breaks the
+semantics of a broadcast, dont you think?
+
+best regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From breno at freeunix.com.br  Thu Dec 11 02:48:16 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Wed, 10 Dec 2008 22:48:16 -0300
+Subject: [Awds-user] libGEA not found
+Message-ID: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+
+Hello guys,
+
+    I'm trying to install AWDS on two notebooks for testing, but on
+both of them (one runs Ubuntu 7.04, the other, the BackTrack 3.0
+distro), AWDS cant seem to find libGEA:
+....
+appending configuration tag "F77" to libtool
+checking checking if compiler support -fvisibility=hidden... yes
+checking for GEA... no
+configure: error: GEA not found
+
+   Now, libGea installled successfully at /usr/local/lib:
+
+root at breno-notebook:~/awds-8.8# ls /usr/local/lib/
+awds           libgea3-posix.a         libgea-posix.la        liborcon-1.0.0.so
+libdnet        libgea3-posix.la        libgea-posix.so        liborcon.a
+libdnet.1      libgea3-posix.so        libgea-posix.so.1      liborcon.la
+libdnet.1.0.1  libgea3-posix.so.3      libgea-posix.so.1.0.9  liborcon.so
+libdnet.a      libgea3-posix.so.3.0.3  libgea-utils.a         perl
+libdnet.la     libgea3.so              libgea-utils.la        pkgconfig
+libGammu.a     libgea3.so.3            libgea-utils.so        python2.4
+libgea3.a      libgea3.so.3.0.3        libgea-utils.so.0      python2.5
+libgea3.la     libgea-posix.a          libgea-utils.so.0.0.0  site_ruby
+
+   And includes are at:
+
+root at breno-notebook:~/awds-8.8# ls /usr/local/include/gea/
+AnimLink.h  compat.h        _FlowTracker.h  ObjRepository.h  utils
+API.h       config.h        gea_main.h      posix
+ApiIface.h  DependHandle.h  Handle.h        Time.h
+Blocker.h   EventHandler.h  NodeColor.h     UdpHandle.h
+
+    Yet, in the configure file:
+
+GEAINC="-I/usr/include"
+GEALIB="-L/usr/lib -lgea3-posix"
+GEALIBDIR="/usr/lib"
+
+     But changing it to the proper paths doesnt seem to fix the problem:
+
+GEAINC="-I/usr/local/include/gea"
+GEALIB="-L/usr/local/lib/ -lgea3-posix"
+GEALIBDIR="/usr/local/lib/"
+...
+checking checking if compiler support -fvisibility=hidden... yes
+checking for GEA... no
+configure: error: GEA not found
+
+   So, am I missing something here, or should I hack even further at
+the configure file? Any hint is appreciated :)
+
+best regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From patrick.andrieux at gmail.com  Thu Dec 11 09:41:54 2008
+From: patrick.andrieux at gmail.com (Patrick ANDRIEUX)
+Date: Thu, 11 Dec 2008 09:41:54 +0100
+Subject: [Awds-user] libGEA not found
+In-Reply-To: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+References: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+Message-ID: <fca78b970812110041t4e8d52cbs8b89b656e93a04a5@mail.gmail.com>
+
+Hi Breno,
+
+I had issues installing AWDS related to libgea.
+I don't remember whether or not it was the same problem I had but you can
+try to run the command
+` sudo make install ' twice when you install libgea
+
+This solved my problem.
+
+regards,
+Patrick ANDRIEUX
+
+
+
+On Thu, Dec 11, 2008 at 2:48 AM, Breno Jacinto <breno at freeunix.com.br>wrote:
+
+> Hello guys,
+>
+>    I'm trying to install AWDS on two notebooks for testing, but on
+> both of them (one runs Ubuntu 7.04, the other, the BackTrack 3.0
+> distro), AWDS cant seem to find libGEA:
+> ....
+> appending configuration tag "F77" to libtool
+> checking checking if compiler support -fvisibility=hidden... yes
+> checking for GEA... no
+> configure: error: GEA not found
+>
+>   Now, libGea installled successfully at /usr/local/lib:
+>
+> root at breno-notebook:~/awds-8.8# ls /usr/local/lib/
+> awds           libgea3-posix.a         libgea-posix.la
+> liborcon-1.0.0.so
+> libdnet        libgea3-posix.la        libgea-posix.so        liborcon.a
+> libdnet.1      libgea3-posix.so        libgea-posix.so.1      liborcon.la
+> libdnet.1.0.1  libgea3-posix.so.3      libgea-posix.so.1.0.9  liborcon.so
+> libdnet.a      libgea3-posix.so.3.0.3  libgea-utils.a         perl
+> libdnet.la     libgea3.so              libgea-utils.la        pkgconfig
+> libGammu.a     libgea3.so.3            libgea-utils.so        python2.4
+> libgea3.a      libgea3.so.3.0.3        libgea-utils.so.0      python2.5
+> libgea3.la     libgea-posix.a          libgea-utils.so.0.0.0  site_ruby
+>
+>   And includes are at:
+>
+> root at breno-notebook:~/awds-8.8# ls /usr/local/include/gea/
+> AnimLink.h  compat.h        _FlowTracker.h  ObjRepository.h  utils
+> API.h       config.h        gea_main.h      posix
+> ApiIface.h  DependHandle.h  Handle.h        Time.h
+> Blocker.h   EventHandler.h  NodeColor.h     UdpHandle.h
+>
+>    Yet, in the configure file:
+>
+> GEAINC="-I/usr/include"
+> GEALIB="-L/usr/lib -lgea3-posix"
+> GEALIBDIR="/usr/lib"
+>
+>     But changing it to the proper paths doesnt seem to fix the problem:
+>
+> GEAINC="-I/usr/local/include/gea"
+> GEALIB="-L/usr/local/lib/ -lgea3-posix"
+> GEALIBDIR="/usr/local/lib/"
+> ...
+> checking checking if compiler support -fvisibility=hidden... yes
+> checking for GEA... no
+> configure: error: GEA not found
+>
+>   So, am I missing something here, or should I hack even further at
+> the configure file? Any hint is appreciated :)
+>
+> best regards,
+>
+> --
+> --
+> :: Breno Jacinto ::
+> :: breno - at - gprt.ufpe.br ::
+> :: FingerPrint ::
+>   2F15 8A61 F566 E442 8581
+>   E3C0 EFF4 E202 74B7 7484
+> :: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+> _______________________________________________
+> Awds-user mailing list
+> Awds-user at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/awds-user
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081211/3309becc/attachment.html>
+
+From georg at boerde.de  Thu Dec 11 11:21:59 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Thu, 11 Dec 2008 11:21:59 +0100
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <2ced936d0812101450w6f27ecc5ye715b58202a31fa9@mail.gmail.com>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+	<20081210105137.GA10962@boerde.de>
+	<2ced936d0812101450w6f27ecc5ye715b58202a31fa9@mail.gmail.com>
+Message-ID: <20081211102158.GA16197@boerde.de>
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-11 10:46]:
+> 2008/12/10 Georg Lukas <georg at boerde.de>:
+>       So, I may assume that a simple ping, which results in an ARP
+> broadcast, will actually became an ARP flood? This is quite amazing to
+> me :).
+
+Exactly. Also, the tapiface2 module remembers the MAC address of the
+sender and the according awds node MAC, so that the ARP reply (a
+unicast) is automatically directed to the requester as a multi-hop
+unicast packet.
+
+Another mechanism forces the flooding of unicast packets when the
+destination MAC is not known - this ensures that the destination is
+reached, and also mimics Ethernet switch behaviour.
+
+> By the way, if AWDS does not use MPR flooding optimizations
+> for flooding, does it use another mechanism? Because simple
+> rebroadcasts would lead to the classic broadcast storm problem.
+
+Indeed. However this problem is not that bad for mid-sized networks.
+Also, the AWDS topology updates are sent less frequently when the
+network increases, which also helps mitigate broadcast storms.
+
+>     Lastly, is there any article on AWDS? It seems to be such as
+> amazing project that is not known in academia, as far as I know. I'll
+> certainly mention it in my master's dissertation, and if there isnt
+> anything written about it, I'll be glad to write an article or paper
+> about it.
+
+The whole project has an academic background. However, the academic
+value of the implementation of a mesh routing protocol is rather low.
+Most of our academic works ([1, 2, 3]) use AWDS as their backbone, but do not
+descend into the details of its working.
+
+Of course you are free to write a section in your thesis, or if you feel
+free, we can cooperate on a tech report about how AWDS works :)
+
+Kind regards,
+
+Georg
+
+[1] http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/aherms/index.shtml
+[2] http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/index.shtml#2008
+[3] http://ivs.cs.uni-magdeburg.de/EuK/forschung/publikationen/index.shtml
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081211/32e2e479/attachment.pgp>
+
+From georg at boerde.de  Thu Dec 11 11:24:12 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Thu, 11 Dec 2008 11:24:12 +0100
+Subject: [Awds-user] libGEA not found
+In-Reply-To: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+References: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+Message-ID: <20081211102412.GB16197@boerde.de>
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-11 10:46]:
+> appending configuration tag "F77" to libtool
+> checking checking if compiler support -fvisibility=hidden... yes
+> checking for GEA... no
+> configure: error: GEA not found
+> 
+>    Now, libGea installled successfully at /usr/local/lib:
+
+please try to supply that path to the AWDS configure script:
+
+$ ./configure --with-gea=/usr/local
+
+That should do the trick.
+
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081211/612e97b0/attachment.pgp>
+
+From breno at freeunix.com.br  Fri Dec 12 16:06:29 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Fri, 12 Dec 2008 12:06:29 -0300
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <20081211102158.GA16197@boerde.de>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+	<20081210105137.GA10962@boerde.de>
+	<2ced936d0812101450w6f27ecc5ye715b58202a31fa9@mail.gmail.com>
+	<20081211102158.GA16197@boerde.de>
+Message-ID: <2ced936d0812120706h617288feyc17fb7cb8344bae0@mail.gmail.com>
+
+Hello Georg,
+
+>> 2008/12/10 Georg Lukas <georg at boerde.de>:
+>>       So, I may assume that a simple ping, which results in an ARP
+>> broadcast, will actually became an ARP flood? This is quite amazing to
+>> me :).
+>
+> Exactly. Also, the tapiface2 module remembers the MAC address of the
+> sender and the according awds node MAC, so that the ARP reply (a
+> unicast) is automatically directed to the requester as a multi-hop
+> unicast packet.
+> Another mechanism forces the flooding of unicast packets when the
+> destination MAC is not known - this ensures that the destination is
+> reached, and also mimics Ethernet switch behaviour.
+
+    Nice to know. This is some sort of optmization at this layer. I'd
+really go into more details of AWDS routing.
+
+>> By the way, if AWDS does not use MPR flooding optimizations
+>> for flooding, does it use another mechanism? Because simple
+>> rebroadcasts would lead to the classic broadcast storm problem.
+>
+> Indeed. However this problem is not that bad for mid-sized networks.
+> Also, the AWDS topology updates are sent less frequently when the
+> network increases, which also helps mitigate broadcast storms.
+
+    But then, the less Topolgy updates are sent, the less likely node
+are able to build routes to each other? I mean, in situation where
+node mobility is high, in dense or sparse networks,  more updates are
+necessary, dont you think?
+
+
+> The whole project has an academic background. However, the academic
+> value of the implementation of a mesh routing protocol is rather low.
+> Most of our academic works ([1, 2, 3]) use AWDS as their backbone, but do not
+> descend into the details of its working.
+
+    I think you understimate the value of it :). For example, in my
+line of research, in which we deal with heterogeneous networks
+(Bluetooth, 802.11, Ethernet, GSM... etc), 802.11 ad hoc networks are
+just one of a kind. And, actually, they are the only multi-hop network
+(in a single broadcast domain) available. Thus, to route between these
+networks, using IP would require the use of a protocol like OLSR,
+which would have adaptations to work in a multi-domain network etc...
+AWDS solves it at the underlay and simplifies a lot of integration
+issues.
+
+    Also, I dont know any other routing protocol acting at layer 2,
+like AWDS. Other approaches close to yours are LUNAR
+(http://cn.cs.unibas.ch/projects/lunar/) and Ana4
+(http://ana4.citi.insa-lyon.fr/). Both are discontinued, undocumented
+projects that never reach some state-of-practice.
+
+> Of course you are free to write a section in your thesis, or if you feel
+> free, we can cooperate on a tech report about how AWDS works :)
+
+   Sure, I'd really need it. The documents on the site give a good
+overview of how it works, but I'd like to go into details of the
+mechanisms involved, advantages of working at layer 2, and especially,
+comparing the layer 2 approach to layer 3 solutions such as OLSR.
+
+> Kind regards,
+>
+> Georg
+
+best regards,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From breno at freeunix.com.br  Fri Dec 12 16:07:55 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Fri, 12 Dec 2008 12:07:55 -0300
+Subject: [Awds-user] libGEA not found
+In-Reply-To: <20081211102412.GB16197@boerde.de>
+References: <2ced936d0812101748u34c7442dy95bbb83cf0728906@mail.gmail.com>
+	<20081211102412.GB16197@boerde.de>
+Message-ID: <2ced936d0812120707idd0efaan4df4ff33599bca4a@mail.gmail.com>
+
+2008/12/11 Georg Lukas <georg at boerde.de>:
+> please try to supply that path to the AWDS configure script:
+>
+> $ ./configure --with-gea=/usr/local
+>
+> That should do the trick.
+
+  Yes, and it did :). Thank you.
+
+
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From georg at boerde.de  Sat Dec 13 00:13:51 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Sat, 13 Dec 2008 00:13:51 +0100
+Subject: [Awds-user] Flooding via IP broadcast
+In-Reply-To: <2ced936d0812120706h617288feyc17fb7cb8344bae0@mail.gmail.com>
+References: <2ced936d0812081930u70b333e9gc155af6986e7d76@mail.gmail.com>
+	<20081210105137.GA10962@boerde.de>
+	<2ced936d0812101450w6f27ecc5ye715b58202a31fa9@mail.gmail.com>
+	<20081211102158.GA16197@boerde.de>
+	<2ced936d0812120706h617288feyc17fb7cb8344bae0@mail.gmail.com>
+Message-ID: <20081212231350.GA25421@boerde.de>
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-12 16:54]:
+>     Nice to know. This is some sort of optmization at this layer. I'd
+> really go into more details of AWDS routing.
+
+Do not hesitate to ask! :)
+
+> > Also, the AWDS topology updates are sent less frequently when the
+> > network increases, which also helps mitigate broadcast storms.
+>     But then, the less Topolgy updates are sent, the less likely node
+> are able to build routes to each other? I mean, in situation where
+> node mobility is high, in dense or sparse networks,  more updates are
+> necessary, dont you think?
+
+Indeed, you are right and this is an open problem. We are working on the
+aspects of mobility, right now we have implemented an algorithm to
+detect link breaks using the 802.11 ACK mechanism through a cross-layer
+interface.
+
+To build up new links sooner, an idea is to mark "mobile" nodes with a
+special flag in their beacon, forcing other nodes to increae the beacon
+rate too, so that potential links are created earlier without causing
+extra traffic on the whole network. However, this is not implemented
+yet.
+
+>     Also, I dont know any other routing protocol acting at layer 2,
+> like AWDS. Other approaches close to yours are LUNAR
+> (http://cn.cs.unibas.ch/projects/lunar/) and Ana4
+> (http://ana4.citi.insa-lyon.fr/). Both are discontinued, undocumented
+> projects that never reach some state-of-practice.
+
+I think that B.A.T.M.A.N. was going to be ported from layer 3 to layer
+2, however I do not know its current state.
+
+>    Sure, I'd really need it. The documents on the site give a good
+> overview of how it works, but I'd like to go into details of the
+> mechanisms involved, advantages of working at layer 2, and especially,
+> comparing the layer 2 approach to layer 3 solutions such as OLSR.
+
+As already mentioned (in other places), the main advantages are:
+
+ * it behaves like a transparent switched Ethernet
+ * you do not need IP configuration for the mesh routing to work
+ * you can run IPv4, IPv6, IPX or whatever
+ * you can bridge it with other Ethernet segments
+
+At least the bridging function is not guaranteed to work with all layer2
+protocols, it requires additional tricks in the protocol code.
+
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081213/57cbd09b/attachment.pgp>
+
+From breno at freeunix.com.br  Tue Dec 16 19:09:07 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Tue, 16 Dec 2008 15:09:07 -0300
+Subject: [Awds-user] Multiple Interfaces
+Message-ID: <2ced936d0812161009y4f365fe3me95f60791d60b25c@mail.gmail.com>
+
+Hello guys,
+
+   I'd like to know if AWDS supports a host with multiple (802.11)
+interfaces, and if it does, how is it seen from the routing table
+stand-point? I mean, to the routing protocol, it sees two diferent
+hosts (because they are supposed to have different addresses) or as a
+single one?
+
+regards,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From georg at boerde.de  Wed Dec 17 15:16:57 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Wed, 17 Dec 2008 15:16:57 +0100
+Subject: [Awds-user] Multiple Interfaces
+In-Reply-To: <2ced936d0812161009y4f365fe3me95f60791d60b25c@mail.gmail.com>
+References: <2ced936d0812161009y4f365fe3me95f60791d60b25c@mail.gmail.com>
+Message-ID: <20081217141656.GL14622@boerde.de>
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-16 20:51]:
+>    I'd like to know if AWDS supports a host with multiple (802.11)
+> interfaces, and if it does, how is it seen from the routing table
+> stand-point? I mean, to the routing protocol, it sees two diferent
+> hosts (because they are supposed to have different addresses) or as a
+> single one?
+
+If you use two cards on the same channel, there will be no benefit
+because the cards have to share the medium access. Probably you will see
+two distinct nodes which could send packets to each other, however we
+have never tested it and I have no idea what would happen -- probably
+you can expect that the universe will not collapse ;-)
+
+If you use different wireless channels, you will have separate
+topologies on the channels; you will need an extension of AWDS to
+combine the bandwidth of both channels though. You can get the code from
+the following git tree:
+
+$ git clone http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+
+(or git remote add glukas
+http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+in your existing git tree)
+
+The extensions are in the "multichannel" and "multichannel_bruteforce"
+branches, using different approaches for bandwidth usage.
+
+You will need a part of these changesets anyway to allow usage of
+several "rawbasic" modules in the same AWDS routing -- as it is
+implemented right now, AWDS expects exactly one basic module, which is
+bound to exactly one network card.
+
+If you can describe in more depth what you would like to achieve, we can
+probably give you better hints on how to do it :)
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081217/c75dd829/attachment.pgp>
+
+From fknox at csspi.com  Thu Dec 18 15:42:21 2008
+From: fknox at csspi.com (Frank Knox)
+Date: Thu, 18 Dec 2008 09:42:21 -0500
+Subject: [Awds-user] Awds-user Digest, Vol 9, Issue 7
+In-Reply-To: <mailman.65.1229598085.1888.awds-user@lists.berlios.de>
+Message-ID: <049501c9611e$d6c297c0$0d16a8c0@FranksLPT>
+
+I have looked at the multichannel options on the git, I have a question
+about the aes module for the multichannel, I notice its not part of the
+startup anymore.  Is this by design or does it not work with multichannel.
+
+Another quick question, about the aes module, if it is running on a system
+how do I check to see if its there.
+
+Thanks
+
+
+
+-----Original Message-----
+From: awds-user-bounces at lists.berlios.de
+[mailto:awds-user-bounces at lists.berlios.de] On Behalf Of
+awds-user-request at lists.berlios.de
+Sent: Thursday, December 18, 2008 6:01 AM
+To: awds-user at lists.berlios.de
+Subject: Awds-user Digest, Vol 9, Issue 7
+
+Send Awds-user mailing list submissions to
+	awds-user at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+	https://lists.berlios.de/mailman/listinfo/awds-user
+or, via email, send a message with subject or body 'help' to
+	awds-user-request at lists.berlios.de
+
+You can reach the person managing the list at
+	awds-user-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Awds-user digest..."
+
+
+Today's Topics:
+
+   1. Re: Multiple Interfaces (Georg Lukas)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Wed, 17 Dec 2008 15:16:57 +0100
+From: Georg Lukas <georg at boerde.de>
+Subject: Re: [Awds-user] Multiple Interfaces
+To: awds-user at lists.berlios.de
+Message-ID: <20081217141656.GL14622 at boerde.de>
+Content-Type: text/plain; charset="utf-8"
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-16 20:51]:
+>    I'd like to know if AWDS supports a host with multiple (802.11)
+> interfaces, and if it does, how is it seen from the routing table
+> stand-point? I mean, to the routing protocol, it sees two diferent
+> hosts (because they are supposed to have different addresses) or as a
+> single one?
+
+If you use two cards on the same channel, there will be no benefit
+because the cards have to share the medium access. Probably you will see
+two distinct nodes which could send packets to each other, however we
+have never tested it and I have no idea what would happen -- probably
+you can expect that the universe will not collapse ;-)
+
+If you use different wireless channels, you will have separate
+topologies on the channels; you will need an extension of AWDS to
+combine the bandwidth of both channels though. You can get the code from
+the following git tree:
+
+$ git clone http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+
+(or git remote add glukas
+http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+in your existing git tree)
+
+The extensions are in the "multichannel" and "multichannel_bruteforce"
+branches, using different approaches for bandwidth usage.
+
+You will need a part of these changesets anyway to allow usage of
+several "rawbasic" modules in the same AWDS routing -- as it is
+implemented right now, AWDS expects exactly one basic module, which is
+bound to exactly one network card.
+
+If you can describe in more depth what you would like to achieve, we can
+probably give you better hints on how to do it :)
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+Url :
+https://lists.berlios.de/pipermail/awds-user/attachments/20081217/c75dd829/a
+ttachment-0001.pgp 
+
+------------------------------
+
+_______________________________________________
+Awds-user mailing list
+Awds-user at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/awds-user
+
+
+End of Awds-user Digest, Vol 9, Issue 7
+***************************************
+
+
+
+From fknox at csspi.com  Fri Dec 19 06:49:36 2008
+From: fknox at csspi.com (Frank Knox)
+Date: Fri, 19 Dec 2008 00:49:36 -0500
+Subject: [Awds-user] Multichannel question
+Message-ID: <007801c9619d$946497f0$0d16a8c0@FranksLPT>
+
+Hi Georg
+
+ 
+
+Sorry about the wrong subject line before.
+
+ 
+
+ 
+
+  _____  
+
+I have looked at the multichannel options on the git, I have a question
+about the aes module for the multichannel, I notice its not part of the
+startup anymore.  Is this by design or does it not work with multichannel.
+ 
+Another quick question, about the aes module, if it is running on a system
+how do I check to see if its there.
+ 
+Thanks
+ 
+
+Frank
+
+ 
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081219/521339ac/attachment.html>
+
+From georg at boerde.de  Fri Dec 19 12:58:45 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Fri, 19 Dec 2008 12:58:45 +0100
+Subject: [Awds-user] Multichannel question
+In-Reply-To: <007801c9619d$946497f0$0d16a8c0@FranksLPT>
+References: <007801c9619d$946497f0$0d16a8c0@FranksLPT>
+Message-ID: <20081219115845.GT14622@boerde.de>
+
+Hi Frank,
+
+* Frank Knox <fknox at csspi.com> [2008-12-19 11:53]:
+> I have looked at the multichannel options on the git, I have a question
+> about the aes module for the multichannel, I notice its not part of the
+> startup anymore.  Is this by design or does it not work with multichannel.
+
+probably it was just removed to ease the work on the multichannel code.
+
+I can not tell you if it is compatible with the multi-channel approach,
+it has not been tested ;)
+
+> Another quick question, about the aes module, if it is running on a system
+> how do I check to see if its there.
+
+it is enabled by "USE_ENCRYPTION=yes" in awds.conf - if this variable is
+not set, you are not running the AES module. Also it requires awds.key
+(usually in /etc) to contain a 16-byte hex string as the key. If you are
+not sure, probably you are not running it.
+
+Also, you should consider that AES is very cpu-hungry, at least on
+embedded devices.
+
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081219/9160d141/attachment.pgp>
+
+From breno at freeunix.com.br  Sun Dec 21 00:42:49 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Sat, 20 Dec 2008 20:42:49 -0300
+Subject: [Awds-user] Multiple Interfaces
+In-Reply-To: <20081217141656.GL14622@boerde.de>
+References: <2ced936d0812161009y4f365fe3me95f60791d60b25c@mail.gmail.com>
+	<20081217141656.GL14622@boerde.de>
+Message-ID: <2ced936d0812201542v242dbe58k20842c9b49fdf767@mail.gmail.com>
+
+Hello Georg,
+
+    As you said, if a node is using two or more interfaces, it means
+participating in different (physically) different networks, My point
+is how AWDS would handle the talking between these networks, but I
+think that it is clear now that this is simply an IP job and IP
+routing.
+
+     In scenarios where multiple radio technologies are involved,
+someone needs to be gateways between radios operating on different
+frequencies, and that would be a multi-interfaced node. Underlay
+solutions, such as Ana4, simply try to make it "plain", by hiding the
+multiple topologies involved and making it transparent to IP (which
+also makes a single subnet illusion). But with AWDS managing 802.11
+b/g links that makes me see that problem as isolated again, and IP
+comes to "glue" these networks (which it has done pretty well in the
+past, as we can see).
+
+regards,
+
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+
+2008/12/17 Georg Lukas <georg at boerde.de>:
+> If you use two cards on the same channel, there will be no benefit
+> because the cards have to share the medium access. Probably you will see
+> two distinct nodes which could send packets to each other, however we
+> have never tested it and I have no idea what would happen -- probably
+> you can expect that the universe will not collapse ;-)
+>
+> If you use different wireless channels, you will have separate
+> topologies on the channels; you will need an extension of AWDS to
+> combine the bandwidth of both channels though. You can get the code from
+> the following git tree:
+>
+> $ git clone http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+>
+> (or git remote add glukas
+> http://aland.cs.uni-magdeburg.de/git/awds-glukas.git/
+> in your existing git tree)
+>
+> The extensions are in the "multichannel" and "multichannel_bruteforce"
+> branches, using different approaches for bandwidth usage.
+>
+> You will need a part of these changesets anyway to allow usage of
+> several "rawbasic" modules in the same AWDS routing -- as it is
+> implemented right now, AWDS expects exactly one basic module, which is
+> bound to exactly one network card.
+>
+> If you can describe in more depth what you would like to achieve, we can
+> probably give you better hints on how to do it :)
+>
+> Kind regards,
+>
+> Georg
+> --
+> || http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+> || gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+> || Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+> ++ IRCnet OFTC OPN ||________________________________________________||
+>
+> -----BEGIN PGP SIGNATURE-----
+> Version: GnuPG v1.4.9 (GNU/Linux)
+>
+> iD8DBQFJSQnYszTTCJYv0t4RAgGSAKDcyr7BmGgyQ140AwA1kxDv7Zs1GwCgqH3N
+> w2nphwdKCVxIN6ilMNZKK30=
+> =A7gI
+> -----END PGP SIGNATURE-----
+>
+> _______________________________________________
+> Awds-user mailing list
+> Awds-user at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/awds-user
+>
+>
+
+
+From breno at freeunix.com.br  Sun Dec 21 00:52:50 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Sat, 20 Dec 2008 20:52:50 -0300
+Subject: [Awds-user] AWDS protocol
+Message-ID: <2ced936d0812201552g586639dfmc83cac9edd1d2a1b@mail.gmail.com>
+
+Hello,
+
+    Here I am asking a few more questions :). I was just wondering how
+the protocol that operates on AWDS really works. On the website it is
+stated that it is similar to OLSR, but was there anything written in
+more detail about it, such as message formats, state machines etc? Or
+everything just went straight to the code?
+
+    Another question is, since any broadcast message is flooded to all
+nodes on the network, how are neighbors (one-hop) determined? I mean,
+broadcast is a simple and necessary way of finds who is next to you,
+and it is useful to have this functionality, such as when working with
+raw ethernet sockets (layer 2).  On the other hand, it is really nice
+to assume that a simple broadcast is gonna reach everybody in the
+network. So, I suppose there's something (a protocol code, maybe?)
+inside AWDS which may policy this (?).
+
+    One last question: is there any interface so that a developer
+willing to extract some data about an AWDS network (such as number of
+nodes, one-hop neighbors, topology etc)  may do so? This is useful in
+the case of writing something at layer 3, and taking some data from
+layer 2.
+
+regards,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From georg at boerde.de  Sun Dec 21 01:25:19 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Sun, 21 Dec 2008 01:25:19 +0100
+Subject: [Awds-user] Multiple Interfaces
+In-Reply-To: <2ced936d0812201542v242dbe58k20842c9b49fdf767@mail.gmail.com>
+References: <2ced936d0812161009y4f365fe3me95f60791d60b25c@mail.gmail.com>
+	<20081217141656.GL14622@boerde.de>
+	<2ced936d0812201542v242dbe58k20842c9b49fdf767@mail.gmail.com>
+Message-ID: <20081221002519.GW14622@boerde.de>
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-21 01:20]:
+>      In scenarios where multiple radio technologies are involved,
+> someone needs to be gateways between radios operating on different
+> frequencies, and that would be a multi-interfaced node. Underlay
+> solutions, such as Ana4, simply try to make it "plain", by hiding the
+> multiple topologies involved and making it transparent to IP (which
+> also makes a single subnet illusion). But with AWDS managing 802.11
+> b/g links that makes me see that problem as isolated again, and IP
+> comes to "glue" these networks (which it has done pretty well in the
+> past, as we can see).
+
+You can handle it at the Ethernet layer too, if both networks support
+bridging.
+
+If both are WLAN, you can start two distinct awds instances on the wlan
+cards and use linux kernel bridging to combine awds0 and awds1 into br0.
+Then you will extend your broadcast domain to both networks.
+
+Kind regards,
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081221/52e634b4/attachment.pgp>
+
+From georg at boerde.de  Sun Dec 21 01:35:17 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Sun, 21 Dec 2008 01:35:17 +0100
+Subject: [Awds-user] AWDS protocol
+In-Reply-To: <2ced936d0812201552g586639dfmc83cac9edd1d2a1b@mail.gmail.com>
+References: <2ced936d0812201552g586639dfmc83cac9edd1d2a1b@mail.gmail.com>
+Message-ID: <20081221003517.GX14622@boerde.de>
+
+Hello Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-21 01:20]:
+>     Here I am asking a few more questions :). I was just wondering how
+> the protocol that operates on AWDS really works. On the website it is
+> stated that it is similar to OLSR, but was there anything written in
+> more detail about it, such as message formats, state machines etc? Or
+> everything just went straight to the code?
+
+AWDS is a pro-active link-state routing protocol. It uses Ethernet
+packets with type 0x8334, an according dissector for Wireshark can be
+found on awds.berlios.de; If you are familiar with Scapy, you can read
+the code in AWDScapy [1] to learn the packet format - it is pretty
+straight forward.
+
+>     Another question is, since any broadcast message is flooded to all
+> nodes on the network, how are neighbors (one-hop) determined? I mean,
+> broadcast is a simple and necessary way of finds who is next to you,
+> and it is useful to have this functionality, such as when working with
+> raw ethernet sockets (layer 2).  On the other hand, it is really nice
+> to assume that a simple broadcast is gonna reach everybody in the
+> network. So, I suppose there's something (a protocol code, maybe?)
+> inside AWDS which may policy this (?).
+
+Yes, there is. Actually, there are three kinds of packets:
+
+ a) multi-hop unicast data packets
+ b) flood packets (which are used for IP/UDP broadcasts)
+ c) local broadcasts (which are not forwarded in the network)
+
+packet type c is used for determining neighbors: every station
+periodically sends a beacon ("hello") packet with its current neighbor
+list; stations nearby can receive it and put the sender in their
+neighborship; then they send their own beacon packet. However, this only
+happens after a certain number of consecutive packets has been received.
+This mechanism ensures that unidirectional and bad links are not used
+for building the topology.
+
+>     One last question: is there any interface so that a developer
+> willing to extract some data about an AWDS network (such as number of
+> nodes, one-hop neighbors, topology etc)  may do so? This is useful in
+> the case of writing something at layer 3, and taking some data from
+> layer 2.
+
+There are several: you can enable AWDS_SHELL (which is insecure if other
+people have access to your network) and connect to it with
+"telnet localhost 8444"
+
+You can use the topology viewer from the berlios repository; it is a
+Java application using tcp port 8333 to receive the current topology as
+well as topology changes in XML format. You can use that XML protocol
+yourself to gather additional data or to process it:
+
+Just connect to tcp port 8333 and send a "x" for XML ;)
+
+
+Georg
+
+[1] http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy
+
+P.S: I have created a #awds on freenode, where we can discuss things
+with a shorter latency, at least when I am on. However my hosting
+provider is having issues right now ;)
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081221/8c04442e/attachment.pgp>
+
+From breno at freeunix.com.br  Mon Dec 22 15:57:39 2008
+From: breno at freeunix.com.br (Breno Jacinto)
+Date: Mon, 22 Dec 2008 11:57:39 -0300
+Subject: [Awds-user] AWDS protocol
+In-Reply-To: <20081221003517.GX14622@boerde.de>
+References: <2ced936d0812201552g586639dfmc83cac9edd1d2a1b@mail.gmail.com>
+	<20081221003517.GX14622@boerde.de>
+Message-ID: <2ced936d0812220657j6cdf5a83r7c21d087bd9b9f82@mail.gmail.com>
+
+Hello Georg,
+
+2008/12/20 Georg Lukas <georg at boerde.de>:
+> AWDS is a pro-active link-state routing protocol. It uses Ethernet
+> packets with type 0x8334, an according dissector for Wireshark can be
+> found on awds.berlios.de; If you are familiar with Scapy, you can read
+> the code in AWDScapy [1] to learn the packet format - it is pretty
+> straight forward.
+
+    Yes, I know Scapy. Thanks, this is great.
+
+    I could not find the Wireshark dissector on the web page. Is it in
+the downloads section?
+
+> Yes, there is. Actually, there are three kinds of packets:
+>
+>  a) multi-hop unicast data packets
+>  b) flood packets (which are used for IP/UDP broadcasts)
+>  c) local broadcasts (which are not forwarded in the network)
+>
+> packet type c is used for determining neighbors: every station
+> periodically sends a beacon ("hello") packet with its current neighbor
+> list; stations nearby can receive it and put the sender in their
+> neighborship; then they send their own beacon packet. However, this only
+> happens after a certain number of consecutive packets has been received.
+> This mechanism ensures that unidirectional and bad links are not used
+> for building the topology.
+
+    OK. Now, it leads me to another question:
+
+- Is there any handling of split / merging of an ad hoc network?
+
+> There are several: you can enable AWDS_SHELL (which is insecure if other
+> people have access to your network) and connect to it with
+> "telnet localhost 8444"
+>
+> You can use the topology viewer from the berlios repository; it is a
+> Java application using tcp port 8333 to receive the current topology as
+> well as topology changes in XML format. You can use that XML protocol
+> yourself to gather additional data or to process it:
+>
+> Just connect to tcp port 8333 and send a "x" for XML ;)
+
+    Great. Thanks for the nice set of tools. My intention is to have
+some kind of cross-layering between layer 2 and 3.
+
+     Georg, in this test-bed that is mentioned in the website
+(Magdeburger Open Source Tag (MOST)), how many nodes are participating
+in the network? Is there any performance evaluation of AWDS over this
+test-bed or even on a simulated / emulated network?
+
+
+> Georg
+>
+> [1] http://ivs.cs.uni-magdeburg.de/EuK/mitarbeiter/glukas/ibss-merge.scapy
+>
+> P.S: I have created a #awds on freenode, where we can discuss things
+> with a shorter latency, at least when I am on. However my hosting
+> provider is having issues right now ;)
+
+    Yeah, that would be great. I'll show up sometime, when your
+provider fixes your connection :)
+
+cheers,
+-- 
+-- 
+:: Breno Jacinto ::
+:: breno - at - gprt.ufpe.br ::
+:: FingerPrint ::
+   2F15 8A61 F566 E442 8581
+   E3C0 EFF4 E202 74B7 7484
+:: Persistir no dif?cil ? a ?nica maneira de torn?-lo f?cil algum dia.  ::
+
+
+From georg at boerde.de  Tue Dec 30 14:57:08 2008
+From: georg at boerde.de (Georg Lukas)
+Date: Tue, 30 Dec 2008 14:57:08 +0100
+Subject: [Awds-user] AWDS protocol
+In-Reply-To: <2ced936d0812220657j6cdf5a83r7c21d087bd9b9f82@mail.gmail.com>
+References: <2ced936d0812201552g586639dfmc83cac9edd1d2a1b@mail.gmail.com>
+	<20081221003517.GX14622@boerde.de>
+	<2ced936d0812220657j6cdf5a83r7c21d087bd9b9f82@mail.gmail.com>
+Message-ID: <20081230135708.GD21509@boerde.de>
+
+Hi Breno,
+
+* Breno Jacinto <breno at freeunix.com.br> [2008-12-23 13:05]:
+>     I could not find the Wireshark dissector on the web page. Is it in
+> the downloads section?
+
+It should be available from the berlios project downloads, or at least
+from berlios SVN.
+
+> - Is there any handling of split / merging of an ad hoc network?
+
+This is a layer-2-problem, underneath of our own layer. There is no way
+for AWDS to influence it. :(
+
+However, after nights and nights of hacking on MadWifi, we have a driver
+which has a remotely sane behaviour regarding IBSS merges.
+
+Also, there is another Scapy script on my website, ibss-merge.scapy,
+which analyzes beacon frames from adhoc nodes and shows their IBSS cell
+ID to detect splits.
+
+Freifunk has some experience with adhoc cell merging too, but they use
+to set up all cards to a fixed BSSID (iwconfig wlanX ap 00:00:de:ad:be:ef
+or something alike). I think they also have a tool doing something
+similar to my ibss merge detector, called "horst".
+
+>     Great. Thanks for the nice set of tools. My intention is to have
+> some kind of cross-layering between layer 2 and 3.
+
+Then the XML interface is probably the way to go, at least from L2 to L3.
+For the other way around we are still looking for a coder to implement a
+semi-generic configuration interface (which would allow to set certain
+operation parameters locally or for the whole network).
+
+>      Georg, in this test-bed that is mentioned in the website
+> (Magdeburger Open Source Tag (MOST)), how many nodes are participating
+> in the network? Is there any performance evaluation of AWDS over this
+> test-bed or even on a simulated / emulated network?
+
+We used AWDS as a backbone network to provide internet connectivity for
+a two-day conference in a university building. We deployed a dozen of
+ALIX/WRAP nodes with 2x wifi - AWDS backbone on channel 36 and AP mode
+on channels 1/6/11. There were some stability problems I could not quite
+figure out, so I have mixed feelings about the setup.
+
+This was the biggest real AWDS installation accessible by end-users. We
+are running with five to 20 AWDS nodes in our own university building on
+a day-by-day basis for different experiments and evaluation, which is
+actually very reliable.
+
+As AWDS can be setup on top of ns2, we also performed simulation studies
+with an order of around 100 nodes, IIRC. Probably Andre can give more
+details on that :)
+
+
+Georg
+-- 
+|| http://op-co.de ++  GCS/CM d? s: a-- C+++ UL+++ !P L+++ E--- W++  ++
+|| gpg: 0x962FD2DE ||  N++ o? K- w---() O M V? PS+ PE-- Y+ PGP++ t*  ||
+|| Ge0rG: euIRCnet ||  5 X+ R tv b+(+++) DI+(+++) D+ G e* h! r* !y+  ||
+++ IRCnet OFTC OPN ||________________________________________________||
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/awds-user/attachments/20081230/43e9f8d4/attachment.pgp>
+

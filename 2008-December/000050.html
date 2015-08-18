@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Awds-user] Flooding via IP broadcast
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/awds-user/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3Ca14701250812100250y6324e0c1vef3881b4f57e4bde%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000048.html">
+   <LINK REL="Next"  HREF="000054.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Awds-user] Flooding via IP broadcast</H1>
+    <B>Djamal-Eddine</B> 
+    <A HREF="mailto:awds-user%40lists.berlios.de?Subject=Re%3A%20%5BAwds-user%5D%20Flooding%20via%20IP%20broadcast&In-Reply-To=%3Ca14701250812100250y6324e0c1vef3881b4f57e4bde%40mail.gmail.com%3E"
+       TITLE="[Awds-user] Flooding via IP broadcast">meddour at gmail.com
+       </A><BR>
+    <I>Wed Dec 10 11:50:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000048.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+        <LI>Next message: <A HREF="000054.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear Breno
+
+in fact it is impossible to do multihopping with &quot;basic 802.11&quot; a/b/g/n, so
+it is not a belief, it is. That's why the IEEE is developping the 802.11s
+which enables such a feature.
+
+AWDS implements actually the MPR for flooding. and yes the broadcast at IP
+layer is achieved at layer 2 as well thanks to the AWDS protocols.
+Nevertheless I don't see any simplification since it works basically the
+same way either you use L3 or L2 protocols (every node in the network
+braodcasts the message)
+
+KR
+
+
+2008/12/9 Breno Jacinto &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">breno at freeunix.com.br</A>&gt;
+
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i>     My question is simple, but unfortunately I couldn't find in the
+</I>&gt;<i> documentation.
+</I>&gt;<i>
+</I>&gt;<i>     AWDS is supposed to be a layer 2 multi-hop 802.11 network, which
+</I>&gt;<i> means that, it goes against the belief that multihopping at 802.11
+</I>&gt;<i> layer 2 is not possible. This belief is what has driven the huge
+</I>&gt;<i> development of routing protocol using IP as a way of emulating
+</I>&gt;<i> multihopping, when in fact the underlying (real) network is a simple
+</I>&gt;<i> point-to-point.
+</I>&gt;<i>
+</I>&gt;<i>     So, my question is: now that AWDS implements and demonstrates
+</I>&gt;<i> layer-2 multihopping, does it mean that the IP broadcast are, under
+</I>&gt;<i> the hood, flooded by AWDS? I mean, does a UDP broadcast message in
+</I>&gt;<i> AWDS is likely to reach all nodes, even if they are only reachable by
+</I>&gt;<i> multi-hop? If that's true, than I think there's a lot of potentials
+</I>&gt;<i> for simplifying many problems depending on flooding.
+</I>&gt;<i>
+</I>&gt;<i> Another question is: since AWDS uses ideas from OLSR, does it use
+</I>&gt;<i> MPR for flooding?
+</I>&gt;<i>
+</I>&gt;<i> regards,
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> --
+</I>&gt;<i> :: Breno Jacinto ::
+</I>&gt;<i> :: breno - at - gprt.ufpe.br ::
+</I>&gt;<i> :: FingerPrint ::
+</I>&gt;<i>   2F15 8A61 F566 E442 8581
+</I>&gt;<i>   E3C0 EFF4 E202 74B7 7484
+</I>&gt;<i> :: Persistir no dif&#237;cil &#233; a &#250;nica maneira de torn&#225;-lo f&#225;cil algum dia.  ::
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Awds-user mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">Awds-user at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/awds-user">https://lists.berlios.de/mailman/listinfo/awds-user</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/awds-user/attachments/20081210/ca928ce8/attachment.html">https://lists.berlios.de/pipermail/awds-user/attachments/20081210/ca928ce8/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000048.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+	<LI>Next message: <A HREF="000054.html">[Awds-user] Flooding via IP broadcast
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/awds-user">More information about the Awds-user
+mailing list</a><br>
+</body></html>
